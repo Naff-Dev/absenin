@@ -1,0 +1,35 @@
+========================================================================
+       DAFTAR AKUN PANITIA UTAMA — SISTEM ABSENIN PIT VIII PAPDI        
+========================================================================
+
+Aplikasi URL : http://localhost:3000
+Event        : PIT VIII PAPDI Purwokerto 2026
+Waktu Dibuat : 10/10/2026, 08.41.43 WIB
+
+------------------------------------------------------------------------
+ NO | USERNAME | PASSWORD    | NAMA OPERATOR         | STATUS  | HAK AKSES
+------------------------------------------------------------------------
+  1 | absen1   | password234 | Panitia Utama 1       | AKTIF   | Operator Absensi
+  2 | absen2   | password234 | Panitia Utama 2       | AKTIF   | Operator Absensi
+  3 | absen3   | password234 | Panitia Utama 3       | AKTIF   | Operator Absensi
+  4 | absen4   | password234 | Panitia Utama 4       | AKTIF   | Operator Absensi
+  5 | absen5   | password234 | Panitia Utama 5       | AKTIF   | Operator Absensi
+  6 | absen6   | password234 | Panitia Utama 6       | AKTIF   | Operator Absensi
+  7 | absen7   | password234 | Panitia Utama 7       | AKTIF   | Operator Absensi
+  8 | absen8   | password234 | Panitia Utama 8       | AKTIF   | Operator Absensi
+  9 | absen9   | password234 | Panitia Utama 9       | AKTIF   | Operator Absensi
+ 10 | absen10  | password234 | Panitia Utama 10      | AKTIF   | Operator Absensi
+------------------------------------------------------------------------
+Akun Cadangan / Alias Tambahan:
+  * | absen    | password234 | Panitia Utama (Alias) | AKTIF   | Operator Absensi
+  * | admin    | password123 | Panitia Utama         | AKTIF   | Super Admin
+  * | panitia  | password123 | Panitia Absensi       | AKTIF   | Operator Absensi
+------------------------------------------------------------------------
+
+PETUNJUK PENGGUNAAN:
+1. Buka browser pada perangkat panitia (HP / Laptop / Tablet).
+2. Akses alamat sistem Absenin (misal: http://localhost:3000 atau IP LAN).
+3. Masukkan salah satu Username (contoh: absen1 s/d absen10) dan Password: password234.
+4. Setiap panitia dapat login secara bersamaan di perangkat masing-masing.
+5. Semua check-in yang dicatat akan otomatis terhubung dengan ID panitia yang bertugas.
+========================================================================
