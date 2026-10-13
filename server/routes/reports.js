@@ -66,8 +66,7 @@ router.get('/export', authMiddleware, async (req, res) => {
         ['Tanggal Export', formatDate(getServerDate())],
         [''],
         ['Total Peserta', data.summary.totalParticipants || 0],
-        ['Total Hadir', data.summary.totalAttendance || 0],
-        ['Total Workshop', data.summary.totalWorkshops || 0]
+        ['Total Hadir', data.summary.totalAttendance || 0]
       ];
       const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
       XLSX.utils.book_append_sheet(wb, wsSummary, 'SUMMARY');
@@ -79,16 +78,10 @@ router.get('/export', authMiddleware, async (req, res) => {
       XLSX.utils.book_append_sheet(wb, wsParticipants, 'PESERTA');
     }
 
-    // ABSENSI sheet
+    // ABSENSI sheet (Absensi Tunggal)
     if (data.attendance && data.attendance.length > 0) {
       const wsAttendance = XLSX.utils.json_to_sheet(data.attendance);
       XLSX.utils.book_append_sheet(wb, wsAttendance, 'ABSENSI');
-    }
-
-    // ABSENSI_WORKSHOP sheet
-    if (data.workshopAttendance && data.workshopAttendance.length > 0) {
-      const wsWorkshop = XLSX.utils.json_to_sheet(data.workshopAttendance);
-      XLSX.utils.book_append_sheet(wb, wsWorkshop, 'ABSENSI_WORKSHOP');
     }
 
     // REKAP sheet

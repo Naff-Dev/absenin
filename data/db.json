@@ -3776,6 +3776,38 @@
       "ACTION": "CLEAN_ATTENDANCE",
       "PARTICIPANT_ID": "",
       "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
+    },
+    {
+      "LOG_ID": "LOG009",
+      "TIMESTAMP": "2026-10-13 10:14:12",
+      "USER_ID": "SYSTEM",
+      "ACTION": "CLEAN_ATTENDANCE",
+      "PARTICIPANT_ID": "",
+      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
+    },
+    {
+      "LOG_ID": "LOG010",
+      "TIMESTAMP": "2026-10-13 10:15:06",
+      "USER_ID": "SYSTEM",
+      "ACTION": "CLEAN_ATTENDANCE",
+      "PARTICIPANT_ID": "",
+      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
+    },
+    {
+      "LOG_ID": "LOG011",
+      "TIMESTAMP": "2026-10-13 11:32:49",
+      "USER_ID": "SYSTEM",
+      "ACTION": "CLEAN_ATTENDANCE",
+      "PARTICIPANT_ID": "",
+      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
+    },
+    {
+      "LOG_ID": "LOG012",
+      "TIMESTAMP": "2026-10-13 12:25:07",
+      "USER_ID": "SYSTEM",
+      "ACTION": "CLEAN_ATTENDANCE",
+      "PARTICIPANT_ID": "",
+      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
     }
   ]
 }

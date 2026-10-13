@@ -411,7 +411,42 @@
       }
     });
 
-    $('#participantsAddBtn').addEventListener('click', openAddParticipant);
+    // Tambah Peserta Buttons (Desktop Sidebar, Mobile Header, Dashboard, Attendance, Participants)
+    const addBtnSelectors = [
+      '#participantsAddBtn',
+      '#sidebarAddBtn',
+      '#mobileAddBtn',
+      '#dashboardAddBtn',
+      '#attendanceAddTopBtn',
+      '#attendanceAddBtn'
+    ];
+    addBtnSelectors.forEach(sel => {
+      const btn = $(sel);
+      if (btn) btn.addEventListener('click', openAddParticipant);
+    });
+
+    // Workshop Choice Cards Live Toggle Sync
+    $$('.ws-choice-card input[type="checkbox"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const card = input.closest('.ws-choice-card');
+        if (card) {
+          if (input.checked) card.classList.add('checked');
+          else card.classList.remove('checked');
+        }
+      });
+    });
+
+    // Voucher Card Live Toggle Sync
+    $$('.voucher-toggle-card input[type="checkbox"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const card = input.closest('.voucher-toggle-card');
+        if (card) {
+          if (input.checked) card.classList.add('checked');
+          else card.classList.remove('checked');
+        }
+      });
+    });
+
     $('#participantsSearch').addEventListener('input', filterParticipants);
 
     // Participant filter chips
@@ -467,6 +502,46 @@
         $('#addParticipantModal').style.display = 'none';
       }
     });
+
+    // Edit Participant Modal & Events
+    $('#editParticipantClose').addEventListener('click', () => {
+      $('#editParticipantModal').style.display = 'none';
+    });
+    $('#editCancelBtn').addEventListener('click', () => {
+      $('#editParticipantModal').style.display = 'none';
+    });
+    $('#editSaveBtn').addEventListener('click', handleSaveEditParticipant);
+    if ($('#editDeleteParticipantBtn')) {
+      $('#editDeleteParticipantBtn').addEventListener('click', () => {
+        const id = $('#editParticipantId').value;
+        if (id) handleDeleteParticipant(id);
+      });
+    }
+    $('#editParticipantModal').addEventListener('click', (e) => {
+      if (e.target === $('#editParticipantModal')) {
+        $('#editParticipantModal').style.display = 'none';
+      }
+    });
+
+    // Edit Attendance Modal & Events
+    $('#editAttendanceClose').addEventListener('click', () => {
+      $('#editAttendanceModal').style.display = 'none';
+    });
+    $('#editAttendanceDismissBtn').addEventListener('click', () => {
+      $('#editAttendanceModal').style.display = 'none';
+    });
+    $('#editAttendanceSaveBtn').addEventListener('click', handleSaveEditAttendance);
+    $('#editAttendanceCancelBtn').addEventListener('click', () => {
+      const pId = $('#editAttendanceParticipantId').value;
+      const aId = $('#editAttendanceId').value;
+      openCancelAttendance(pId, aId);
+    });
+    $('#editAttendanceModal').addEventListener('click', (e) => {
+      if (e.target === $('#editAttendanceModal')) {
+        $('#editAttendanceModal').style.display = 'none';
+      }
+    });
+
     $('#userProfileSheet').addEventListener('click', (e) => {
       if (e.target === $('#userProfileSheet')) {
         $('#userProfileSheet').style.display = 'none';
@@ -695,6 +770,120 @@
     if (progressEl) {
       progressEl.style.width = `${percentage}%`;
     }
+
+    // Render persentase kehadiran breakdown per workshop
+    renderWorkshopBreakdown();
+  }
+
+  // Render Persentase Kehadiran Breakdown per Workshop
+  function renderWorkshopBreakdown() {
+    const grid = $('#workshopBreakdownGrid');
+    if (!grid) return;
+
+    if (!participants || participants.length === 0) {
+      grid.innerHTML = '<div class="loading-state" style="padding:var(--sp-4) 0;"><div class="spinner"></div><span>Memuat data peserta...</span></div>';
+      return;
+    }
+
+    const checkedIds = new Set((attendanceToday || []).map(a => a.PARTICIPANT_ID));
+
+    // 1. Workshop A
+    const enrolledA = participants.filter(p => p.WORKSHOP_A == 1 || p.WORKSHOP_A === '1' || p.WORKSHOP_A === true || String(p.WORKSHOP_A).trim() === '1');
+    const attendedA = enrolledA.filter(p => checkedIds.has(p.ID)).length;
+    const totalA = enrolledA.length;
+    const pctA = totalA > 0 ? Math.round((attendedA / totalA) * 100) : 0;
+
+    // 2. Workshop B
+    const enrolledB = participants.filter(p => p.WORKSHOP_B == 1 || p.WORKSHOP_B === '1' || p.WORKSHOP_B === true || String(p.WORKSHOP_B).trim() === '1');
+    const attendedB = enrolledB.filter(p => checkedIds.has(p.ID)).length;
+    const totalB = enrolledB.length;
+    const pctB = totalB > 0 ? Math.round((attendedB / totalB) * 100) : 0;
+
+    // 3. Workshop C
+    const enrolledC = participants.filter(p => p.WORKSHOP_C == 1 || p.WORKSHOP_C === '1' || p.WORKSHOP_C === true || String(p.WORKSHOP_C).trim() === '1');
+    const attendedC = enrolledC.filter(p => checkedIds.has(p.ID)).length;
+    const totalC = enrolledC.length;
+    const pctC = totalC > 0 ? Math.round((attendedC / totalC) * 100) : 0;
+
+    // 4. Simposium Saja (Peserta yang tidak mengikuti workshop)
+    const enrolledSympo = participants.filter(p => {
+      const isA = p.WORKSHOP_A == 1 || p.WORKSHOP_A === '1' || p.WORKSHOP_A === true || String(p.WORKSHOP_A).trim() === '1';
+      const isB = p.WORKSHOP_B == 1 || p.WORKSHOP_B === '1' || p.WORKSHOP_B === true || String(p.WORKSHOP_B).trim() === '1';
+      const isC = p.WORKSHOP_C == 1 || p.WORKSHOP_C === '1' || p.WORKSHOP_C === true || String(p.WORKSHOP_C).trim() === '1';
+      return !isA && !isB && !isC;
+    });
+    const attendedSympo = enrolledSympo.filter(p => checkedIds.has(p.ID)).length;
+    const totalSympo = enrolledSympo.length;
+    const pctSympo = totalSympo > 0 ? Math.round((attendedSympo / totalSympo) * 100) : 0;
+
+    const items = [
+      {
+        code: 'WORKSHOP A',
+        codeClass: 'ws-code-a',
+        fillClass: 'fill-ws-a',
+        name: WORKSHOP_MAPPING.A.name,
+        attended: attendedA,
+        total: totalA,
+        pct: pctA
+      },
+      {
+        code: 'WORKSHOP B',
+        codeClass: 'ws-code-b',
+        fillClass: 'fill-ws-b',
+        name: WORKSHOP_MAPPING.B.name,
+        attended: attendedB,
+        total: totalB,
+        pct: pctB
+      },
+      {
+        code: 'WORKSHOP C',
+        codeClass: 'ws-code-c',
+        fillClass: 'fill-ws-c',
+        name: WORKSHOP_MAPPING.C.name,
+        attended: attendedC,
+        total: totalC,
+        pct: pctC
+      },
+      {
+        code: 'SIMPOSIUM SAJA',
+        codeClass: 'ws-code-sympo',
+        fillClass: 'fill-ws-sympo',
+        name: 'Sesi Simposium (Non-Workshop)',
+        attended: attendedSympo,
+        total: totalSympo,
+        pct: pctSympo
+      }
+    ];
+
+    let html = '';
+    items.forEach(item => {
+      const remaining = Math.max(0, item.total - item.attended);
+      html += `
+        <div class="workshop-stat-card">
+          <div class="ws-card-header">
+            <div class="ws-card-title-group">
+              <span class="ws-badge-code ${item.codeClass}">${item.code}</span>
+              <div class="ws-card-name">${escapeHtml(item.name)}</div>
+            </div>
+            <div class="ws-percentage-badge">${item.pct}%</div>
+          </div>
+          <div class="ws-progress-track">
+            <div class="ws-progress-fill ${item.fillClass}" style="width: ${item.pct}%;"></div>
+          </div>
+          <div class="ws-metrics-row">
+            <div>
+              <span class="ws-metrics-attended">${item.attended}</span>
+              <span class="ws-metrics-total"> / ${item.total} hadir</span>
+            </div>
+            <div>
+              ${remaining > 0 ? `<span>Belum hadir: <strong>${remaining}</strong></span>` : '<span class="text-success fw-700">✓ Hadir Semua</span>'}
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    grid.innerHTML = html;
   }
 
   // === ATTENDANCE (CORE CHECK-IN FLOW) ===
@@ -774,16 +963,30 @@
 
             <div class="checkin-action-row checkin-btn-wrap-${p.ID}">
               ${isChecked
-                ? `<div class="checked-status-banner">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                    <span>Sudah Hadir (${escapeHtml(formatTimeWib(checkinTime))})</span>
-                   </div>`
-                : `<button class="btn btn-checkin-main" onclick="App.doCheckIn('${p.ID}', this)">
-                    ${isVoucher ? 'CHECK IN (PERLU VOUCHER)' : 'CHECK IN KEHADIRAN'}
+                ? `
+                   <div style="width:100%;">
+                     <div class="checked-status-banner">
+                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                       <span>Sudah Hadir (${escapeHtml(formatTimeWib(checkinTime))})</span>
+                     </div>
+                     <div style="display:flex;gap:6px;margin-top:6px;">
+                       <button class="btn btn-secondary btn-sm" onclick="App.viewDetail('${p.ID}')" style="flex:1;">Detail</button>
+                       <button class="btn btn-secondary btn-sm" onclick="App.openEditParticipant('${p.ID}')" style="flex:1;">Edit</button>
+                       <button class="btn-cancel-absen" onclick="App.openCancelAttendance('${p.ID}')" title="Batalkan absensi jika salah klik">Salah Absen</button>
+                     </div>
+                   </div>
+                  `
+                : `
+                   <button class="btn btn-checkin-main" onclick="App.doCheckIn('${p.ID}', this)">
+                     ${isVoucher ? 'CHECK IN (PERLU VOUCHER)' : 'CHECK IN KEHADIRAN'}
                    </button>
                    <button class="btn btn-secondary btn-sm" onclick="App.viewDetail('${p.ID}')">
-                    Detail
-                   </button>`
+                     Detail
+                   </button>
+                   <button class="btn btn-secondary btn-sm" onclick="App.openEditParticipant('${p.ID}')">
+                     Edit
+                   </button>
+                  `
               }
             </div>
           </div>
@@ -870,9 +1073,16 @@
       // Update card di halaman Absensi
       $$(`.checkin-btn-wrap-${p.ID}`).forEach(wrap => {
         wrap.innerHTML = `
-          <div class="checked-status-banner">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <span>Sudah Hadir (${escapeHtml(timeStr)})</span>
+          <div style="width:100%;">
+            <div class="checked-status-banner">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Sudah Hadir (${escapeHtml(timeStr)})</span>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:6px;">
+              <button class="btn btn-secondary btn-sm" onclick="App.viewDetail('${p.ID}')" style="flex:1;">Detail</button>
+              <button class="btn btn-secondary btn-sm" onclick="App.openEditParticipant('${p.ID}')" style="flex:1;">Edit</button>
+              <button class="btn-cancel-absen" onclick="App.openCancelAttendance('${p.ID}')" title="Batalkan absensi jika salah klik">Salah Absen</button>
+            </div>
           </div>
         `;
       });
@@ -1037,8 +1247,12 @@
             <span class="text-xs text-tertiary fw-600">
               ${p.NO ? `No Urut: ${escapeHtml(p.NO)}` : 'Terdaftar'}
             </span>
-            <div style="display:flex;gap:var(--sp-2);">
-              ${!isChecked ? `<button class="btn btn-primary btn-sm checkin-btn-${p.ID}" onclick="App.doCheckIn('${p.ID}', this)">${isVoucher ? 'Check In (Voucher)' : 'Check In'}</button>` : ''}
+            <div style="display:flex;gap:var(--sp-2);align-items:center;">
+              ${!isChecked 
+                ? `<button class="btn btn-primary btn-sm checkin-btn-${p.ID}" onclick="App.doCheckIn('${p.ID}', this)">${isVoucher ? 'Check In (Voucher)' : 'Check In'}</button>` 
+                : `<button class="btn-cancel-absen" onclick="App.openCancelAttendance('${p.ID}')" title="Batalkan kehadiran (salah absen)">Salah Absen</button>`
+              }
+              <button class="btn btn-secondary btn-sm" onclick="App.openEditParticipant('${p.ID}')">Edit</button>
               <button class="btn btn-secondary btn-sm" onclick="App.viewDetail('${p.ID}')">Detail</button>
             </div>
           </div>
@@ -1059,8 +1273,8 @@
       return navigate('participants');
     }
 
-    const checkedIds = new Set(attendanceToday.map(a => a.PARTICIPANT_ID));
-    const isCheckedIn = checkedIds.has(p.ID);
+    const todayAtt = attendanceToday.find(a => a.PARTICIPANT_ID === p.ID);
+    const isCheckedIn = Boolean(todayAtt);
 
     let history = [];
     try {
@@ -1080,13 +1294,23 @@
     } else {
       history.forEach(h => {
         historyHtml += `
-          <div class="activity-item">
-            <div class="activity-time">${formatTimeWib(h.TIME)}</div>
-            <div class="activity-content">
-              <div class="activity-name">${formatDateWib(h.DATE)}</div>
-              <div class="activity-desc">Dicatat oleh: ${escapeHtml(h.USER_ID || 'Panitia')}</div>
+          <div class="activity-item" style="justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:12px;min-width:0;flex:1;">
+              <div class="activity-time">${formatTimeWib(h.TIME)}</div>
+              <div class="activity-content">
+                <div class="activity-name">${formatDateWib(h.DATE)}</div>
+                <div class="activity-desc">Dicatat oleh: ${escapeHtml(h.USER_ID || 'Panitia')}</div>
+              </div>
             </div>
-            <span class="badge badge-success">✓ Hadir</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="badge badge-success">✓ Hadir</span>
+              <button class="btn-icon-subtle" onclick="App.openEditAttendance('${h.ATTENDANCE_ID}', '${p.ID}')" title="Edit jam absensi" style="padding:4px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="btn-icon-subtle text-error" onclick="App.openCancelAttendance('${p.ID}', '${h.ATTENDANCE_ID}')" title="Batalkan absensi (salah absen)" style="padding:4px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </button>
+            </div>
           </div>
         `;
       });
@@ -1123,18 +1347,29 @@
     }
 
     $('#participantDetailContent').innerHTML = `
-      <!-- Hero Card Profile -->
+      <!-- Hero Card Profile with Edit Button -->
       <div class="detail-card">
-        <div class="detail-profile-hero">
-          <div class="detail-avatar">${escapeHtml(initial)}</div>
-          <div style="min-width:0;flex:1;">
-            <div class="detail-name">${escapeHtml(p.NAME)}</div>
-            <div class="detail-sub">${escapeHtml(p.INSTITUTION || 'Peserta PIT VIII PAPDI Purwokerto')}</div>
-            <div style="display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap;">
-              <span class="badge ${isCheckedIn ? 'badge-success' : 'badge-neutral'}">${isCheckedIn ? '✓ Sudah Hadir' : 'Belum Hadir'}</span>
-              ${noteBadge}
-              ${wsList.length > 0 ? `<span class="badge badge-info">${wsList.length} Workshop</span>` : ''}
+        <div class="detail-profile-hero" style="justify-content:space-between;align-items:flex-start;">
+          <div style="display:flex;gap:var(--sp-4);align-items:center;min-width:0;flex:1;">
+            <div class="detail-avatar">${escapeHtml(initial)}</div>
+            <div style="min-width:0;flex:1;">
+              <div class="detail-name">${escapeHtml(p.NAME)}</div>
+              <div class="detail-sub">${escapeHtml(p.INSTITUTION || 'Peserta PIT VIII PAPDI Purwokerto')}</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap;">
+                <span class="badge ${isCheckedIn ? 'badge-success' : 'badge-neutral'}">${isCheckedIn ? '✓ Sudah Hadir' : 'Belum Hadir'}</span>
+                ${noteBadge}
+                ${wsList.length > 0 ? `<span class="badge badge-info">${wsList.length} Workshop</span>` : '<span class="badge badge-neutral">Simposium Saja</span>'}
+              </div>
             </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-left:8px;flex-shrink:0;">
+            <button class="btn btn-secondary btn-sm" onclick="App.openEditParticipant('${p.ID}')" style="white-space:nowrap;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span>Edit Peserta</span>
+            </button>
+            <button class="btn btn-ghost btn-sm text-error" onclick="App.handleDeleteParticipant('${p.ID}')" title="Hapus peserta secara permanen" style="padding:6px 8px;border:1px solid rgba(220,38,38,0.25);border-radius:var(--r-md);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
           </div>
         </div>
 
@@ -1208,23 +1443,41 @@
       <div class="detail-card">
         <div class="section-heading" style="margin-bottom:var(--sp-3);display:flex;align-items:center;justify-content:space-between;">
           <span>Workshop yang Diikuti</span>
-          ${wsList.length > 0 
-            ? `<span class="badge badge-info">${wsList.length} Workshop Terdaftar</span>` 
-            : `<span class="badge badge-neutral">Hanya Simposium</span>`
-          }
+          <div style="display:flex;align-items:center;gap:6px;">
+            ${wsList.length > 0 
+              ? `<span class="badge badge-info">${wsList.length} Workshop Terdaftar</span>` 
+              : `<span class="badge badge-neutral">Hanya Simposium</span>`
+            }
+            <button class="btn btn-ghost btn-sm" onclick="App.openEditParticipant('${p.ID}')" style="font-size:11px;padding:2px 6px;">Ubah</button>
+          </div>
         </div>
         ${workshopSectionHtml}
       </div>
 
-      <!-- Check-In Action Card -->
+      <!-- Check-In Action Card (Single Unified Attendance) -->
       <div class="detail-card">
-        <div class="section-heading" style="margin-bottom:var(--sp-3);">Status Kehadiran Hari Ini</div>
+        <div class="section-heading" style="margin-bottom:var(--sp-3);display:flex;align-items:center;justify-content:space-between;">
+          <span>Status Kehadiran Hari Ini</span>
+          ${isCheckedIn ? `<span class="text-xs text-secondary font-mono">${formatTimeWib(todayAtt?.TIME)}</span>` : ''}
+        </div>
         <div id="detailCheckinAction">
           ${isCheckedIn
-            ? `<div class="checked-status-banner" style="width:100%;padding:12px;font-size:15px;">
+            ? `
+              <div class="checked-status-banner" style="width:100%;padding:12px;font-size:15px;margin-bottom:12px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                <span>Sudah Hadir Hari Ini</span>
-               </div>`
+                <span>Sudah Hadir Hari Ini (${escapeHtml(formatTimeWib(todayAtt?.TIME))})</span>
+              </div>
+              <div style="display:flex;gap:var(--sp-2);flex-wrap:wrap;">
+                <button class="btn btn-secondary btn-sm" onclick="App.openEditAttendance('${todayAtt?.ATTENDANCE_ID}', '${p.ID}')" style="flex:1;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>Edit Jam Hadir</span>
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="App.openCancelAttendance('${p.ID}', '${todayAtt?.ATTENDANCE_ID}')" style="flex:1;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                  <span>Batalkan Hadir (Salah Absen)</span>
+                </button>
+              </div>
+            `
             : `<button class="btn btn-primary btn-lg btn-full" onclick="App.doCheckIn('${p.ID}', this)">
                 ${isVoucher ? 'CHECK IN KEHADIRAN (VERIFIKASI VOUCHER)' : 'CHECK IN KEHADIRAN SEKARANG'}
                </button>`
@@ -1246,10 +1499,34 @@
     navigate('participant-detail', { id: participantId });
   }
 
+  // Helper to sync visual checked class on workshop cards
+  function syncChoiceCards(prefix) {
+    ['Sympo', 'WorkshopA', 'WorkshopB', 'WorkshopC'].forEach(key => {
+      const input = $(`#${prefix}${key}`);
+      if (input) {
+        const card = input.closest('.ws-choice-card');
+        if (card) {
+          if (input.checked) card.classList.add('checked');
+          else card.classList.remove('checked');
+        }
+      }
+    });
+  }
+
   // === ADD PARTICIPANT ===
   function openAddParticipant() {
     $('#addParticipantModal').style.display = 'flex';
     $('#addParticipantForm').reset();
+    if ($('#addSympo')) $('#addSympo').checked = true;
+    if ($('#addWorkshopA')) $('#addWorkshopA').checked = false;
+    if ($('#addWorkshopB')) $('#addWorkshopB').checked = false;
+    if ($('#addWorkshopC')) $('#addWorkshopC').checked = false;
+    if ($('#addVoucherCheck')) {
+      $('#addVoucherCheck').checked = false;
+      const vCard = $('#addVoucherCheck').closest('.voucher-toggle-card');
+      if (vCard) vCard.classList.remove('checked');
+    }
+    syncChoiceCards('add');
     $('#addDuplicateWarning').style.display = 'none';
     $('#addName').focus();
   }
@@ -1262,13 +1539,39 @@
       return;
     }
 
+    const wsA = $('#addWorkshopA')?.checked ? 1 : 0;
+    const wsB = $('#addWorkshopB')?.checked ? 1 : 0;
+    const wsC = $('#addWorkshopC')?.checked ? 1 : 0;
+    const sympo = $('#addSympo')?.checked ? 1 : 0;
+
+    let product = $('#addProduct').value.trim();
+    if (!product) {
+      if (wsA || wsB || wsC) {
+        product = 'Simposium dan Workshop';
+      } else {
+        product = 'Simposium Saja';
+      }
+    }
+
+    let note = ($('#addNote')?.value || '').trim();
+    const hasVoucher = Boolean($('#addVoucherCheck')?.checked);
+    if (hasVoucher) {
+      if (!note.toLowerCase().includes('voucher')) {
+        note = note ? `Voucher, ${note}` : 'Voucher';
+      }
+    }
+
     const data = {
       name,
       phone: $('#addPhone').value.trim(),
       institution: $('#addInstitution').value.trim(),
       email: $('#addEmail').value.trim(),
-      product: $('#addProduct').value.trim(),
-      note: ($('#addNote')?.value || '').trim(),
+      product,
+      sympo,
+      workshopA: wsA,
+      workshopB: wsB,
+      workshopC: wsC,
+      note,
       checkInNow
     };
 
@@ -1296,7 +1599,401 @@
       toast(error.message || 'Gagal menambahkan peserta.', 'error');
     } finally {
       btn.disabled = false;
-      btn.innerHTML = checkInNow ? 'Simpan & Absen' : 'Simpan';
+      btn.innerHTML = checkInNow ? 'Simpan & Absen Hadir' : 'Simpan';
+    }
+  }
+
+  // === EDIT PARTICIPANT (TAMBAH / GANTI WORKSHOP / EDIT SEMUA DETAIL) ===
+  function openEditParticipant(participantId) {
+    const p = participants.find(item => item.ID === participantId);
+    if (!p) {
+      toast('Data peserta tidak ditemukan.', 'error');
+      return;
+    }
+
+    $('#editParticipantId').value = p.ID;
+    $('#editName').value = p.NAME || '';
+    $('#editNo').value = p.NO || '';
+    $('#editPhone').value = p.PHONE || '';
+    $('#editInstitution').value = p.INSTITUTION || '';
+    $('#editEmail').value = p.EMAIL || '';
+    $('#editProduct').value = p.PRODUCT || '';
+
+    const isVoucher = (p.NOTE || '').toLowerCase().includes('voucher');
+    if ($('#editVoucherCheck')) {
+      $('#editVoucherCheck').checked = isVoucher;
+      const vCard = $('#editVoucherCheck').closest('.voucher-toggle-card');
+      if (vCard) {
+        if (isVoucher) vCard.classList.add('checked');
+        else vCard.classList.remove('checked');
+      }
+    }
+
+    // Bersihkan kata voucher dari tampilan input catatan tambahan agar tidak dobel
+    let displayNote = p.NOTE || '';
+    if (isVoucher) {
+      displayNote = displayNote
+        .replace(/\b(perlu\s+)?voucher\b/gi, '')
+        .replace(/^[\s,;]+|[\s,;]+$/g, '')
+        .replace(/,\s*,/g, ',')
+        .trim();
+    }
+    $('#editNote').value = displayNote;
+
+    const isA = p.WORKSHOP_A == 1 || p.WORKSHOP_A === '1' || p.WORKSHOP_A === true || String(p.WORKSHOP_A).trim() === '1';
+    const isB = p.WORKSHOP_B == 1 || p.WORKSHOP_B === '1' || p.WORKSHOP_B === true || String(p.WORKSHOP_B).trim() === '1';
+    const isC = p.WORKSHOP_C == 1 || p.WORKSHOP_C === '1' || p.WORKSHOP_C === true || String(p.WORKSHOP_C).trim() === '1';
+    const isSympo = p.SYMPO == 1 || p.SYMPO === '1' || p.SYMPO === true || (!isA && !isB && !isC);
+
+    if ($('#editWorkshopA')) $('#editWorkshopA').checked = isA;
+    if ($('#editWorkshopB')) $('#editWorkshopB').checked = isB;
+    if ($('#editWorkshopC')) $('#editWorkshopC').checked = isC;
+    if ($('#editSympo')) $('#editSympo').checked = isSympo;
+    syncChoiceCards('edit');
+
+    $('#editParticipantModal').style.display = 'flex';
+    $('#editName').focus();
+  }
+
+  async function handleSaveEditParticipant() {
+    const id = $('#editParticipantId').value;
+    const name = $('#editName').value.trim();
+    if (!name) {
+      toast('Nama peserta wajib diisi.', 'error');
+      $('#editName').focus();
+      return;
+    }
+
+    const wsA = $('#editWorkshopA')?.checked ? 1 : 0;
+    const wsB = $('#editWorkshopB')?.checked ? 1 : 0;
+    const wsC = $('#editWorkshopC')?.checked ? 1 : 0;
+    const sympo = $('#editSympo')?.checked ? 1 : 0;
+
+    let product = $('#editProduct').value.trim();
+    if (!product) {
+      if (wsA || wsB || wsC) {
+        product = 'Simposium dan Workshop';
+      } else {
+        product = 'Simposium Saja';
+      }
+    }
+
+    let noteVal = $('#editNote').value.trim();
+    const hasVoucher = Boolean($('#editVoucherCheck')?.checked);
+    if (hasVoucher) {
+      if (!noteVal.toLowerCase().includes('voucher')) {
+        noteVal = noteVal ? `Voucher, ${noteVal}` : 'Voucher';
+      }
+    } else {
+      noteVal = noteVal
+        .replace(/\b(perlu\s+)?voucher\b/gi, '')
+        .replace(/^[\s,;]+|[\s,;]+$/g, '')
+        .replace(/,\s*,/g, ',')
+        .trim();
+    }
+
+    const data = {
+      name,
+      no: $('#editNo').value ? Number($('#editNo').value) : null,
+      phone: $('#editPhone').value.trim(),
+      institution: $('#editInstitution').value.trim(),
+      email: $('#editEmail').value.trim(),
+      product,
+      sympo,
+      workshopA: wsA,
+      workshopB: wsB,
+      workshopC: wsC,
+      note: noteVal
+    };
+
+    const btn = $('#editSaveBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner spinner-sm spinner-white"></span> Menyimpan...';
+
+    try {
+      const res = await API.updateParticipant(id, data);
+      const updated = res.data;
+
+      // Update in memory participants
+      const idx = participants.findIndex(p => p.ID === id);
+      if (idx !== -1) {
+        participants[idx] = { ...participants[idx], ...updated };
+      }
+
+      $('#editParticipantModal').style.display = 'none';
+
+      if (window.Swal) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Data Berhasil Diperbarui',
+          text: `Detail peserta ${updated.NAME} telah disimpan.`,
+          timer: 2000,
+          showConfirmButton: false
+        });
+      } else {
+        toast('Data peserta berhasil disimpan.', 'success');
+      }
+
+      updateDashboardStats();
+      if (currentPage === 'participants') filterParticipants();
+      if (currentPage === 'participant-detail') loadParticipantDetail(id);
+      if (currentPage === 'attendance') handleAttendanceSearch();
+
+    } catch (err) {
+      toast(err.message || 'Gagal menyimpan perubahan peserta.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Simpan Perubahan';
+    }
+  }
+
+  // === DELETE PARTICIPANT (ADMIN / PANITIA) ===
+  async function handleDeleteParticipant(participantId) {
+    const p = participants.find(item => item.ID === participantId);
+    const pName = p ? p.NAME : (participantId || 'Peserta');
+
+    let confirmed = false;
+    if (window.Swal) {
+      const res = await Swal.fire({
+        icon: 'warning',
+        title: 'Hapus Peserta Secara Permanen?',
+        html: `
+          <div style="text-align:center;margin-top:6px;">
+            <p style="font-size:15px;color:var(--c-text);margin-bottom:8px;">
+              Apakah Anda yakin ingin menghapus data peserta:
+            </p>
+            <div style="font-size:16px;font-weight:700;color:var(--c-error);margin-bottom:4px;">
+              ${escapeHtml(pName)} (${escapeHtml(participantId)})
+            </div>
+            <p style="font-size:12px;color:var(--c-error);margin-top:8px;line-height:1.5;">
+              Data peserta dan seluruh riwayat absensinya akan dihapus secara permanen dari database.
+            </p>
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: '✕ Ya, Hapus Permanen',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#DC2626',
+        cancelButtonColor: '#64748B',
+        reverseButtons: true
+      });
+      confirmed = res.isConfirmed;
+    } else {
+      confirmed = window.confirm(`Hapus peserta ${pName} (${participantId}) secara permanen? Data absensi terkait juga akan dihapus.`);
+    }
+
+    if (!confirmed) return;
+
+    try {
+      if (window.Swal) {
+        Swal.fire({
+          title: 'Menghapus Peserta...',
+          text: 'Mohon tunggu sebentar',
+          allowOutsideClick: false,
+          didOpen: () => Swal.showLoading()
+        });
+      }
+
+      await API.deleteParticipant(participantId);
+
+      // Remove from in-memory lists
+      participants = participants.filter(item => item.ID !== participantId);
+      attendanceToday = attendanceToday.filter(a => a.PARTICIPANT_ID !== participantId);
+
+      // Close modal if open
+      $('#editParticipantModal').style.display = 'none';
+
+      if (window.Swal) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Peserta Berhasil Dihapus',
+          text: `Data ${pName} telah dihapus dari sistem.`,
+          timer: 2000,
+          showConfirmButton: false
+        });
+      } else {
+        toast(`Peserta ${pName} berhasil dihapus.`, 'success');
+      }
+
+      updateDashboardStats();
+
+      // Navigate appropriately
+      if (currentPage === 'participant-detail') {
+        navigate('participants');
+      } else if (currentPage === 'participants') {
+        filterParticipants();
+      } else if (currentPage === 'attendance') {
+        handleAttendanceSearch();
+      } else if (currentPage === 'history') {
+        loadHistory();
+      } else if (currentPage === 'dashboard') {
+        loadDashboard();
+      }
+
+    } catch (err) {
+      if (window.Swal) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal Menghapus',
+          text: err.message || 'Terjadi kesalahan saat menghapus peserta.'
+        });
+      } else {
+        toast(err.message || 'Gagal menghapus peserta.', 'error');
+      }
+    }
+  }
+
+  // === CANCEL ATTENDANCE (SALAH ABSEN) ===
+  async function openCancelAttendance(participantId, attendanceId) {
+    const p = participants.find(item => item.ID === participantId);
+    const pName = p ? p.NAME : (participantId || 'Peserta');
+
+    let confirmed = false;
+    if (window.Swal) {
+      const res = await Swal.fire({
+        icon: 'warning',
+        title: 'Batalkan Kehadiran Peserta?',
+        html: `
+          <div style="text-align:center;margin-top:6px;">
+            <p style="font-size:15px;color:var(--c-text);margin-bottom:8px;">
+              Apakah Anda yakin ingin membatalkan absensi untuk:
+            </p>
+            <div style="font-size:16px;font-weight:700;color:var(--c-accent);margin-bottom:4px;">
+              ${escapeHtml(pName)}
+            </div>
+            <p style="font-size:12px;color:var(--c-error);margin-top:8px;">
+              Status kehadiran peserta akan kembali menjadi <strong>Belum Hadir</strong>.
+            </p>
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: '✕ Ya, Batalkan (Salah Absen)',
+        cancelButtonText: 'Kembali',
+        confirmButtonColor: '#DC2626',
+        cancelButtonColor: '#64748B',
+        reverseButtons: true
+      });
+      confirmed = res.isConfirmed;
+    } else {
+      confirmed = window.confirm(`Batalkan kehadiran untuk ${pName}? Status akan kembali menjadi Belum Hadir.`);
+    }
+
+    if (!confirmed) return;
+
+    try {
+      const today = todayStr();
+      await API.cancelCheckIn(participantId, today);
+
+      // Remove from local attendanceToday
+      attendanceToday = attendanceToday.filter(a => a.PARTICIPANT_ID !== participantId);
+
+      // Refresh in background
+      try {
+        const attRes = await API.getAttendanceToday('EVT001', today);
+        attendanceToday = attRes.data || [];
+      } catch (_) {}
+
+      // Close modal if open
+      $('#editAttendanceModal').style.display = 'none';
+
+      if (window.Swal) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Absensi Dibatalkan',
+          text: `Status ${pName} telah dikembalikan menjadi Belum Hadir.`,
+          timer: 2000,
+          showConfirmButton: false
+        });
+      } else {
+        toast(`Absensi ${pName} dibatalkan.`, 'success');
+      }
+
+      updateDashboardStats();
+      if (currentPage === 'attendance') handleAttendanceSearch();
+      if (currentPage === 'participants') filterParticipants();
+      if (currentPage === 'participant-detail') loadParticipantDetail(participantId);
+      if (currentPage === 'history') loadHistory();
+      if (currentPage === 'dashboard') loadDashboard();
+
+    } catch (err) {
+      toast(err.message || 'Gagal membatalkan absensi.', 'error');
+    }
+  }
+
+  // === EDIT ATTENDANCE (JAM / TANGGAL / DETAIL) ===
+  function openEditAttendance(attendanceId, participantId) {
+    let att = null;
+    if (attendanceId) {
+      att = attendanceToday.find(a => a.ATTENDANCE_ID === attendanceId);
+    }
+    if (!att && participantId) {
+      att = attendanceToday.find(a => a.PARTICIPANT_ID === participantId);
+    }
+
+    const p = participants.find(item => item.ID === (att?.PARTICIPANT_ID || participantId));
+    if (!p) {
+      toast('Data peserta tidak ditemukan.', 'error');
+      return;
+    }
+
+    $('#editAttendanceId').value = att?.ATTENDANCE_ID || '';
+    $('#editAttendanceParticipantId').value = p.ID;
+    $('#editAttendanceParticipantName').textContent = p.NAME;
+    $('#editAttendanceParticipantInst').textContent = p.INSTITUTION || 'Peserta PIT VIII PAPDI';
+
+    const curDate = att?.DATE || todayStr();
+    let curTime = att?.TIME || '';
+    const m = String(curTime).match(/^(\d{1,2}):(\d{2})/);
+    if (m) {
+      curTime = `${m[1].padStart(2, '0')}:${m[2]}`;
+    }
+
+    $('#editAttendanceDate').value = curDate;
+    $('#editAttendanceTime').value = curTime || '08:00';
+
+    $('#editAttendanceModal').style.display = 'flex';
+    $('#editAttendanceTime').focus();
+  }
+
+  async function handleSaveEditAttendance() {
+    const attId = $('#editAttendanceId').value;
+    const participantId = $('#editAttendanceParticipantId').value;
+    const date = $('#editAttendanceDate').value;
+    const time = $('#editAttendanceTime').value.trim();
+
+    if (!time) {
+      toast('Waktu kehadiran wajib diisi.', 'error');
+      $('#editAttendanceTime').focus();
+      return;
+    }
+
+    const btn = $('#editAttendanceSaveBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner spinner-sm spinner-white"></span> Menyimpan...';
+
+    try {
+      if (attId) {
+        await API.updateAttendance(attId, { date, time });
+      } else if (participantId) {
+        await API.checkIn(participantId, 'EVT001');
+      }
+
+      const attRes = await API.getAttendanceToday('EVT001', todayStr());
+      attendanceToday = attRes.data || [];
+
+      $('#editAttendanceModal').style.display = 'none';
+      toast('Data absensi berhasil diperbarui.', 'success');
+
+      updateDashboardStats();
+      if (currentPage === 'participant-detail') loadParticipantDetail(participantId);
+      if (currentPage === 'history') loadHistory();
+      if (currentPage === 'attendance') handleAttendanceSearch();
+
+    } catch (err) {
+      toast(err.message || 'Gagal menyimpan perubahan absensi.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Simpan Koreksi';
     }
   }
 
@@ -1390,7 +2087,15 @@
                 <span>${escapeHtml(inst)}</span> · <span>${escapeHtml(dateDisplay)}</span>
               </div>
             </div>
-            <span class="badge badge-success" style="flex-shrink:0;">✓ Hadir</span>
+            <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+              <span class="badge badge-success">✓ Hadir</span>
+              <button class="btn-icon-subtle" onclick="App.openEditAttendance('${h.ATTENDANCE_ID}', '${h.PARTICIPANT_ID}')" title="Edit jam absensi" style="padding:4px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="btn-icon-subtle text-error" onclick="App.openCancelAttendance('${h.PARTICIPANT_ID}', '${h.ATTENDANCE_ID}')" title="Batalkan absensi (salah absen)" style="padding:4px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </button>
+            </div>
           </div>
         `;
       });
@@ -1560,6 +2265,11 @@
     navigate,
     doCheckIn,
     viewDetail,
+    openAddParticipant,
+    openEditParticipant,
+    handleDeleteParticipant,
+    openCancelAttendance,
+    openEditAttendance,
     copyPhone: (phone) => copyToClipboard(phone, 'Nomor HP')
   };
 

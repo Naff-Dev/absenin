@@ -76,19 +76,23 @@ const db = {
   getParticipants: (...args) => getActiveProvider().getParticipants(...args),
   getParticipantById: (...args) => getActiveProvider().getParticipantById(...args),
   addParticipant: (...args) => getActiveProvider().addParticipant(...args),
+  updateParticipant: (...args) => getActiveProvider().updateParticipant(...args),
+  deleteParticipant: (...args) => getActiveProvider().deleteParticipant(...args),
 
   // Auth / Panitia
   validateLogin: (...args) => getActiveProvider().validateLogin(...args),
 
-  // Attendance
+  // Attendance (Single unified attendance)
   checkIn: (...args) => getActiveProvider().checkIn(...args),
   getAttendanceToday: (...args) => getActiveProvider().getAttendanceToday(...args),
   getAttendanceHistory: (...args) => getActiveProvider().getAttendanceHistory(...args),
+  deleteAttendance: (...args) => getActiveProvider().deleteAttendance(...args),
+  updateAttendance: (...args) => getActiveProvider().updateAttendance(...args),
 
   // Workshops
   getWorkshops: (...args) => getActiveProvider().getWorkshops(...args),
-  workshopCheckIn: (...args) => getActiveProvider().workshopCheckIn(...args),
-  getWorkshopAttendance: (...args) => getActiveProvider().getWorkshopAttendance(...args),
+  workshopCheckIn: (...args) => (getActiveProvider().workshopCheckIn ? getActiveProvider().workshopCheckIn(...args) : Promise.resolve({ success: true })),
+  getWorkshopAttendance: (...args) => (getActiveProvider().getWorkshopAttendance ? getActiveProvider().getWorkshopAttendance(...args) : Promise.resolve({ success: true, data: [] })),
 
   // Reports
   getReportData: (...args) => getActiveProvider().getReportData(...args),

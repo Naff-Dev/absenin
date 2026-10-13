@@ -411,6 +411,54 @@ async function addParticipant(data) {
   return { success: true, data: participant };
 }
 
+async function updateParticipant(id, data) {
+  const db = readDb();
+  const index = (db.participants || []).findIndex(p => p.ID === id);
+  if (index === -1) {
+    return { success: false, message: 'Peserta tidak ditemukan.', code: 'NOT_FOUND' };
+  }
+
+  const existing = db.participants[index];
+  const now = formatDate(getServerDate()) + ' ' + formatTime(getServerDate());
+
+  const updated = {
+    ...existing,
+    NAME: data.name !== undefined ? data.name.trim() : existing.NAME,
+    PHONE: data.phone !== undefined ? (data.phone || '').trim() : existing.PHONE,
+    INSTITUTION: data.institution !== undefined ? (data.institution || '').trim() : existing.INSTITUTION,
+    EMAIL: data.email !== undefined ? (data.email || '').trim() : existing.EMAIL,
+    PRODUCT: data.product !== undefined ? (data.product || '').trim() : existing.PRODUCT,
+    NOTE: data.note !== undefined ? (data.note || '').trim() : existing.NOTE,
+    NO: (data.no !== undefined && data.no !== null && data.no !== '') ? Number(data.no) : existing.NO,
+    SYMPO: data.sympo !== undefined ? (data.sympo ? 1 : 0) : existing.SYMPO,
+    WORKSHOP_A: (data.workshopA !== undefined ? (data.workshopA ? 1 : 0) : (data.workshop_a !== undefined ? (data.workshop_a ? 1 : 0) : existing.WORKSHOP_A)),
+    WORKSHOP_B: (data.workshopB !== undefined ? (data.workshopB ? 1 : 0) : (data.workshop_b !== undefined ? (data.workshop_b ? 1 : 0) : existing.WORKSHOP_B)),
+    WORKSHOP_C: (data.workshopC !== undefined ? (data.workshopC ? 1 : 0) : (data.workshop_c !== undefined ? (data.workshop_c ? 1 : 0) : existing.WORKSHOP_C)),
+    UPDATED_AT: now
+  };
+
+  db.participants[index] = updated;
+  saveDb(db);
+
+  return { success: true, data: updated };
+}
+
+async function deleteParticipant(id) {
+  const db = readDb();
+  const initCount = (db.participants || []).length;
+  db.participants = (db.participants || []).filter(p => p.ID !== id);
+  db.attendance = (db.attendance || []).filter(a => a.PARTICIPANT_ID !== id);
+  if (db.workshopAttendance) {
+    db.workshopAttendance = db.workshopAttendance.filter(a => a.PARTICIPANT_ID !== id);
+  }
+
+  if (db.participants.length < initCount) {
+    saveDb(db);
+    return { success: true, message: 'Peserta berhasil dihapus.' };
+  }
+  return { success: false, message: 'Peserta tidak ditemukan.', code: 'NOT_FOUND' };
+}
+
 async function validateLogin(username, password) {
   const db = readDb();
   const user = db.panitia.find(p => p.USERNAME === username && String(p.PASSWORD) === String(password));
@@ -531,6 +579,53 @@ async function getAttendanceHistory(params = {}) {
   });
 
   return { success: true, data: list };
+}
+
+async function deleteAttendance(identifier, options = {}) {
+  const db = readDb();
+  const initialLen = db.attendance.length;
+
+  if (options.byParticipant || (identifier && identifier.startsWith('P') && options.date)) {
+    db.attendance = db.attendance.filter(a => {
+      if (a.PARTICIPANT_ID === identifier) {
+        if (!options.date || a.DATE === options.date) return false;
+      }
+      return true;
+    });
+  } else {
+    db.attendance = db.attendance.filter(a => a.ATTENDANCE_ID !== identifier);
+  }
+
+  const deletedCount = initialLen - db.attendance.length;
+  saveDb(db);
+
+  return {
+    success: true,
+    message: 'Data absensi berhasil dibatalkan / dihapus.',
+    deletedCount
+  };
+}
+
+async function updateAttendance(attendanceId, data) {
+  const db = readDb();
+  const index = (db.attendance || []).findIndex(a => a.ATTENDANCE_ID === attendanceId);
+  if (index === -1) {
+    return { success: false, message: 'Data absensi tidak ditemukan.', code: 'NOT_FOUND' };
+  }
+
+  const existing = db.attendance[index];
+  const updated = {
+    ...existing,
+    TIME: data.time !== undefined ? data.time : existing.TIME,
+    DATE: data.date !== undefined ? data.date : existing.DATE,
+    STATUS: data.status !== undefined ? data.status : existing.STATUS,
+    USER_ID: data.userId !== undefined ? data.userId : existing.USER_ID
+  };
+
+  db.attendance[index] = updated;
+  saveDb(db);
+
+  return { success: true, data: updated };
 }
 
 async function getWorkshops() {
@@ -807,10 +902,14 @@ module.exports = {
   getParticipants,
   getParticipantById,
   addParticipant,
+  updateParticipant,
+  deleteParticipant,
   validateLogin,
   checkIn,
   getAttendanceToday,
   getAttendanceHistory,
+  deleteAttendance,
+  updateAttendance,
   getWorkshops,
   workshopCheckIn,
   getWorkshopAttendance,

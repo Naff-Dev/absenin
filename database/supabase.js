@@ -296,6 +296,53 @@ async function addParticipant(data) {
   return { success: true, data: mapParticipant(inserted) };
 }
 
+async function updateParticipant(id, data) {
+  const supabase = getClient();
+  const now = formatDate(getServerDate()) + ' ' + formatTime(getServerDate());
+
+  const updateFields = {};
+  if (data.name !== undefined) updateFields.name = data.name.trim();
+  if (data.phone !== undefined) updateFields.phone = (data.phone || '').trim();
+  if (data.institution !== undefined) updateFields.institution = (data.institution || '').trim();
+  if (data.email !== undefined) updateFields.email = (data.email || '').trim();
+  if (data.product !== undefined) updateFields.product = (data.product || '').trim();
+  if (data.note !== undefined) updateFields.note = (data.note || '').trim();
+  if (data.no !== undefined && data.no !== null && data.no !== '') updateFields.no = Number(data.no);
+  if (data.sympo !== undefined) updateFields.sympo = data.sympo ? 1 : 0;
+  if (data.workshopA !== undefined) updateFields.workshop_a = data.workshopA ? 1 : 0;
+  else if (data.workshop_a !== undefined) updateFields.workshop_a = data.workshop_a ? 1 : 0;
+  if (data.workshopB !== undefined) updateFields.workshop_b = data.workshopB ? 1 : 0;
+  else if (data.workshop_b !== undefined) updateFields.workshop_b = data.workshop_b ? 1 : 0;
+  if (data.workshopC !== undefined) updateFields.workshop_c = data.workshopC ? 1 : 0;
+  else if (data.workshop_c !== undefined) updateFields.workshop_c = data.workshop_c ? 1 : 0;
+  updateFields.updated_at = now;
+
+  const { data: updated, error } = await supabase
+    .from('participants')
+    .update(updateFields)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+  return { success: true, data: mapParticipant(updated) };
+}
+
+async function deleteParticipant(id) {
+  const supabase = getClient();
+  // 1. Delete associated attendances
+  await supabase.from('attendance').delete().eq('participant_id', id);
+  // 2. Delete participant
+  const { data, error } = await supabase
+    .from('participants')
+    .delete()
+    .eq('id', id)
+    .select();
+
+  if (error) throw new Error(error.message);
+  return { success: true, message: 'Peserta berhasil dihapus.', data: data && data[0] ? mapParticipant(data[0]) : null };
+}
+
 async function validateLogin(username, password) {
   const supabase = getClient();
   const { data, error } = await supabase.from('panitia').select('*').eq('username', username).maybeSingle();
@@ -451,6 +498,61 @@ async function getAttendanceHistory(params = {}) {
   }
 
   return { success: true, data: (data || []).map(mapAttendance) };
+}
+
+async function deleteAttendance(identifier, options = {}) {
+  const supabase = getClient();
+  let query = supabase.from('attendance').delete();
+
+  if (options.byParticipant || (identifier && identifier.startsWith('P') && options.date)) {
+    query = query.eq('participant_id', identifier);
+    if (options.date) {
+      query = query.eq('date', options.date);
+    }
+  } else {
+    query = query.eq('attendance_id', identifier);
+  }
+
+  const { data, error } = await query.select();
+  if (error) throw new Error(error.message);
+
+  return {
+    success: true,
+    message: 'Data absensi berhasil dibatalkan / dihapus.',
+    deletedCount: data ? data.length : 1
+  };
+}
+
+async function updateAttendance(attendanceId, data) {
+  const supabase = getClient();
+  const updateFields = {};
+  if (data.time !== undefined) updateFields.time = data.time;
+  if (data.date !== undefined) updateFields.date = data.date;
+  if (data.status !== undefined) updateFields.status = data.status;
+  if (data.userId !== undefined) updateFields.user_id = data.userId;
+
+  const { data: updated, error } = await supabase
+    .from('attendance')
+    .update(updateFields)
+    .eq('attendance_id', attendanceId)
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  const { data: participantData } = await supabase
+    .from('participants')
+    .select('name, institution, phone, note')
+    .eq('id', updated.participant_id)
+    .maybeSingle();
+
+  return {
+    success: true,
+    data: mapAttendance({
+      ...updated,
+      participants: participantData || {}
+    })
+  };
 }
 
 async function getWorkshops() {
@@ -783,10 +885,14 @@ module.exports = {
   getParticipants,
   getParticipantById,
   addParticipant,
+  updateParticipant,
+  deleteParticipant,
   validateLogin,
   checkIn,
   getAttendanceToday,
   getAttendanceHistory,
+  deleteAttendance,
+  updateAttendance,
   getWorkshops,
   workshopCheckIn,
   getWorkshopAttendance,

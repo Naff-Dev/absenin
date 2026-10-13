@@ -43,6 +43,12 @@
         <div class="sidebar-brand-name">ABSENIN</div>
         <div class="sidebar-brand-event" id="sidebarEvent">PIT VIII PAPDI 2026</div>
       </div>
+      <div class="sidebar-cta-box" style="padding: 14px 14px 4px;">
+        <button class="btn btn-primary" id="sidebarAddBtn" style="width: 100%; justify-content: center; gap: 8px; font-weight: 700; border-radius: var(--r-md); box-shadow: var(--shadow-sm); padding: 10px 14px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Tambah Peserta</span>
+        </button>
+      </div>
       <nav class="sidebar-nav" aria-label="Menu utama">
         <a href="#dashboard" class="sidebar-link active" data-page="dashboard">
           <span class="link-icon">
@@ -98,7 +104,11 @@
           <span class="mobile-brand">ABSENIN</span>
           <span class="mobile-event-tag" id="mobileEventTag">PIT VIII PAPDI</span>
         </div>
-        <div class="mobile-header-actions">
+        <div class="mobile-header-actions" style="display:flex;align-items:center;gap:8px;">
+          <button class="btn btn-primary btn-xs" id="mobileAddBtn" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;font-weight:700;border-radius:var(--r-full);box-shadow:var(--shadow-xs);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Peserta</span>
+          </button>
           <button class="mobile-avatar-btn" id="mobileUserBtn" aria-label="Profil Panitia">
             <span class="mobile-avatar-text" id="mobileUserName">P</span>
           </button>
@@ -114,10 +124,16 @@
             <h1 class="page-heading">Dashboard</h1>
             <p class="page-subheading" id="dashboardDate"></p>
           </div>
-          <button class="btn btn-secondary btn-sm" id="dashboardRefreshBtn" title="Sinkronkan data">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
-            <span>Sync</span>
-          </button>
+          <div class="topbar-actions" style="display:flex;align-items:center;gap:8px;">
+            <button class="btn btn-secondary btn-sm" id="dashboardRefreshBtn" title="Sinkronkan data">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+              <span>Sync</span>
+            </button>
+            <button class="btn btn-primary btn-sm" id="dashboardAddBtn" style="font-weight:700;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Peserta</span>
+            </button>
+          </div>
         </div>
 
         <div class="page-content">
@@ -178,6 +194,20 @@
             </div>
           </div>
 
+          <!-- Workshop Attendance Breakdown Section -->
+          <div class="section-block">
+            <div class="section-heading-row">
+              <div>
+                <h2 class="section-heading">Kehadiran per Workshop</h2>
+                <p class="text-xs text-secondary" style="margin-top:2px;">Persentase kehadiran peserta di setiap kelas workshop</p>
+              </div>
+              <span class="section-heading-badge" id="workshopBreakdownBadge">Hari Ini</span>
+            </div>
+            <div class="workshop-breakdown-grid" id="workshopBreakdownGrid">
+              <div class="loading-state" style="padding:var(--sp-6) 0;"><div class="spinner"></div><span>Memuat data workshop...</span></div>
+            </div>
+          </div>
+
           <!-- Daily Attendance Trend Chart -->
           <div class="section-block">
             <div class="section-heading-row">
@@ -211,7 +241,12 @@
             <h1 class="page-heading">Absensi</h1>
             <p class="page-subheading" id="attendanceDate"></p>
           </div>
-          <button class="btn btn-secondary btn-sm" id="attendanceAddTopBtn">+ Peserta Baru</button>
+          <div class="topbar-actions">
+            <button class="btn btn-primary btn-sm" id="attendanceAddTopBtn" style="font-weight:700;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Tambah Peserta</span>
+            </button>
+          </div>
         </div>
 
         <div class="page-content">
@@ -235,7 +270,7 @@
             </div>
             <div class="empty-state-title">Peserta Tidak Ditemukan</div>
             <div class="empty-state-desc">Periksa kembali ejaan nama atau nomor HP yang dimasukkan.</div>
-            <button class="btn btn-primary" id="attendanceAddBtn">+ Tambah Peserta Baru</button>
+            <button class="btn btn-primary" id="attendanceAddBtn" style="font-weight:700;">Tambah Peserta Baru</button>
           </div>
 
           <div id="attendanceInitial" class="empty-state-card">
@@ -262,7 +297,10 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
               <span>Sync</span>
             </button>
-            <button class="btn btn-primary btn-sm" id="participantsAddBtn">+ Tambah</button>
+            <button class="btn btn-primary btn-sm" id="participantsAddBtn" style="font-weight:700;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Tambah Peserta</span>
+            </button>
           </div>
         </div>
 
@@ -464,44 +502,116 @@
     </div>
   </div>
 
-  <!-- Add Participant Bottom Sheet -->
+  <!-- Add Participant Bottom Sheet / Modal -->
   <div id="addParticipantModal" class="modal-overlay" style="display:none;">
-    <div class="bottom-sheet">
+    <div class="bottom-sheet modal-dialog">
       <div class="sheet-drag-handle"></div>
       <div class="sheet-header">
-        <div class="sheet-title">Tambah Peserta Baru</div>
-        <button class="btn-icon-subtle" id="addParticipantClose">✕</button>
+        <div>
+          <div class="sheet-title">Tambah Peserta Baru</div>
+          <div class="text-xs text-secondary" style="margin-top:2px;">Registrasi peserta simposium & workshop</div>
+        </div>
+        <button class="btn-icon-subtle" id="addParticipantClose" aria-label="Tutup">✕</button>
       </div>
-      <form id="addParticipantForm">
+      <form id="addParticipantForm" class="modal-form">
         <div class="sheet-body form-stack">
           <div class="form-group">
-            <label class="form-label" for="addName">Nama Lengkap <span class="required">*</span></label>
+            <label class="form-label" for="addName">Nama Lengkap & Gelar <span class="required">*</span></label>
             <input class="form-input form-input-lg" type="text" id="addName" placeholder="Contoh: dr. Budi Santoso, Sp.PD" required autocomplete="name">
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="addInstitution">Instansi / Asal RS</label>
-            <input class="form-input form-input-lg" type="text" id="addInstitution" placeholder="Contoh: RSUD Margono Purwokerto">
+          <div class="form-row-2">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="addPhone">WhatsApp / No HP</label>
+              <input class="form-input form-input-lg" type="tel" id="addPhone" placeholder="Contoh: 08123456789">
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="addInstitution">Instansi / Asal RS</label>
+              <input class="form-input form-input-lg" type="text" id="addInstitution" placeholder="Contoh: RSUD Margono Purwokerto">
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="addPhone">Nomor WhatsApp / HP</label>
-            <input class="form-input form-input-lg" type="tel" id="addPhone" placeholder="Contoh: 08123456789">
+          <div class="form-row-2">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="addEmail">Alamat Email</label>
+              <input class="form-input form-input-lg" type="email" id="addEmail" placeholder="Contoh: dokter@gmail.com">
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="addProduct">Kategori Tiket / Paket</label>
+              <input class="form-input form-input-lg" type="text" id="addProduct" placeholder="Contoh: Simposium dan Workshop">
+            </div>
           </div>
 
+          <!-- Workshop Selection Cards -->
           <div class="form-group">
-            <label class="form-label" for="addEmail">Alamat Email</label>
-            <input class="form-input form-input-lg" type="email" id="addEmail" placeholder="Contoh: budi@gmail.com">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <label class="form-label" style="margin-bottom:0;">Keikutsertaan Workshop & Sesi</label>
+              <span class="text-xs text-secondary">Pilih satu atau lebih</span>
+            </div>
+            <div class="ws-choice-grid">
+              <!-- Sesi Utama Simposium -->
+              <label class="ws-choice-card ws-card-sympo" for="addSympo">
+                <div class="ws-choice-top">
+                  <span class="ws-choice-badge ws-badge-sympo">SESI UTAMA</span>
+                  <input type="checkbox" id="addSympo" class="ws-choice-checkbox" checked>
+                </div>
+                <div class="ws-choice-name">Simposium (Sesi Utama)</div>
+                <div class="ws-choice-desc">Materi ilmiah & kuliah pleno PIT VIII</div>
+              </label>
+
+              <!-- Workshop A -->
+              <label class="ws-choice-card ws-card-a" for="addWorkshopA">
+                <div class="ws-choice-top">
+                  <span class="ws-choice-badge ws-badge-a">WORKSHOP A</span>
+                  <input type="checkbox" id="addWorkshopA" class="ws-choice-checkbox">
+                </div>
+                <div class="ws-choice-name">Osteoarthritis & IA Injection</div>
+                <div class="ws-choice-desc">Injeksi intraartikular & manajemen OA</div>
+              </label>
+
+              <!-- Workshop B -->
+              <label class="ws-choice-card ws-card-b" for="addWorkshopB">
+                <div class="ws-choice-top">
+                  <span class="ws-choice-badge ws-badge-b">WORKSHOP B</span>
+                  <input type="checkbox" id="addWorkshopB" class="ws-choice-checkbox">
+                </div>
+                <div class="ws-choice-name">Ultrasound in Critical Care</div>
+                <div class="ws-choice-desc">POCUS USG klinis pasien gawat darurat</div>
+              </label>
+
+              <!-- Workshop C -->
+              <label class="ws-choice-card ws-card-c" for="addWorkshopC">
+                <div class="ws-choice-top">
+                  <span class="ws-choice-badge ws-badge-c">WORKSHOP C</span>
+                  <input type="checkbox" id="addWorkshopC" class="ws-choice-checkbox">
+                </div>
+                <div class="ws-choice-name">Echocardiography for Clinicians</div>
+                <div class="ws-choice-desc">Bedside echo praktis klinisi internal</div>
+              </label>
+            </div>
           </div>
 
+          <!-- Voucher Status Toggle -->
           <div class="form-group">
-            <label class="form-label" for="addProduct">Kategori Tiket / Produk</label>
-            <input class="form-input form-input-lg" type="text" id="addProduct" placeholder="Contoh: Simposium dan Workshop">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <label class="form-label" style="margin-bottom:0;">Tiket Voucher</label>
+              <span class="text-xs text-secondary">Opsional</span>
+            </div>
+            <label class="voucher-toggle-card" for="addVoucherCheck">
+              <div class="voucher-toggle-info">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+                  <span class="badge badge-amber" style="font-weight:800;font-size:10px;">🎫 PERLU VOUCHER</span>
+                  <span class="fw-700 text-sm">Peserta Menggunakan Voucher</span>
+                </div>
+                <div class="text-xs text-secondary">Tandai jika peserta mendaftar menggunakan voucher fisik (wajib diserahkan saat check-in).</div>
+              </div>
+              <input type="checkbox" id="addVoucherCheck" class="ws-choice-checkbox">
+            </label>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="addNote">Catatan Khusus (Note)</label>
-            <input class="form-input form-input-lg" type="text" id="addNote" placeholder="Contoh: voucher, Anggota PAPDI">
+            <input class="form-input form-input-lg" type="text" id="addNote" placeholder="Contoh: Anggota PAPDI, PIC RS Margono">
           </div>
 
           <div id="addDuplicateWarning" style="display:none;"></div>
@@ -509,7 +619,195 @@
 
         <div class="sheet-footer">
           <button type="button" class="btn btn-secondary" id="addSaveBtn" style="flex:1;">Simpan</button>
-          <button type="button" class="btn btn-primary" id="addSaveAbsenBtn" style="flex:1;">Simpan & Absen</button>
+          <button type="button" class="btn btn-primary" id="addSaveAbsenBtn" style="flex:1.2;font-weight:700;">Simpan & Absen Hadir</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Participant Bottom Sheet / Modal -->
+  <div id="editParticipantModal" class="modal-overlay" style="display:none;">
+    <div class="bottom-sheet modal-dialog">
+      <div class="sheet-drag-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <div class="sheet-title">Edit Detail Peserta</div>
+          <div class="text-xs text-secondary" style="margin-top:2px;">Ubah data profil & keikutsertaan workshop</div>
+        </div>
+        <button class="btn-icon-subtle" id="editParticipantClose" aria-label="Tutup">✕</button>
+      </div>
+      <form id="editParticipantForm" class="modal-form">
+        <input type="hidden" id="editParticipantId">
+        <div class="sheet-body form-stack">
+          <div class="form-group">
+            <label class="form-label" for="editName">Nama Lengkap & Gelar <span class="required">*</span></label>
+            <input class="form-input form-input-lg" type="text" id="editName" placeholder="Contoh: dr. Budi Santoso, Sp.PD" required autocomplete="name">
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="editNo">Nomor Urut</label>
+              <input class="form-input form-input-lg" type="number" id="editNo" placeholder="No">
+            </div>
+            <div class="form-group" style="flex:2;">
+              <label class="form-label" for="editPhone">WhatsApp / HP</label>
+              <input class="form-input form-input-lg" type="tel" id="editPhone" placeholder="08xxxxxxxx">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="editInstitution">Instansi / Asal RS</label>
+              <input class="form-input form-input-lg" type="text" id="editInstitution" placeholder="Contoh: RSUD Margono Purwokerto">
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="editEmail">Alamat Email</label>
+              <input class="form-input form-input-lg" type="email" id="editEmail" placeholder="Contoh: dokter@gmail.com">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="editProduct">Kategori Tiket / Paket</label>
+              <input class="form-input form-input-lg" type="text" id="editProduct" placeholder="Contoh: Simposium dan Workshop">
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="editNote">Catatan Khusus (Note)</label>
+              <input class="form-input form-input-lg" type="text" id="editNote" placeholder="Contoh: Anggota PAPDI, VIP">
+            </div>
+          </div>
+
+          <!-- Workshop Selection Cards: Tambah / Ganti Workshop -->
+          <div class="form-group">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <label class="form-label" style="margin-bottom:0;">Keikutsertaan Workshop & Sesi</label>
+              <span class="text-xs text-secondary">Centang untuk tambah / ubah</span>
+            </div>
+            <div class="ws-choice-grid">
+              <!-- Sesi Utama Simposium -->
+              <label class="ws-choice-card ws-card-sympo" for="editSympo">
+                <div class="ws-choice-top">
+                  <span class="ws-choice-badge ws-badge-sympo">SESI UTAMA</span>
+                  <input type="checkbox" id="editSympo" class="ws-choice-checkbox">
+                </div>
+                <div class="ws-choice-name">Simposium (Sesi Utama)</div>
+                <div class="ws-choice-desc">Materi ilmiah & kuliah pleno PIT VIII</div>
+              </label>
+
+              <!-- Workshop A -->
+              <label class="ws-choice-card ws-card-a" for="editWorkshopA">
+                <div class="ws-choice-top">
+                  <span class="ws-choice-badge ws-badge-a">WORKSHOP A</span>
+                  <input type="checkbox" id="editWorkshopA" class="ws-choice-checkbox">
+                </div>
+                <div class="ws-choice-name">Osteoarthritis & IA Injection</div>
+                <div class="ws-choice-desc">Injeksi intraartikular & manajemen OA</div>
+              </label>
+
+              <!-- Workshop B -->
+              <label class="ws-choice-card ws-card-b" for="editWorkshopB">
+                <div class="ws-choice-top">
+                  <span class="ws-choice-badge ws-badge-b">WORKSHOP B</span>
+                  <input type="checkbox" id="editWorkshopB" class="ws-choice-checkbox">
+                </div>
+                <div class="ws-choice-name">Ultrasound in Critical Care</div>
+                <div class="ws-choice-desc">POCUS USG klinis pasien gawat darurat</div>
+              </label>
+
+              <!-- Workshop C -->
+              <label class="ws-choice-card ws-card-c" for="editWorkshopC">
+                <div class="ws-choice-top">
+                  <span class="ws-choice-badge ws-badge-c">WORKSHOP C</span>
+                  <input type="checkbox" id="editWorkshopC" class="ws-choice-checkbox">
+                </div>
+                <div class="ws-choice-name">Echocardiography for Clinicians</div>
+                <div class="ws-choice-desc">Bedside echo praktis klinisi internal</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Voucher Status Toggle -->
+          <div class="form-group">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <label class="form-label" style="margin-bottom:0;">Tiket Voucher</label>
+              <span class="text-xs text-secondary">Status voucher</span>
+            </div>
+            <label class="voucher-toggle-card" for="editVoucherCheck">
+              <div class="voucher-toggle-info">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+                  <span class="badge badge-amber" style="font-weight:800;font-size:10px;">🎫 PERLU VOUCHER</span>
+                  <span class="fw-700 text-sm">Peserta Menggunakan Voucher</span>
+                </div>
+                <div class="text-xs text-secondary">Tandai jika peserta mendaftar menggunakan voucher fisik (wajib diserahkan saat check-in).</div>
+              </div>
+              <input type="checkbox" id="editVoucherCheck" class="ws-choice-checkbox">
+            </label>
+          </div>
+
+          <!-- Danger Zone: Hapus Peserta (Admin / Panitia) -->
+          <div class="danger-zone-box" style="margin-top:var(--sp-2);">
+            <div class="danger-zone-title">Hapus Peserta</div>
+            <div class="danger-zone-desc">Hapus data peserta ini secara permanen dari sistem dan database jika salah input atau data testing.</div>
+            <button type="button" class="btn btn-danger btn-sm" id="editDeleteParticipantBtn" style="width:100%;margin-top:8px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              <span>Hapus Peserta Ini (Permanen)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sheet-footer">
+          <button type="button" class="btn btn-secondary" id="editCancelBtn" style="flex:1;">Batal</button>
+          <button type="button" class="btn btn-primary" id="editSaveBtn" style="flex:2;font-weight:700;">Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Attendance Modal -->
+  <div id="editAttendanceModal" class="modal-overlay" style="display:none;">
+    <div class="bottom-sheet modal-dialog">
+      <div class="sheet-drag-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <div class="sheet-title">Edit / Koreksi Absensi</div>
+          <div class="text-xs text-secondary" style="margin-top:2px;">Koreksi waktu atau batalkan kehadiran</div>
+        </div>
+        <button class="btn-icon-subtle" id="editAttendanceClose" aria-label="Tutup">✕</button>
+      </div>
+      <form id="editAttendanceForm" class="modal-form">
+        <input type="hidden" id="editAttendanceId">
+        <input type="hidden" id="editAttendanceParticipantId">
+        <div class="sheet-body form-stack">
+          <div class="attendance-edit-summary">
+            <div class="text-xs text-tertiary fw-600">PESERTA</div>
+            <div class="text-md fw-700" id="editAttendanceParticipantName">—</div>
+            <div class="text-xs text-secondary" id="editAttendanceParticipantInst">—</div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="editAttendanceDate">Tanggal</label>
+              <input class="form-input form-input-lg" type="date" id="editAttendanceDate" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="editAttendanceTime">Jam (WIB)</label>
+              <input class="form-input form-input-lg" type="text" id="editAttendanceTime" placeholder="Contoh: 08:30" required>
+            </div>
+          </div>
+
+          <div class="danger-zone-box">
+            <div class="danger-zone-title">Salah Klik Absen?</div>
+            <div class="danger-zone-desc">Jika peserta belum hadir tetapi salah terabsen, Anda dapat membatalkan absensi sekarang. Status kehadiran peserta akan kembali menjadi <strong>Belum Hadir</strong>.</div>
+            <button type="button" class="btn btn-danger btn-sm" id="editAttendanceCancelBtn" style="width:100%;margin-top:var(--sp-2);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span>Batalkan Kehadiran (Kembali Belum Hadir)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sheet-footer">
+          <button type="button" class="btn btn-secondary" id="editAttendanceDismissBtn" style="flex:1;">Batal</button>
+          <button type="button" class="btn btn-primary" id="editAttendanceSaveBtn" style="flex:2;">Simpan Koreksi</button>
         </div>
       </form>
     </div>

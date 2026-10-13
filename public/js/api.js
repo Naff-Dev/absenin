@@ -119,9 +119,33 @@ const API = (() => {
     return request('POST', '/participants', data);
   }
 
-  // Attendance
+  async function updateParticipant(id, data) {
+    return request('PUT', `/participants/${id}`, data);
+  }
+
+  async function deleteParticipant(id) {
+    return request('DELETE', `/participants/${id}`);
+  }
+
+  // Attendance (Single unified attendance)
   async function checkIn(participantId, eventId) {
     return request('POST', '/attendance/check-in', { participantId, eventId });
+  }
+
+  async function cancelCheckIn(participantId, date, eventId) {
+    const q = new URLSearchParams();
+    if (date) q.set('date', date);
+    if (eventId) q.set('eventId', eventId);
+    const qs = q.toString() ? `?${q.toString()}` : '';
+    return request('DELETE', `/attendance/participant/${participantId}${qs}`);
+  }
+
+  async function deleteAttendance(attendanceId) {
+    return request('DELETE', `/attendance/${attendanceId}`);
+  }
+
+  async function updateAttendance(attendanceId, data) {
+    return request('PUT', `/attendance/${attendanceId}`, data);
   }
 
   async function getAttendanceToday(eventId, date) {
@@ -181,8 +205,8 @@ const API = (() => {
     getUser, setUser, clearUser,
     login, logout, getMe,
     getEvent,
-    getParticipants, refreshParticipants, getParticipant, addParticipant,
-    checkIn, getAttendanceToday, getAttendanceHistory, getServerTime,
+    getParticipants, refreshParticipants, getParticipant, addParticipant, updateParticipant, deleteParticipant,
+    checkIn, cancelCheckIn, deleteAttendance, updateAttendance, getAttendanceToday, getAttendanceHistory, getServerTime,
     getWorkshops, workshopCheckIn, getWorkshopAttendance,
     getReports, getReportData: getReports,
     exportExcel, downloadReportExcel: exportExcel

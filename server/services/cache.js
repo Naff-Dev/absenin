@@ -43,6 +43,24 @@ function invalidateAttendanceToday(eventId, date) {
   cache.del(`${ATTENDANCE_KEY_PREFIX}${eventId}_${date}`);
 }
 
+function updateParticipantInCache(participant) {
+  const existing = cache.get(CACHE_KEY);
+  if (existing && Array.isArray(existing)) {
+    const idx = existing.findIndex(p => p.ID === participant.ID);
+    if (idx !== -1) {
+      existing[idx] = { ...existing[idx], ...participant };
+      cache.set(CACHE_KEY, existing);
+    }
+  }
+}
+
+function removeParticipantFromCache(participantId) {
+  const existing = cache.get(CACHE_KEY);
+  if (existing && Array.isArray(existing)) {
+    cache.set(CACHE_KEY, existing.filter(p => p.ID !== participantId));
+  }
+}
+
 function clearAll() {
   cache.flushAll();
 }
@@ -52,6 +70,8 @@ module.exports = {
   setParticipants,
   invalidateParticipants,
   addParticipantToCache,
+  updateParticipantInCache,
+  removeParticipantFromCache,
   getAttendanceToday,
   setAttendanceToday,
   invalidateAttendanceToday,

@@ -40,8 +40,8 @@ async function run() {
   await test('Supabase provider implements all unified adapter methods', () => {
     const requiredMethods = [
       'getEvent', 'init', 'initSpreadsheet', 'getParticipants', 'getParticipantById',
-      'addParticipant', 'validateLogin', 'checkIn', 'getAttendanceToday',
-      'getAttendanceHistory', 'getWorkshops', 'workshopCheckIn', 'getWorkshopAttendance',
+      'addParticipant', 'updateParticipant', 'validateLogin', 'checkIn', 'getAttendanceToday',
+      'getAttendanceHistory', 'deleteAttendance', 'updateAttendance', 'getWorkshops', 'workshopCheckIn', 'getWorkshopAttendance',
       'getReportData', 'addLog', 'getAllData', 'importAllData', 'resetData'
     ];
 

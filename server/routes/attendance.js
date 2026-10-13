@@ -153,4 +153,117 @@ router.get('/server-time', authMiddleware, (req, res) => {
   });
 });
 
+// DELETE /api/attendance/participant/:participantId — Batalkan absensi peserta (salah absen)
+router.delete('/participant/:participantId', authMiddleware, async (req, res) => {
+  try {
+    const { participantId } = req.params;
+    const now = getServerDate();
+    const date = req.query.date || formatDate(now);
+    const eventId = req.query.eventId || 'EVT001';
+
+    const result = await appsScript.deleteAttendance(participantId, {
+      byParticipant: true,
+      date,
+      eventId
+    });
+
+    // Invalidate cache
+    cache.invalidateAttendanceToday(eventId, date);
+
+    // Log activity
+    appsScript.addLog({
+      userId: req.user.userId,
+      action: 'CANCEL_CHECK_IN',
+      participantId,
+      description: `Absensi peserta dibatalkan (salah absen) pada tanggal ${date}`
+    });
+
+    res.json({
+      success: true,
+      message: 'Absensi peserta berhasil dibatalkan. Status kembali menjadi Belum Hadir.',
+      data: result
+    });
+  } catch (error) {
+    console.error('[Attendance] Cancel check-in error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Gagal membatalkan absensi peserta.',
+      code: 'SERVER_ERROR'
+    });
+  }
+});
+
+// DELETE /api/attendance/:id — Hapus absensi by attendance_id
+router.delete('/:id', authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const now = getServerDate();
+    const date = req.query.date || formatDate(now);
+    const eventId = req.query.eventId || 'EVT001';
+
+    const result = await appsScript.deleteAttendance(id);
+
+    cache.invalidateAttendanceToday(eventId, date);
+
+    appsScript.addLog({
+      userId: req.user.userId,
+      action: 'DELETE_ATTENDANCE',
+      description: `Record absensi ${id} dihapus`
+    });
+
+    res.json({
+      success: true,
+      message: 'Catatan absensi berhasil dihapus.',
+      data: result
+    });
+  } catch (error) {
+    console.error('[Attendance] Delete attendance error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Gagal menghapus catatan absensi.',
+      code: 'SERVER_ERROR'
+    });
+  }
+});
+
+// PUT /api/attendance/:id — Edit detail record absensi
+router.put('/:id', authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { time, date, status } = req.body;
+    const eventId = req.body.eventId || 'EVT001';
+
+    const updateData = {};
+    if (time !== undefined) updateData.time = time;
+    if (date !== undefined) updateData.date = date;
+    if (status !== undefined) updateData.status = status;
+    updateData.userId = req.user.userId;
+
+    const result = await appsScript.updateAttendance(id, updateData);
+
+    const now = getServerDate();
+    const targetDate = date || formatDate(now);
+    cache.invalidateAttendanceToday(eventId, targetDate);
+
+    appsScript.addLog({
+      userId: req.user.userId,
+      action: 'EDIT_ATTENDANCE',
+      description: `Record absensi ${id} diubah: ${time || ''} ${date || ''}`
+    });
+
+    res.json({
+      success: true,
+      message: 'Data absensi berhasil diperbarui.',
+      data: result.data || result
+    });
+  } catch (error) {
+    console.error('[Attendance] Update attendance error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Gagal memperbarui catatan absensi.',
+      code: 'SERVER_ERROR'
+    });
+  }
+});
+
 module.exports = router;

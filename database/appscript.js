@@ -197,6 +197,42 @@ async function importAllData(data = {}) {
   return { success: true };
 }
 
+async function updateParticipant(id, data) {
+  if (isConfigured()) {
+    try {
+      return await callAppsScript('updateParticipant', { id, ...data });
+    } catch (_) {}
+  }
+  return jsonProvider.updateParticipant(id, data);
+}
+
+async function deleteAttendance(identifier, options = {}) {
+  if (isConfigured()) {
+    try {
+      return await callAppsScript('deleteAttendance', { identifier, ...options });
+    } catch (_) {}
+  }
+  return jsonProvider.deleteAttendance(identifier, options);
+}
+
+async function updateAttendance(attendanceId, data) {
+  if (isConfigured()) {
+    try {
+      return await callAppsScript('updateAttendance', { attendanceId, ...data });
+    } catch (_) {}
+  }
+  return jsonProvider.updateAttendance(attendanceId, data);
+}
+
+async function deleteParticipant(id) {
+  if (isConfigured()) {
+    try {
+      return await callAppsScript('deleteParticipant', { id });
+    } catch (_) {}
+  }
+  return jsonProvider.deleteParticipant(id);
+}
+
 module.exports = {
   providerName: 'appscript',
   isConfigured,
@@ -206,9 +242,13 @@ module.exports = {
   getParticipants,
   getParticipantById,
   addParticipant,
+  updateParticipant,
+  deleteParticipant,
   checkIn,
   getAttendanceToday,
   getAttendanceHistory,
+  deleteAttendance,
+  updateAttendance,
   getWorkshops,
   workshopCheckIn,
   getWorkshopAttendance,
