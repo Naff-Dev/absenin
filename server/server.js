@@ -19,8 +19,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Static files
-app.use(express.static(path.join(__dirname, '..', 'public')));
+// Static files (with anti-stale cache-control)
+app.use(express.static(path.join(__dirname, '..', 'public'), {
+  etag: true,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    } else {
+      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+    }
+  }
+}));
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -36,9 +45,10 @@ app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'Absenin API is running', timestamp: new Date().toISOString() });
 });
 
-// SPA fallback — serve index.html for all non-API routes
+// SPA fallback — serve index.html for all non-API routes (never cache index.html)
 app.use((req, res, next) => {
   if (req.method === 'GET' && !req.path.startsWith('/api')) {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     return res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
   }
   next();
