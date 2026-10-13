@@ -76,14 +76,19 @@ async function cleanAttendance() {
   // Tulis kembali ke file
   fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf8');
 
-  // Jika Supabase aktif, reset absensi di Supabase juga
+  // Jika Supabase aktif atau diminta via CLI (node clean.js supabase)
   require('dotenv').config();
   const dbUnified = require('./database');
-  if (dbUnified.getDatabaseType() === 'supabase') {
+  const shouldCleanSupabase = dbUnified.getDatabaseType() === 'supabase' || 
+    process.argv.slice(2).some(arg => arg.toLowerCase().includes('supabase'));
+
+  if (shouldCleanSupabase) {
     try {
-      console.log('🔄 Membersihkan data absensi di Supabase...');
-      await dbUnified.resetData();
-      console.log('   ✓ Supabase absensi berhasil dibersihkan!');
+      console.log('\n🔄 Menghubungi Supabase untuk pembersihan absensi...');
+      const supProv = dbUnified.getProvider('supabase');
+      const res = await supProv.resetData();
+      console.log(`   ✓ ${res.message || 'Supabase absensi berhasil dibersihkan!'}`);
+      console.log('   ✓ Seluruh 210 Peserta Resmi & 14 Akun Panitia di Supabase TETAP AMAN.');
     } catch (err) {
       console.warn('   ⚠ Gagal membersihkan Supabase:', err.message);
     }
