@@ -11,7 +11,7 @@ let supabaseClient = null;
 
 function isConfigured() {
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
   return Boolean(url && key && !url.includes('YOUR_SUPABASE'));
 }
 
@@ -19,10 +19,10 @@ function getClient() {
   if (supabaseClient) return supabaseClient;
 
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
 
   if (!url || !key) {
-    throw new Error('Konfigurasi Supabase tidak lengkap. Harap isi SUPABASE_URL dan SUPABASE_ANON_KEY di file .env');
+    throw new Error('Konfigurasi Supabase tidak lengkap. Harap isi SUPABASE_URL dan SUPABASE_ANON_KEY (atau SUPABASE_SERVICE_ROLE_KEY) di file .env');
   }
 
   supabaseClient = createClient(url, key, {
@@ -89,7 +89,8 @@ function participantToRow(p) {
 
 function mapAttendance(row) {
   if (!row) return null;
-  const p = row.participants || row.participant || {};
+  const rawP = row.participants || row.participant || {};
+  const p = Array.isArray(rawP) ? (rawP[0] || {}) : rawP;
   return {
     ATTENDANCE_ID: row.attendance_id || row.ATTENDANCE_ID,
     EVENT_ID: row.event_id || row.EVENT_ID,
@@ -387,13 +388,31 @@ async function checkIn(data) {
 
 async function getAttendanceToday(eventId, date) {
   const supabase = getClient();
-  const { data, error } = await supabase
-    .from('attendance')
-    .select('*, participants(name, institution, phone, note)')
-    .eq('event_id', eventId)
-    .eq('date', date);
+  let data, error;
+  try {
+    const res = await supabase
+      .from('attendance')
+      .select('*, participants(name, institution, phone, note)')
+      .eq('event_id', eventId)
+      .eq('date', date);
+    data = res.data;
+    error = res.error;
+  } catch (err) {
+    error = err;
+  }
 
-  if (error) throw new Error(error.message);
+  if (error || !data) {
+    const res = await supabase.from('attendance').select('*').eq('event_id', eventId).eq('date', date);
+    if (res.error) throw new Error(res.error.message);
+    const { data: pList } = await supabase.from('participants').select('id, name, institution, phone, note');
+    const pMap = new Map((pList || []).map(p => [p.id, p]));
+    const mapped = (res.data || []).map(a => {
+      const p = pMap.get(a.participant_id) || {};
+      return mapAttendance({ ...a, participants: p });
+    });
+    return { success: true, data: mapped };
+  }
+
   return { success: true, data: (data || []).map(mapAttendance) };
 }
 
@@ -410,7 +429,27 @@ async function getAttendanceHistory(params = {}) {
   query = query.order('date', { ascending: false }).order('time', { ascending: false });
 
   const { data, error } = await query;
-  if (error) throw new Error(error.message);
+  if (error) {
+    let fallbackQuery = supabase.from('attendance').select('*');
+    if (params.eventId) fallbackQuery = fallbackQuery.eq('event_id', params.eventId);
+    if (params.date) fallbackQuery = fallbackQuery.eq('date', params.date);
+    if (params.startDate) fallbackQuery = fallbackQuery.gte('date', params.startDate);
+    if (params.endDate) fallbackQuery = fallbackQuery.lte('date', params.endDate);
+    if (params.participantId) fallbackQuery = fallbackQuery.eq('participant_id', params.participantId);
+    fallbackQuery = fallbackQuery.order('date', { ascending: false }).order('time', { ascending: false });
+
+    const fallbackRes = await fallbackQuery;
+    if (fallbackRes.error) throw new Error(fallbackRes.error.message);
+
+    const { data: pList } = await supabase.from('participants').select('id, name, institution, phone, note');
+    const pMap = new Map((pList || []).map(p => [p.id, p]));
+    const mapped = (fallbackRes.data || []).map(a => {
+      const p = pMap.get(a.participant_id) || {};
+      return mapAttendance({ ...a, participants: p });
+    });
+    return { success: true, data: mapped };
+  }
+
   return { success: true, data: (data || []).map(mapAttendance) };
 }
 
@@ -656,8 +695,15 @@ async function importAllData(data = {}) {
 
   if (Array.isArray(data.participants) && data.participants.length > 0) {
     const rows = data.participants.map(participantToRow);
-    const { error } = await supabase.from('participants').upsert(rows, { onConflict: 'id' });
-    if (error) console.error('[Supabase Import] Error upserting participants:', error.message);
+    const chunkSize = 50;
+    for (let i = 0; i < rows.length; i += chunkSize) {
+      const chunk = rows.slice(i, i + chunkSize);
+      const { error } = await supabase.from('participants').upsert(chunk, { onConflict: 'id' });
+      if (error) {
+        console.error(`[Supabase Import] Error upserting participants chunk ${i}-${i + chunk.length}:`, error.message);
+        throw new Error(`Gagal import peserta ke Supabase: ${error.message}`);
+      }
+    }
   }
 
   if (Array.isArray(data.attendance) && data.attendance.length > 0) {
@@ -686,7 +732,42 @@ async function importAllData(data = {}) {
     await supabase.from('workshop_attendance').upsert(rows, { onConflict: 'id' });
   }
 
+  if (Array.isArray(data.logs) && data.logs.length > 0) {
+    const rows = data.logs.map(l => ({
+      log_id: l.LOG_ID || l.logId,
+      timestamp: l.TIMESTAMP || l.timestamp,
+      user_id: l.USER_ID || l.userId || '',
+      action: l.ACTION || l.action || '',
+      participant_id: l.PARTICIPANT_ID || l.participantId || '',
+      description: l.DESCRIPTION || l.description || ''
+    }));
+    await supabase.from('logs').upsert(rows, { onConflict: 'log_id' });
+  }
+
   return { success: true };
+}
+
+/**
+ * Reset all attendance records and logs, keeping official participants and panitia
+ */
+async function resetData() {
+  const supabase = getClient();
+  const resAtt = await supabase.from('attendance').delete().neq('attendance_id', '');
+  if (resAtt.error) console.error('[Supabase Reset] Attendance error:', resAtt.error.message);
+
+  const resWa = await supabase.from('workshop_attendance').delete().neq('id', '');
+  if (resWa.error) console.error('[Supabase Reset] Workshop attendance error:', resWa.error.message);
+
+  const resLogs = await supabase.from('logs').delete().neq('log_id', '');
+  if (resLogs.error) console.error('[Supabase Reset] Logs error:', resLogs.error.message);
+
+  await addLog({
+    userId: 'SYSTEM',
+    action: 'RESET_DATA',
+    description: 'Data absensi dan log di Supabase dibersihkan (fresh state).'
+  });
+
+  return { success: true, message: 'Data absensi Supabase berhasil direset ke fresh state.' };
 }
 
 module.exports = {
@@ -708,5 +789,6 @@ module.exports = {
   getReportData,
   addLog,
   getAllData,
-  importAllData
+  importAllData,
+  resetData
 };

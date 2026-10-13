@@ -14,7 +14,7 @@ const path = require('path');
 
 const DB_PATH = path.resolve(__dirname, 'data/db.json');
 
-function cleanAttendance() {
+async function cleanAttendance() {
   console.log('\n' + '='.repeat(65));
   console.log('🧹 BERSIHKAN ABSENSI (RESET DATABASE KE FRESH STATE)');
   console.log('='.repeat(65) + '\n');
@@ -76,6 +76,19 @@ function cleanAttendance() {
   // Tulis kembali ke file
   fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf8');
 
+  // Jika Supabase aktif, reset absensi di Supabase juga
+  require('dotenv').config();
+  const dbUnified = require('./database');
+  if (dbUnified.getDatabaseType() === 'supabase') {
+    try {
+      console.log('🔄 Membersihkan data absensi di Supabase...');
+      await dbUnified.resetData();
+      console.log('   ✓ Supabase absensi berhasil dibersihkan!');
+    } catch (err) {
+      console.warn('   ⚠ Gagal membersihkan Supabase:', err.message);
+    }
+  }
+
   console.log('\n' + '-'.repeat(65));
   console.log('✅ Pembersihan Berhasil Dilakukan:');
   console.log(`   - Total Peserta Resmi     : ${db.participants.length} orang (P001 - P210) [AMAN]`);
@@ -87,4 +100,7 @@ function cleanAttendance() {
   console.log('='.repeat(65) + '\n');
 }
 
-cleanAttendance();
+cleanAttendance().catch(err => {
+  console.error('Error in cleanAttendance:', err.message);
+});
+

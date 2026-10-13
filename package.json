@@ -9,7 +9,8 @@
     "dev:lan": "node scripts/dev.js 2",
     "dev:tunnel": "node scripts/dev.js 3",
     "clean": "node clean.js",
-    "test": "node test/acceptance.test.js"
+    "test": "node test/acceptance.test.js",
+    "migrate:supabase": "node scripts/migrate-to-supabase.js"
   },
   "keywords": [],
   "author": "",
