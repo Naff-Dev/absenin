@@ -151,6 +151,7 @@ const API = (() => {
   async function getAttendanceToday(eventId, date) {
     let q = `?eventId=${eventId || 'EVT001'}`;
     if (date) q += `&date=${date}`;
+    q += `&_t=${Date.now()}`;
     return request('GET', `/attendance/today${q}`);
   }
 
@@ -200,6 +201,14 @@ const API = (() => {
     URL.revokeObjectURL(url);
   }
 
+  async function cleanDatabase() {
+    return request('POST', '/database/clean');
+  }
+
+  async function syncDatabase(source, target) {
+    return request('POST', '/database/sync', { source, target });
+  }
+
   return {
     getToken, setToken, clearToken,
     getUser, setUser, clearUser,
@@ -209,6 +218,7 @@ const API = (() => {
     checkIn, cancelCheckIn, deleteAttendance, updateAttendance, getAttendanceToday, getAttendanceHistory, getServerTime,
     getWorkshops, workshopCheckIn, getWorkshopAttendance,
     getReports, getReportData: getReports,
-    exportExcel, downloadReportExcel: exportExcel
+    exportExcel, downloadReportExcel: exportExcel,
+    cleanDatabase, syncDatabase
   };
 })();

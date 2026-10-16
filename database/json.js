@@ -285,29 +285,38 @@ function createDefaultDb() {
   };
 }
 
-/**
- * Read DB from disk into memory cache
- */
-function readDb() {
-  if (dbCache) return dbCache;
+let lastDbMtime = 0;
 
+/**
+ * Read DB from disk into memory cache (reloads if file modified on disk)
+ */
+function readDb(forceReload = false) {
   const dbPath = getDbPath();
   if (!fs.existsSync(dbPath)) {
     const defaultData = createDefaultDb();
     saveDb(defaultData);
     dbCache = defaultData;
+    lastDbMtime = Date.now();
     return dbCache;
   }
 
   try {
+    const stat = fs.statSync(dbPath);
+    if (!forceReload && dbCache && stat.mtimeMs <= lastDbMtime) {
+      return dbCache;
+    }
+
     const raw = fs.readFileSync(dbPath, 'utf8');
     dbCache = JSON.parse(raw);
+    lastDbMtime = stat.mtimeMs;
     return dbCache;
   } catch (err) {
     console.error('[JSON DB] Gagal membaca file JSON:', err.message);
+    if (dbCache) return dbCache;
     const defaultData = createDefaultDb();
     saveDb(defaultData);
     dbCache = defaultData;
+    lastDbMtime = Date.now();
     return dbCache;
   }
 }
@@ -327,6 +336,11 @@ function saveDb(data) {
   const tempPath = `${dbPath}.tmp`;
   fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf8');
   fs.renameSync(tempPath, dbPath);
+  try {
+    lastDbMtime = fs.statSync(dbPath).mtimeMs;
+  } catch (_) {
+    lastDbMtime = Date.now();
+  }
 }
 
 // --- Provider Methods ---
@@ -889,6 +903,39 @@ async function importAllData(data = {}, options = { merge: false }) {
   return { success: true, count: { participants: db.participants.length, attendance: db.attendance.length } };
 }
 
+async function cleanAttendanceData() {
+  const db = readDb(true);
+
+  const prevAttCount = (db.attendance || []).length;
+  const prevWsCount = (db.workshopAttendance || []).length;
+
+  db.attendance = [];
+  db.workshopAttendance = [];
+
+  // Keep official participants (P001 - P260) safe, strip dummy test participants
+  if (Array.isArray(db.participants)) {
+    db.participants = db.participants.filter(p => {
+      if (!p || !p.ID) return false;
+      const numMatch = p.ID.match(/^P(\d+)$/);
+      if (numMatch) {
+        const num = parseInt(numMatch[1], 10);
+        return num >= 1 && num <= 260;
+      }
+      return true;
+    });
+  }
+
+  saveDb(db);
+
+  return {
+    success: true,
+    message: 'Data absensi berhasil dibersihkan.',
+    cleanedAttendanceCount: prevAttCount,
+    cleanedWorkshopCount: prevWsCount,
+    participantsCount: db.participants.length
+  };
+}
+
 function resetData() {
   const defaultData = createDefaultDb();
   saveDb(defaultData);
@@ -917,5 +964,6 @@ module.exports = {
   addLog,
   getAllData,
   importAllData,
-  resetData
+  resetData,
+  cleanAttendanceData
 };

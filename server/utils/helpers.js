@@ -6,26 +6,22 @@
 const TIMEZONE = 'Asia/Jakarta';
 
 function getServerDate() {
-  const now = new Date();
-  const jakartaDate = new Date(now.toLocaleString('en-US', { timeZone: TIMEZONE }));
-  return jakartaDate;
+  return new Date();
 }
 
 function formatDate(date) {
-  if (typeof date === 'string') date = new Date(date);
-  const d = new Date(date.toLocaleString('en-US', { timeZone: TIMEZONE }));
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  const d = date ? (typeof date === 'string' || typeof date === 'number' ? new Date(date) : date) : new Date();
+  return new Intl.DateTimeFormat('en-CA', { timeZone: TIMEZONE }).format(d);
 }
 
 function formatTime(date) {
-  if (typeof date === 'string') date = new Date(date);
-  const d = new Date(date.toLocaleString('en-US', { timeZone: TIMEZONE }));
-  const hours = String(d.getHours()).padStart(2, '0');
-  const minutes = String(d.getMinutes()).padStart(2, '0');
-  return `${hours}:${minutes}`;
+  const d = date ? (typeof date === 'string' || typeof date === 'number' ? new Date(date) : date) : new Date();
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: TIMEZONE,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }).format(d);
 }
 
 function formatDateIndonesian(dateStr) {

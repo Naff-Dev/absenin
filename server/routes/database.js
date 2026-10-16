@@ -39,8 +39,65 @@ router.get('/status', (req, res) => {
   });
 });
 
-// POST /api/database/sync
-router.post('/sync', authMiddleware, async (req, res) => {
+// Helper: Cek apakah user adalah Super Admin
+function requireAdmin(req, res, next) {
+  const isAdmin = req.user && (
+    req.user.username === 'admin' ||
+    (req.user.name && req.user.name.toLowerCase().includes('admin'))
+  );
+
+  if (!isAdmin) {
+    return res.status(403).json({
+      success: false,
+      message: 'Akses ditolak. Fitur ini hanya dapat diakses oleh Super Admin.',
+      code: 'FORBIDDEN'
+    });
+  }
+  next();
+}
+
+// POST /api/database/clean — Bersihkan seluruh data absensi (Super Admin Only)
+router.post('/clean', authMiddleware, requireAdmin, async (req, res) => {
+  try {
+    const result = await db.cleanAttendanceData();
+
+    // Flush cache
+    const cache = require('../services/cache');
+    cache.clearAll();
+
+    // Log admin action
+    db.addLog({
+      userId: req.user.userId,
+      action: 'CLEAN_DATABASE',
+      description: `Seluruh data absensi dibersihkan oleh Super Admin (${req.user.name})`
+    });
+
+    // Broadcast realtime event ke seluruh screen yang terhubung
+    const attendanceRoute = require('./attendance');
+    if (typeof attendanceRoute.broadcastRealtime === 'function') {
+      attendanceRoute.broadcastRealtime({
+        type: 'database_cleaned',
+        cleanedBy: req.user.name
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Database absensi berhasil dibersihkan! Status absensi kembali ke awal (0 kehadiran). Seluruh data peserta tetap aman.',
+      data: result
+    });
+  } catch (error) {
+    console.error('[Clean DB Error]', error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Gagal membersihkan database.',
+      code: 'CLEAN_ERROR'
+    });
+  }
+});
+
+// POST /api/database/sync — Trigger sinkronisasi antar database (Super Admin Only)
+router.post('/sync', authMiddleware, requireAdmin, async (req, res) => {
   try {
     const { source, target, merge } = req.body;
 

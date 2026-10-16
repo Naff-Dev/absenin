@@ -86,12 +86,16 @@
   }
 
   function todayStr() {
-    const now = new Date();
-    const wib = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
-    const y = wib.getFullYear();
-    const m = String(wib.getMonth() + 1).padStart(2, '0');
-    const d = String(wib.getDate()).padStart(2, '0');
-    return `${y}-${m}-${d}`;
+    try {
+      return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jakarta' }).format(new Date());
+    } catch (_) {
+      const now = new Date();
+      const wib = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+      const y = wib.getFullYear();
+      const m = String(wib.getMonth() + 1).padStart(2, '0');
+      const d = String(wib.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
   }
 
   function formatTimeWib(timeVal) {
@@ -428,6 +432,8 @@
 
     await loadInitialData();
     navigate('dashboard');
+    updateRoleVisibility();
+    initRealtime();
   }
 
   async function loadInitialData() {
@@ -493,6 +499,21 @@
 
     $('#sidebarLogout').addEventListener('click', handleLogout);
     $('#mobileLogoutBtn').addEventListener('click', handleLogout);
+
+    // Sidebar User Click (Desktop) to open Profile Sheet
+    const sidebarUserBlock = $('#sidebarUserBlock');
+    if (sidebarUserBlock) {
+      sidebarUserBlock.addEventListener('click', (e) => {
+        if (e.target.closest('#sidebarLogout')) return;
+        $('#userProfileSheet').style.display = 'flex';
+      });
+    }
+
+    // Clean Database buttons (Dashboard Topbar & User Sheet)
+    ['#dashboardCleanDbBtn', '#sheetCleanDbBtn'].forEach(sel => {
+      const btn = $(sel);
+      if (btn) btn.addEventListener('click', handleCleanDatabase);
+    });
 
     $('#sheetSyncBtn').addEventListener('click', async () => {
       $('#userProfileSheet').style.display = 'none';
@@ -693,6 +714,7 @@
 
   async function handleLogout() {
     if (confirm('Yakin ingin keluar dari akun?')) {
+      stopRealtime();
       await API.logout();
       participants = [];
       attendanceToday = [];
@@ -717,6 +739,250 @@
     }
   }
 
+  // === ROLE & ADMIN PERMISSION MANAGEMENT ===
+  function isUserAdmin() {
+    const user = API.getUser();
+    return Boolean(user && (user.username === 'admin' || (user.name && user.name.toLowerCase().includes('admin'))));
+  }
+
+  function updateRoleVisibility() {
+    const isAdmin = isUserAdmin();
+
+    // Sembunyikan atau tampilkan elemen .admin-only
+    $$('.admin-only').forEach(el => {
+      el.style.display = isAdmin ? '' : 'none';
+    });
+
+    const roleText = isAdmin ? 'Super Admin' : 'Operator Absensi';
+    const roleBadge = $('#sidebarUserRole');
+    if (roleBadge) roleBadge.textContent = roleText;
+
+    const sheetBadge = $('#sheetUserRole');
+    if (sheetBadge) sheetBadge.textContent = roleText;
+  }
+
+  // Bersihkan Database Absensi (Super Admin Only)
+  async function handleCleanDatabase() {
+    if (!isUserAdmin()) {
+      toast('Fitur pembersihan database hanya dapat diakses oleh Super Admin.', 'error');
+      return;
+    }
+
+    let confirmed = false;
+    if (window.Swal) {
+      const res = await Swal.fire({
+        icon: 'warning',
+        title: 'Bersihkan Database Absensi?',
+        html: `
+          <div style="text-align:left;font-size:13px;color:var(--c-text-secondary);line-height:1.6;">
+            <p style="margin:0 0 8px;">Tindakan ini akan <b>mengosongkan seluruh riwayat kehadiran</b> kembali ke status awal (0 Kehadiran):</p>
+            <div style="background:var(--c-surface-subtle);border:1px solid var(--c-border);border-radius:var(--r-md);padding:10px 12px;margin-bottom:10px;">
+              <div style="color:var(--c-success);font-weight:700;margin-bottom:4px;">✓ AMAN: Seluruh 252 data peserta resmi tetap utuh.</div>
+              <div style="color:var(--c-success);font-weight:700;margin-bottom:4px;">✓ AMAN: Seluruh akun panitia tetap utuh.</div>
+              <div style="color:var(--c-error);font-weight:700;">⚠ DIRESET: Catatan absensi hari ini akan dikosongkan (0).</div>
+            </div>
+            <p style="margin:0;font-size:12px;color:var(--c-text-tertiary);">Gunakan fitur ini untuk mereset data uji coba sebelum hari-H acara dimulai.</p>
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Bersihkan Database',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#DC2626',
+        cancelButtonColor: '#64748B',
+        reverseButtons: true
+      });
+      confirmed = res.isConfirmed;
+    } else {
+      confirmed = window.confirm('Yakin ingin membersihkan seluruh data absensi? Data 252 peserta tetap aman, seluruh absensi kembali ke 0.');
+    }
+
+    if (!confirmed) return;
+
+    try {
+      toast('Sedang membersihkan database absensi...', 'info');
+      const result = await API.cleanDatabase();
+
+      attendanceToday = [];
+      lastAttendanceFingerprint = '0';
+      updateDashboardStats(true);
+
+      if (currentPage === 'dashboard') {
+        loadDashboard(true);
+      } else if (currentPage === 'attendance') {
+        handleAttendanceSearch();
+      } else if (currentPage === 'history') {
+        loadHistory();
+      }
+
+      if (window.Swal) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Database Bersih!',
+          text: result.message || 'Database absensi berhasil dibersihkan kembali ke status awal.',
+          confirmButtonColor: '#0F172A',
+          timer: 2600
+        });
+      } else {
+        toast('Database absensi berhasil dibersihkan.', 'success');
+      }
+
+      const sheet = $('#userProfileSheet');
+      if (sheet) sheet.style.display = 'none';
+    } catch (err) {
+      toast(err.message || 'Gagal membersihkan database.', 'error');
+    }
+  }
+
+  // === REAL-TIME ENGINE (SSE + RESILIENT SMART POLLING) ===
+  let sseSource = null;
+  let realtimePollTimer = null;
+  let isSyncing = false;
+  let lastAttendanceFingerprint = '';
+
+  function setRealtimeBadge(status, text) {
+    const badge = $('#realtimeStatusBadge');
+    const textEl = $('#realtimeStatusText');
+    if (!badge || !textEl) return;
+
+    badge.classList.remove('syncing', 'offline');
+    if (status === 'syncing') badge.classList.add('syncing');
+    if (status === 'offline') badge.classList.add('offline');
+    textEl.textContent = text;
+  }
+
+  function getAttendanceFingerprint(attList) {
+    if (!Array.isArray(attList)) return '0';
+    return `${attList.length}_${attList.map(a => a.PARTICIPANT_ID || a.ID || a.ATTENDANCE_ID).sort().slice(-6).join(',')}`;
+  }
+
+  async function silentSyncAttendance(source = 'poll') {
+    if (isSyncing) return;
+    const token = API.getToken();
+    if (!token) return;
+
+    isSyncing = true;
+    try {
+      const today = todayStr();
+      const res = await API.getAttendanceToday('EVT001', today);
+      const newAttendance = res.data || [];
+      const newFingerprint = getAttendanceFingerprint(newAttendance);
+
+      if (newFingerprint !== lastAttendanceFingerprint) {
+        const countChanged = newAttendance.length !== attendanceToday.length;
+        attendanceToday = newAttendance;
+        lastAttendanceFingerprint = newFingerprint;
+
+        updateDashboardStats(countChanged);
+
+        if (currentPage === 'dashboard') {
+          renderDashboardActivity();
+          if (countChanged) {
+            try {
+              const histResult = await API.getAttendanceHistory({ eventId: 'EVT001' });
+              renderDailyAttendanceChart(histResult.data || []);
+            } catch (_) {}
+          }
+        } else if (currentPage === 'attendance') {
+          handleAttendanceSearch();
+        } else if (currentPage === 'history') {
+          loadHistory();
+        }
+      }
+
+      setRealtimeBadge('online', 'Live Realtime');
+    } catch (err) {
+      setRealtimeBadge('offline', 'Reconnecting...');
+    } finally {
+      isSyncing = false;
+    }
+  }
+
+  function initRealtime() {
+    connectSSE();
+    startRealtimePolling();
+
+    // Tab visibility and focus listener
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        silentSyncAttendance('visibility');
+      }
+    });
+
+    window.addEventListener('focus', () => {
+      silentSyncAttendance('focus');
+    });
+  }
+
+  function connectSSE() {
+    const token = API.getToken();
+    if (!token) return;
+
+    if (sseSource) {
+      try { sseSource.close(); } catch (_) {}
+      sseSource = null;
+    }
+
+    try {
+      sseSource = new EventSource(`/api/attendance/stream?token=${encodeURIComponent(token)}`);
+
+      sseSource.onopen = () => {
+        setRealtimeBadge('online', 'Live Realtime');
+      };
+
+      sseSource.onmessage = (event) => {
+        try {
+          const payload = JSON.parse(event.data);
+          if (payload.type === 'connected') {
+            setRealtimeBadge('online', 'Live Realtime');
+          } else if (payload.type === 'database_cleaned') {
+            attendanceToday = [];
+            lastAttendanceFingerprint = '0';
+            updateDashboardStats(true);
+            if (currentPage === 'dashboard') loadDashboard(true);
+            if (currentPage === 'attendance') handleAttendanceSearch();
+            if (currentPage === 'history') loadHistory();
+            toast('Database absensi telah dibersihkan oleh Super Admin.', 'info');
+          } else if (
+            payload.type === 'check_in' ||
+            payload.type === 'cancel_check_in' ||
+            payload.type === 'delete_attendance' ||
+            payload.type === 'update_attendance'
+          ) {
+            setRealtimeBadge('syncing', 'Update...');
+            silentSyncAttendance('sse');
+            setTimeout(() => setRealtimeBadge('online', 'Live Realtime'), 1200);
+          }
+        } catch (_) {}
+      };
+
+      sseSource.onerror = () => {
+        setRealtimeBadge('syncing', 'Menyambung...');
+      };
+    } catch (err) {
+      console.warn('[Realtime] SSE fallback to polling:', err.message);
+    }
+  }
+
+  function startRealtimePolling() {
+    if (realtimePollTimer) clearInterval(realtimePollTimer);
+
+    // Smart fast polling (every 3.5 seconds) ensuring realtime freshness
+    realtimePollTimer = setInterval(() => {
+      silentSyncAttendance('interval');
+    }, 3500);
+  }
+
+  function stopRealtime() {
+    if (realtimePollTimer) {
+      clearInterval(realtimePollTimer);
+      realtimePollTimer = null;
+    }
+    if (sseSource) {
+      try { sseSource.close(); } catch (_) {}
+      sseSource = null;
+    }
+  }
+
   // === DASHBOARD & DAILY ATTENDANCE GRAPH ===
   async function loadDashboard(forceRefresh = false) {
     const date = todayStr();
@@ -731,6 +997,7 @@
 
       const attResult = await API.getAttendanceToday('EVT001', date);
       attendanceToday = attResult.data || [];
+      lastAttendanceFingerprint = getAttendanceFingerprint(attendanceToday);
 
       updateDashboardStats();
 
@@ -744,62 +1011,70 @@
       // Render Grafik Kehadiran Tiap Hari
       renderDailyAttendanceChart(allHistory);
 
-      // Aktivitas Terbaru (Maksimal 10 saja, sisanya ada tombol lihat riwayat)
-      const recentAtt = [...attendanceToday]
-        .sort((a, b) => (b.TIME || '').localeCompare(a.TIME || ''))
-        .slice(0, 10);
-
-      if (recentAtt.length === 0) {
-        $('#dashboardActivity').innerHTML = `
-          <div class="empty-state-card" style="box-shadow:none;border:none;padding:var(--sp-8) var(--sp-4);">
-            <div class="empty-state-title" style="font-size:14px;">Belum Ada Kehadiran Hari Ini</div>
-            <div class="empty-state-desc" style="font-size:12px;margin-bottom:0;">Data absensi yang tercatat akan langsung muncul di sini secara real-time.</div>
-          </div>
-        `;
-      } else {
-        let html = '';
-        recentAtt.forEach(att => {
-          let p = participants.find(item => item.ID === att.PARTICIPANT_ID);
-          const name = (p && p.NAME)
-            ? escapeHtml(p.NAME)
-            : (att.PARTICIPANT_NAME ? escapeHtml(att.PARTICIPANT_NAME) : escapeHtml(att.PARTICIPANT_ID));
-          const institution = (p && p.INSTITUTION)
-            ? escapeHtml(p.INSTITUTION)
-            : (att.INSTITUTION ? escapeHtml(att.INSTITUTION) : 'Peserta PIT VIII PAPDI');
-          const timeDisplay = formatTimeWib(att.TIME);
-          const wsList = p ? getEnrolledWorkshops(p) : [];
-          const wsBadge = wsList.length > 0 
-            ? `<span class="badge badge-info" style="font-size:10px;font-weight:600;">${escapeHtml(wsList.map(w => w.name).join(' · '))}</span>`
-            : '';
-
-          html += `
-            <div class="activity-item">
-              <div class="activity-time">${escapeHtml(timeDisplay)}</div>
-              <div class="activity-content">
-                <div class="activity-name">${name}</div>
-                <div class="activity-desc">${institution} ${wsBadge}</div>
-              </div>
-              <span class="badge badge-success">✓ Hadir</span>
-            </div>
-          `;
-        });
-
-        // Link ke riwayat penuh jika ada aktivitas
-        html += `
-          <div style="padding: 10px 14px; text-align: center; border-top: 1px solid var(--c-border); background: var(--c-surface-subtle);">
-            <button class="btn btn-ghost btn-sm" onclick="App.navigate('history')" style="width:100%;font-weight:700;color:var(--c-accent);display:flex;align-items:center;justify-content:center;gap:6px;">
-              <span>Lihat Seluruh Riwayat Kehadiran (${attendanceToday.length} Data)</span>
-              <span>→</span>
-            </button>
-          </div>
-        `;
-
-        $('#dashboardActivity').innerHTML = html;
-      }
+      // Render Aktivitas Terbaru
+      renderDashboardActivity();
     } catch (error) {
       console.error('Error dashboard:', error.message);
       toast('Gagal memuat dashboard.', 'error');
     }
+  }
+
+  // Render Aktivitas Terbaru Real-Time
+  function renderDashboardActivity() {
+    const activityContainer = $('#dashboardActivity');
+    if (!activityContainer) return;
+
+    const recentAtt = [...attendanceToday]
+      .sort((a, b) => (b.TIME || '').localeCompare(a.TIME || ''))
+      .slice(0, 10);
+
+    if (recentAtt.length === 0) {
+      activityContainer.innerHTML = `
+        <div class="empty-state-card" style="box-shadow:none;border:none;padding:var(--sp-8) var(--sp-4);">
+          <div class="empty-state-title" style="font-size:14px;">Belum Ada Kehadiran Hari Ini</div>
+          <div class="empty-state-desc" style="font-size:12px;margin-bottom:0;">Data absensi yang tercatat akan langsung muncul di sini secara real-time.</div>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '';
+    recentAtt.forEach(att => {
+      let p = participants.find(item => item.ID === att.PARTICIPANT_ID);
+      const name = (p && p.NAME)
+        ? escapeHtml(p.NAME)
+        : (att.PARTICIPANT_NAME ? escapeHtml(att.PARTICIPANT_NAME) : escapeHtml(att.PARTICIPANT_ID));
+      const institution = (p && p.INSTITUTION)
+        ? escapeHtml(p.INSTITUTION)
+        : (att.INSTITUTION ? escapeHtml(att.INSTITUTION) : 'Peserta PIT VIII PAPDI');
+      const timeDisplay = formatTimeWib(att.TIME);
+      const wsList = p ? getEnrolledWorkshops(p) : [];
+      const wsBadge = wsList.length > 0 
+        ? `<span class="badge badge-info" style="font-size:10px;font-weight:600;">${escapeHtml(wsList.map(w => w.name).join(' · '))}</span>`
+        : '';
+
+      html += `
+        <div class="activity-item">
+          <div class="activity-time">${escapeHtml(timeDisplay)}</div>
+          <div class="activity-content">
+            <div class="activity-name">${name}</div>
+            <div class="activity-desc">${institution} ${wsBadge}</div>
+          </div>
+          <span class="badge badge-success">✓ Hadir</span>
+        </div>
+      `;
+    });
+
+    html += `
+      <div style="padding: 10px 14px; text-align: center; border-top: 1px solid var(--c-border); background: var(--c-surface-subtle);">
+        <button class="btn btn-ghost btn-sm" onclick="App.navigate('history')" style="width:100%;font-weight:700;color:var(--c-accent);display:flex;align-items:center;justify-content:center;gap:6px;">
+          <span>Lihat Seluruh Riwayat Kehadiran (${attendanceToday.length} Data)</span>
+          <span>→</span>
+        </button>
+      </div>
+    `;
+
+    activityContainer.innerHTML = html;
   }
 
   // Render Grafik Kehadiran Tiap Hari (Visual Bar Chart)
@@ -873,18 +1148,37 @@
     chartContainer.innerHTML = barsHtml;
   }
 
-  function updateDashboardStats() {
+  function updateDashboardStats(flash = false) {
     const total = participants.length;
     const todayCount = attendanceToday.length;
     const absent = Math.max(0, total - todayCount);
     const percentage = total > 0 ? Math.round((todayCount / total) * 100) : 0;
 
-    $('#statTotal').textContent = total.toLocaleString('id-ID');
-    $('#statToday').textContent = todayCount.toLocaleString('id-ID');
-    $('#statAbsent').textContent = absent.toLocaleString('id-ID');
-    $('#statPercent').textContent = `${percentage}%`;
-
+    const elTotal = $('#statTotal');
+    const elToday = $('#statToday');
+    const elAbsent = $('#statAbsent');
+    const elPercent = $('#statPercent');
     const progressEl = $('#statProgress');
+
+    if (elTotal) elTotal.textContent = total.toLocaleString('id-ID');
+    if (elToday) {
+      elToday.textContent = todayCount.toLocaleString('id-ID');
+      if (flash) {
+        elToday.classList.remove('stat-updated');
+        void elToday.offsetWidth;
+        elToday.classList.add('stat-updated');
+      }
+    }
+    if (elAbsent) elAbsent.textContent = absent.toLocaleString('id-ID');
+    if (elPercent) {
+      elPercent.textContent = `${percentage}%`;
+      if (flash) {
+        elPercent.classList.remove('stat-updated');
+        void elPercent.offsetWidth;
+        elPercent.classList.add('stat-updated');
+      }
+    }
+
     if (progressEl) {
       progressEl.style.width = `${percentage}%`;
     }
@@ -1212,7 +1506,10 @@
       }
 
       // Update UI Stats & Buttons
-      updateDashboardStats();
+      updateDashboardStats(true);
+      if (currentPage === 'dashboard') {
+        renderDashboardActivity();
+      }
 
       // Update card di halaman Absensi
       $$(`.checkin-btn-wrap-${p.ID}`).forEach(wrap => {
@@ -1761,7 +2058,10 @@
       }
 
       filterParticipants();
-      updateDashboardStats();
+      updateDashboardStats(true);
+      if (currentPage === 'dashboard') {
+        renderDashboardActivity();
+      }
     } catch (error) {
       toast(error.message || 'Gagal menambahkan peserta.', 'error');
     } finally {

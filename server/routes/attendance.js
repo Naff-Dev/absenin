@@ -11,6 +11,66 @@ const appsScript = require('../services/appsScript');
 const cache = require('../services/cache');
 const { authMiddleware } = require('../middleware/auth');
 const { getServerDate, formatDate, formatTime } = require('../utils/helpers');
+const jwt = require('jsonwebtoken');
+
+// SSE Connected Clients for Real-time Attendance Updates
+let sseClients = [];
+
+function broadcastRealtime(event) {
+  const payload = `data: ${JSON.stringify({ ...event, timestamp: new Date().toISOString() })}\n\n`;
+  sseClients = sseClients.filter(client => {
+    try {
+      client.res.write(payload);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  });
+}
+
+// GET /api/attendance/stream (Server-Sent Events for Real-time Dashboard)
+router.get('/stream', (req, res) => {
+  const token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.query.token;
+  if (!token) {
+    return res.status(401).json({ success: false, message: 'Autentikasi diperlukan.' });
+  }
+
+  const JWT_SECRET = process.env.JWT_SECRET || 'absenin-secret-pit-viii-papdi-2026-secure-key';
+  try {
+    jwt.verify(token, JWT_SECRET);
+  } catch (err) {
+    return res.status(401).json({ success: false, message: 'Token tidak valid.' });
+  }
+
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
+  if (typeof res.flushHeaders === 'function') {
+    res.flushHeaders();
+  }
+
+  const clientId = `${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const clientObj = { id: clientId, res };
+  sseClients.push(clientObj);
+
+  // Initial connection ping
+  res.write(`data: ${JSON.stringify({ type: 'connected', clientId, timestamp: new Date().toISOString() })}\n\n`);
+
+  // Heartbeat ping every 20 seconds
+  const heartbeat = setInterval(() => {
+    try {
+      res.write(':ping\n\n');
+    } catch (_) {
+      clearInterval(heartbeat);
+    }
+  }, 20000);
+
+  req.on('close', () => {
+    clearInterval(heartbeat);
+    sseClients = sseClients.filter(c => c.id !== clientId);
+  });
+});
 
 // POST /api/attendance/check-in
 router.post('/check-in', authMiddleware, async (req, res) => {
@@ -59,15 +119,28 @@ router.post('/check-in', authMiddleware, async (req, res) => {
       description: `Check-in peserta berhasil`
     });
 
+    const responseData = {
+      ...result.data,
+      date,
+      time,
+      checkedBy: req.user.name
+    };
+
+    // Broadcast real-time update to all active screens
+    broadcastRealtime({
+      type: 'check_in',
+      eventId: checkInData.eventId,
+      date,
+      time,
+      participantId,
+      checkedBy: req.user.name,
+      record: responseData
+    });
+
     res.json({
       success: true,
       message: 'Check-in berhasil!',
-      data: {
-        ...result.data,
-        date,
-        time,
-        checkedBy: req.user.name
-      }
+      data: responseData
     });
   } catch (error) {
     console.error('[Attendance] Check-in error:', error.message);
@@ -86,13 +159,20 @@ router.get('/today', authMiddleware, async (req, res) => {
     const now = getServerDate();
     const date = req.query.date || formatDate(now);
 
-    // Check cache
-    let attendance = cache.getAttendanceToday(eventId, date);
+    const forceRefresh = req.query.refresh === '1' || req.query._t || req.headers['x-refresh'] === 'true';
+    const dbType = (process.env.DATABASE_TYPE || 'appscript').toLowerCase().trim();
+    const isLocalOrDirect = dbType === 'json' || dbType === 'supabase';
+
+    // Check cache (bypass when json/supabase or forceRefresh is requested)
+    let attendance = null;
+    if (!forceRefresh && !isLocalOrDirect) {
+      attendance = cache.getAttendanceToday(eventId, date);
+    }
 
     if (!attendance) {
       const result = await appsScript.getAttendanceToday(eventId, date);
       attendance = result.data || result;
-      if (Array.isArray(attendance)) {
+      if (Array.isArray(attendance) && !isLocalOrDirect) {
         cache.setAttendanceToday(eventId, date, attendance);
       }
     }
@@ -178,6 +258,13 @@ router.delete('/participant/:participantId', authMiddleware, async (req, res) =>
       description: `Absensi peserta dibatalkan (salah absen) pada tanggal ${date}`
     });
 
+    broadcastRealtime({
+      type: 'cancel_check_in',
+      eventId,
+      date,
+      participantId
+    });
+
     res.json({
       success: true,
       message: 'Absensi peserta berhasil dibatalkan. Status kembali menjadi Belum Hadir.',
@@ -209,6 +296,13 @@ router.delete('/:id', authMiddleware, async (req, res) => {
       userId: req.user.userId,
       action: 'DELETE_ATTENDANCE',
       description: `Record absensi ${id} dihapus`
+    });
+
+    broadcastRealtime({
+      type: 'delete_attendance',
+      eventId,
+      date,
+      attendanceId: id
     });
 
     res.json({
@@ -251,6 +345,13 @@ router.put('/:id', authMiddleware, async (req, res) => {
       description: `Record absensi ${id} diubah: ${time || ''} ${date || ''}`
     });
 
+    broadcastRealtime({
+      type: 'update_attendance',
+      eventId,
+      date: targetDate,
+      attendanceId: id
+    });
+
     res.json({
       success: true,
       message: 'Data absensi berhasil diperbarui.',
@@ -266,4 +367,5 @@ router.put('/:id', authMiddleware, async (req, res) => {
   }
 });
 
+router.broadcastRealtime = broadcastRealtime;
 module.exports = router;

@@ -112,6 +112,12 @@ const db = {
   resetData: () => {
     const p = getActiveProvider();
     if (typeof p.resetData === 'function') return p.resetData();
+  },
+  cleanAttendanceData: (...args) => {
+    const p = getActiveProvider();
+    if (typeof p.cleanAttendanceData === 'function') return p.cleanAttendanceData(...args);
+    if (typeof p.resetData === 'function') return p.resetData(...args);
+    return Promise.resolve({ success: true, message: 'Reset selesai.' });
   }
 };
 

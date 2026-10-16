@@ -52,7 +52,7 @@ async function cleanAttendance() {
       const numMatch = p.ID.match(/^P(\d+)$/);
       if (numMatch) {
         const num = parseInt(numMatch[1], 10);
-        return num >= 1 && num <= 243;
+        return num >= 1 && num <= 260;
       }
       return true;
     });
@@ -96,7 +96,7 @@ async function cleanAttendance() {
 
   console.log('\n' + '-'.repeat(65));
   console.log('✅ Pembersihan Berhasil Dilakukan:');
-  console.log(`   - Total Peserta Resmi     : ${db.participants.length} orang (P001 - P241) [AMAN]`);
+  console.log(`   - Total Peserta Resmi     : ${db.participants.length} orang (P001 - P${String(db.participants.length).padStart(3, '0')}) [AMAN]`);
   console.log(`   - Absensi Simposium       : ${db.attendance.length} (KOSONG / FRESH)`);
   console.log(`   - Absensi Workshop        : ${db.workshopAttendance.length} (KOSONG / FRESH)`);
   console.log(`   - Total Akun Panitia      : ${db.panitia ? db.panitia.length : 0} akun`);

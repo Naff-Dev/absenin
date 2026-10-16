@@ -24,6 +24,9 @@ const { createClient } = require('@supabase/supabase-js');
 
 // Cari file Excel terbaru di root atau docs
 const candidatePaths = [
+  path.resolve(process.cwd(), 'daftar peserta (2).xlsx'),
+  path.resolve(__dirname, '..', 'daftar peserta (2).xlsx'),
+  path.resolve(__dirname, '..', 'docs', 'daftar peserta (2).xlsx'),
   path.resolve(process.cwd(), 'daftar peserta (1).xlsx'),
   path.resolve(__dirname, '..', 'daftar peserta (1).xlsx'),
   path.resolve(__dirname, '..', 'docs', 'daftar peserta (1).xlsx'),
@@ -103,10 +106,10 @@ async function main() {
     const id = 'P' + String(no).padStart(3, '0');
     const name = String(r[1]).trim();
     const phone = r[2] ? String(r[2]).trim() : '';
-    const sympo = r[4] == 1 ? 1 : 0;
-    const wsA = r[5] == 1 ? 1 : 0;
-    const wsB = r[6] == 1 ? 1 : 0;
-    const wsC = r[7] == 1 ? 1 : 0;
+    let sympo = r[4] == 1 ? 1 : 0;
+    let wsA = r[5] == 1 ? 1 : 0;
+    let wsB = r[6] == 1 ? 1 : 0;
+    let wsC = r[7] == 1 ? 1 : 0;
     const note = r[8] ? String(r[8]).trim() : '';
 
     let product = r[3] ? String(r[3]).trim() : '';
@@ -114,6 +117,11 @@ async function main() {
       if (sympo && (wsA || wsB || wsC)) product = 'Simposium dan Workshop';
       else if (sympo) product = 'Simposium';
       else if (wsA || wsB || wsC) product = 'Workshop';
+      else product = 'Simposium';
+    }
+
+    if (sympo === 0 && wsA === 0 && wsB === 0 && wsC === 0) {
+      if (product.toLowerCase().includes('simposium')) sympo = 1;
     }
 
     return {
@@ -137,42 +145,42 @@ async function main() {
 
   // Terapkan penugasan peran Panitia, Pembicara, Moderator dari data resmi
   const roleOverrides = [
-    { targetIds: ['P135'], name: 'dr. Gede Perdana Putera, Sp.PD, Subsp.R(K), M.Biomed', role: 'Panitia, Pembicara' },
-    { targetIds: ['P152'], name: 'dr. Maschun Syarifudin, Sp.PD, Subsp.HOM.(K), FINASIM', role: 'Panitia, Pembicara' },
-    { targetIds: ['P136'], name: 'dr. Yunanto Dwi Nugroho, M.Sc, Sp.PD, K-GH', role: 'Panitia, Pembicara' },
-    { targetIds: ['P147'], name: 'dr. Ni Ketut Donna Prisilia Tanjungsari, Sp.PD, MMR, M.Biomed', role: 'Panitia, Moderator' },
-    { targetIds: ['P139'], name: 'DR. dr. Pugud Samodro, Sp.PD, K-EMD, FINASIM', role: 'Panitia, Pembicara' },
-    { targetIds: ['P144'], name: 'dr. Febri Kurniawati, Sp.PD, K-EMD, FINASIM', role: 'Panitia, Pembicara' },
+    { targetIds: ['P134'], name: 'dr. Gede Perdana Putera, Sp.PD, Subsp.R(K), M.Biomed', role: 'Panitia, Pembicara' },
+    { targetIds: ['P151'], name: 'dr. Maschun Syarifudin, Sp.PD, Subsp.HOM.(K), FINASIM', role: 'Panitia, Pembicara' },
+    { targetIds: ['P135'], name: 'dr. Yunanto Dwi Nugroho, M.Sc, Sp.PD, K-GH', role: 'Panitia, Pembicara' },
+    { targetIds: ['P146'], name: 'dr. Ni Ketut Donna Prisilia Tanjungsari, Sp.PD, MMR, M.Biomed', role: 'Panitia, Moderator' },
+    { targetIds: ['P138'], name: 'DR. dr. Pugud Samodro, Sp.PD, K-EMD, FINASIM', role: 'Panitia, Pembicara' },
+    { targetIds: ['P143'], name: 'dr. Febri Kurniawati, Sp.PD, K-EMD, FINASIM', role: 'Panitia, Pembicara' },
     { targetIds: ['P031'], name: 'dr. Reynaldo Binsar Hutajulu, Sp.PD', role: 'Panitia, Moderator' },
-    { targetIds: ['P142'], name: 'dr. Ma’mun, M.Sc, Sp,PD, Subsp.GEH.(K)', role: 'Pembicara' },
+    { targetIds: ['P141'], name: 'dr. Ma’mun, M.Sc, Sp,PD, Subsp.GEH.(K)', role: 'Pembicara' },
     { targetIds: ['P053'], name: 'dr. Rachmad Aji Saksana, M.Sc, Sp.PD, Subsp.PMK.(K), FINASIM', role: 'Pembicara, Moderator' },
     { targetIds: ['P011', 'P063'], name: 'dr. Yosefin Ratnaningtyas, Sp.PD', role: 'Panitia, Moderator' },
     { targetIds: ['P002'], name: 'dr. Hengki S Permana Putra, Sp.PD', role: 'Panitia' },
-    { targetIds: ['P156'], name: 'dr. Maela Rustiana Dewi, Sp.PD', role: 'Panitia, Moderator' },
-    { targetIds: ['P140'], name: 'dr. Maya Dewi, Sp.PD, FINASIM', role: 'Panitia, Pembicara' },
-    { targetIds: ['P143'], name: 'dr. Indra Setya Permana, Sp.PD, MMR, FINASIM', role: 'Panitia, Moderator' },
-    { targetIds: ['P141'], name: 'dr. Ghea De Silva, Sp.PD, FINASIM', role: 'Panitia, Moderator' },
+    { targetIds: ['P155'], name: 'dr. Maela Rustiana Dewi, Sp.PD', role: 'Panitia, Moderator' },
+    { targetIds: ['P139'], name: 'dr. Maya Dewi, Sp.PD, FINASIM', role: 'Panitia, Pembicara' },
+    { targetIds: ['P142'], name: 'dr. Indra Setya Permana, Sp.PD, MMR, FINASIM', role: 'Panitia, Moderator' },
+    { targetIds: ['P140'], name: 'dr. Ghea De Silva, Sp.PD, FINASIM', role: 'Panitia, Moderator' },
     { targetIds: ['P012'], name: 'dr. Tiara Paramita Poernomo, Sp.PD, FINASIM', role: 'Panitia' },
-    { targetIds: ['P153'], name: 'dr. Lincah Angger Wismo Asih, Sp.PD', role: 'Panitia, Moderator' },
+    { targetIds: ['P152'], name: 'dr. Lincah Angger Wismo Asih, Sp.PD', role: 'Panitia, Moderator' },
     { targetIds: ['P074'], name: 'dr. Alvin Aditya Setiawan, Sp.PD', role: 'Panitia' },
-    { targetIds: ['P154'], name: 'dr. Joko Rilo Pambudi, Sp.PD, K-R, FINASIM', role: 'Pembicara' },
-    { targetIds: ['P149'], name: 'dr. Kukuh Prasetyo, Sp.PD, FINASIM', role: 'Panitia, Moderator' },
+    { targetIds: ['P153'], name: 'dr. Joko Rilo Pambudi, Sp.PD, K-R, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P148'], name: 'dr. Kukuh Prasetyo, Sp.PD, FINASIM', role: 'Panitia, Moderator' },
     { targetIds: ['P065'], name: 'dr. Fitri Nadia Widyasari, Sp.PD, FINASIM', role: 'Panitia, Moderator' },
     { targetIds: ['P001'], name: 'dr. Leo Chandra Wisnu PW, Sp.PD', role: 'Panitia' },
     { targetIds: ['P015'], name: 'dr. Gandik Danu Pramiga, Sp.PD', role: 'Panitia, Moderator' },
-    { targetIds: ['P157'], name: 'dr. Ryan Ma’rufi, Sp.PD', role: 'Panitia' },
+    { targetIds: ['P156'], name: 'dr. Ryan Ma’rufi, Sp.PD', role: 'Panitia' },
     { targetIds: ['P115'], name: 'dr. Hery Agoestono, Sp.PD, K-GEH, FINASIM', role: 'Pembicara' },
-    { targetIds: ['P138'], name: 'dr. Sri Lestari, Sp.PD, Subsp.GH(K), FINASIM', role: 'Pembicara' },
-    { targetIds: ['P155'], name: 'Dr. dr. Arifin, Sp.PD, K-IC, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P137'], name: 'dr. Sri Lestari, Sp.PD, Subsp.GH(K), FINASIM', role: 'Pembicara' },
+    { targetIds: ['P154'], name: 'Dr. dr. Arifin, Sp.PD, K-IC, FINASIM', role: 'Pembicara' },
     { targetIds: ['P073'], name: 'dr. Gigih Rahmandanu Poernomo, M.Kes, Sp.PD, FINASIM', role: 'Moderator' },
     { targetIds: ['P013'], name: 'dr. Niken Febriharsari. Sp.PD', role: 'Moderator' },
-    { targetIds: ['P145'], name: 'dr. Ika Trisnawati, Sp.PD, K-P, FINASIM', role: 'Pembicara' },
-    { targetIds: ['P146'], name: 'dr. Eko Budiono, Sp.PD, K-PMK, FINASIM', role: 'Pembicara' },
-    { targetIds: ['P148'], name: 'dr. Suharno, Sp.PD, K-GEH, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P144'], name: 'dr. Ika Trisnawati, Sp.PD, K-P, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P145'], name: 'dr. Eko Budiono, Sp.PD, K-PMK, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P147'], name: 'dr. Suharno, Sp.PD, K-GEH, FINASIM', role: 'Pembicara' },
     { targetIds: ['P076'], name: 'dr. Heppy Oktavianto, M.Sc, Sp.PD, Subsp.PTI.(K), FINASIM', role: 'Pembicara' },
     { targetIds: ['P008'], name: 'Dr. dr. Haidar Alatas, MH, MM, Sp.PD, K-GH, FINASIM', role: 'Pembicara' },
-    { targetIds: ['P150'], name: 'dr. Aditiawarman, Sp.PD, K-GH, FINASIM', role: 'Pembicara' },
-    { targetIds: ['P151'], name: 'dr. Aditya Candra Putra, Sp.PD, FINASIM', role: 'Moderator' }
+    { targetIds: ['P149'], name: 'dr. Aditiawarman, Sp.PD, K-GH, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P150'], name: 'dr. Aditya Candra Putra, Sp.PD, FINASIM', role: 'Moderator' }
   ];
 
   roleOverrides.forEach(item => {
@@ -185,10 +193,12 @@ async function main() {
     });
   });
 
-  // Tambahkan 2 peserta panitia baru (total menjadi 243)
+  // Tambahkan 2 peserta panitia baru
+  const nextNo1 = participants.length + 1;
+  const nextId1 = 'P' + String(nextNo1).padStart(3, '0');
   participants.push({
-    ID: 'P242',
-    NO: 242,
+    ID: nextId1,
+    NO: nextNo1,
     NAME: 'Edy Raras Reswati',
     PHONE: '',
     INSTITUTION: 'Panitia PIT VIII PAPDI Purwokerto',
@@ -204,9 +214,11 @@ async function main() {
     UPDATED_AT: timestamp
   });
 
+  const nextNo2 = participants.length + 1;
+  const nextId2 = 'P' + String(nextNo2).padStart(3, '0');
   participants.push({
-    ID: 'P243',
-    NO: 243,
+    ID: nextId2,
+    NO: nextNo2,
     NAME: 'Edy Nurul Yuniarti',
     PHONE: '',
     INSTITUTION: 'Panitia PIT VIII PAPDI Purwokerto',
