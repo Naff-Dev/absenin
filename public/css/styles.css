@@ -379,6 +379,21 @@ input, select, textarea { font-family: inherit; font-size: 16px; } /* 16px preve
   font-weight: 600;
 }
 
+.badge-panitia {
+  background: #EEF2FF;
+  color: #4338CA;
+  border: 1px solid #C7D2FE;
+  font-weight: 700;
+}
+
+.badge-moderator {
+  background: #ECFEFF;
+  color: #0E7490;
+  border: 1px solid #A5F3FC;
+  font-weight: 700;
+}
+
+
 /* === LOGIN PAGE === */
 .login-page {
   display: flex;
@@ -1226,6 +1241,66 @@ input, select, textarea { font-family: inherit; font-size: 16px; } /* 16px preve
   line-height: 1.45;
   text-align: center;
 }
+
+/* Committee Alert Card in Detail */
+.committee-alert-box {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: #EEF2FF;
+  border: 1px solid #C7D2FE;
+  border-radius: var(--r-md);
+  margin-bottom: var(--sp-4);
+  color: #3730A3;
+}
+
+.committee-alert-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.committee-alert-title {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: #312E81;
+  margin-bottom: 2px;
+}
+
+.committee-alert-desc {
+  font-size: var(--fs-xs);
+  color: #4338CA;
+  line-height: 1.45;
+}
+
+/* SweetAlert Committee Confirmation Prompt */
+.swal-committee-prompt {
+  text-align: left;
+}
+
+.swal-committee-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #EEF2FF;
+  border: 1px solid #C7D2FE;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #3730A3;
+  margin-bottom: 14px;
+}
+
+.swal-committee-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.btn-checkin-committee {
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%) !important;
+  border-color: #4338CA !important;
+  color: #FFFFFF !important;
+}
+
 
 /* === HISTORY FEED === */
 .history-feed {

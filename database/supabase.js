@@ -863,8 +863,8 @@ async function resetData() {
   const resLogs = await supabase.from('logs').delete().neq('log_id', '');
   if (resLogs.error) console.error('[Supabase Reset] Logs error:', resLogs.error.message);
 
-  // Hapus peserta testing (> 210) jika ada agar hanya 210 peserta resmi yang tersisa
-  const resPart = await supabase.from('participants').delete().gt('no', 210);
+  // Hapus peserta testing (> 243) jika ada agar 243 peserta resmi tetap aman
+  const resPart = await supabase.from('participants').delete().gt('no', 243);
   if (resPart.error) console.error('[Supabase Reset] Test participants error:', resPart.error.message);
 
   await addLog({
@@ -873,7 +873,7 @@ async function resetData() {
     description: 'Data absensi, log, dan peserta testing di Supabase dibersihkan (fresh state).'
   });
 
-  return { success: true, message: 'Data absensi Supabase berhasil direset ke fresh state (210 peserta resmi aman).' };
+  return { success: true, message: 'Data absensi Supabase berhasil direset ke fresh state (243 peserta resmi aman).' };
 }
 
 module.exports = {

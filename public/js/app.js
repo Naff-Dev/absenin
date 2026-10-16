@@ -150,15 +150,29 @@
     const clean = note.trim();
     if (!clean) return '';
     const lower = clean.toLowerCase();
+
+    const badges = [];
+
     if (lower.includes('voucher')) {
-      return `<span class="badge badge-voucher" title="Peserta wajib memiliki/membawa voucher">🎫 Perlu Voucher</span>`;
+      badges.push(`<span class="badge badge-voucher" title="Peserta wajib memiliki/membawa voucher">🎫 Perlu Voucher</span>`);
     }
-    if (lower.includes('anggota papdi')) {
-      return `<span class="badge badge-papdi">Anggota PAPDI</span>`;
+    if (lower.includes('panitia')) {
+      badges.push(`<span class="badge badge-panitia" title="Panitia Pelaksana">🎖️ Panitia</span>`);
     }
     if (lower.includes('pembicara')) {
-      return `<span class="badge badge-speaker">Pembicara</span>`;
+      badges.push(`<span class="badge badge-speaker" title="Pembicara">🎤 Pembicara</span>`);
     }
+    if (lower.includes('moderator')) {
+      badges.push(`<span class="badge badge-moderator" title="Moderator Sesi">🎙️ Moderator</span>`);
+    }
+    if (lower.includes('anggota papdi')) {
+      badges.push(`<span class="badge badge-papdi">Anggota PAPDI</span>`);
+    }
+
+    if (badges.length > 0) {
+      return badges.join(' ');
+    }
+
     return `<span class="badge badge-neutral">${escapeHtml(clean)}</span>`;
   }
 
@@ -238,6 +252,110 @@
       cancelButtonColor: '#64748B',
       reverseButtons: true,
       focusCancel: true,
+      allowOutsideClick: false
+    });
+
+    return result.isConfirmed;
+  }
+
+  // Cek apakah peserta memiliki peran khusus Panitia / Moderator / Pembicara
+  function isCommitteeOrSpecial(note) {
+    if (!note) return false;
+    const lower = note.toLowerCase();
+    return lower.includes('panitia') || lower.includes('moderator') || lower.includes('pembicara');
+  }
+
+  // Parse peran untuk tampilan & styling yang elegan
+  function getCommitteeRoleInfo(note) {
+    const clean = (note || 'Panitia').trim();
+    const lower = clean.toLowerCase();
+    const isPanitia = lower.includes('panitia');
+    const isModerator = lower.includes('moderator');
+    const isPembicara = lower.includes('pembicara');
+
+    let roleLabel = 'Panitia';
+    let roleIcon = '🎖️';
+    let roleColor = '#4338CA';
+    let roleBg = '#EEF2FF';
+    let roleBorder = '#C7D2FE';
+
+    if (isPanitia && isPembicara) {
+      roleLabel = 'Panitia & Pembicara';
+      roleIcon = '🎖️🎤';
+    } else if (isPanitia && isModerator) {
+      roleLabel = 'Panitia & Moderator';
+      roleIcon = '🎖️🎙️';
+    } else if (isPembicara && isModerator) {
+      roleLabel = 'Pembicara & Moderator';
+      roleIcon = '🎤🎙️';
+    } else if (isPanitia) {
+      roleLabel = 'Panitia';
+      roleIcon = '🎖️';
+    } else if (isModerator) {
+      roleLabel = 'Moderator';
+      roleIcon = '🎙️';
+      roleColor = '#0E7490';
+      roleBg = '#ECFEFF';
+      roleBorder = '#A5F3FC';
+    } else if (isPembicara) {
+      roleLabel = 'Pembicara';
+      roleIcon = '🎤';
+      roleColor = '#7E22CE';
+      roleBg = '#FAF5FF';
+      roleBorder = '#E9D5FF';
+    }
+
+    return {
+      roleLabel,
+      roleDisplay: clean,
+      roleIcon,
+      roleColor,
+      roleBg,
+      roleBorder
+    };
+  }
+
+  // Dialog Konfirmasi Khusus Panitia / Moderator / Pembicara
+  async function showCommitteeConfirmation(p) {
+    const role = getCommitteeRoleInfo(p.NOTE);
+
+    if (!window.Swal) {
+      return window.confirm(
+        `KONFIRMASI ${role.roleLabel.toUpperCase()}:\n\n` +
+        `Peserta atas nama "${p.NAME}" terdaftar dengan peran: ${p.NOTE || role.roleLabel}.\n\n` +
+        `Apakah Anda yakin ingin mengonfirmasi dan mencatat kehadiran untuk ${role.roleLabel} ini?`
+      );
+    }
+
+    const result = await Swal.fire({
+      icon: 'info',
+      title: `Konfirmasi ${role.roleLabel}`,
+      html: `
+        <div class="swal-voucher-prompt swal-committee-prompt">
+          <div class="swal-voucher-name">${escapeHtml(p.NAME)}</div>
+          <div class="swal-voucher-meta">
+            ${p.PHONE ? `<span>📱 <strong>${escapeHtml(p.PHONE)}</strong></span>` : ''}
+            ${p.INSTITUTION ? `<span> · ${escapeHtml(p.INSTITUTION)}</span>` : '<span> · PIT VIII PAPDI Purwokerto</span>'}
+          </div>
+          <div class="swal-committee-box" style="background:${role.roleBg};border-color:${role.roleBorder};color:${role.roleColor};">
+            <span class="swal-committee-icon">${role.roleIcon}</span>
+            <div>
+              <div style="font-size:0.75rem;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;opacity:0.85;">Status Penugasan</div>
+              <div style="font-size:1.05rem;font-weight:700;">${escapeHtml(p.NOTE || role.roleLabel)}</div>
+            </div>
+          </div>
+          <p class="swal-voucher-question">
+            Konfirmasi pencatatan kehadiran untuk <u>${escapeHtml(p.NAME)}</u> sebagai <strong>${escapeHtml(role.roleLabel)}</strong>?
+          </p>
+        </div>
+      `,
+      showCancelButton: true,
+      confirmButtonText: `✓ Ya, Konfirmasi Kehadiran (${escapeHtml(role.roleLabel)})`,
+      cancelButtonText: '✕ Batal',
+      confirmButtonColor: '#0F172A',
+      cancelButtonColor: '#64748B',
+      reverseButtons: true,
+      focusCancel: false,
       allowOutsideClick: false
     });
 
@@ -944,6 +1062,14 @@
           : '';
         const noteBadge = getNoteBadge(p.NOTE);
         const isVoucher = (p.NOTE || '').toLowerCase().includes('voucher');
+        const isCommittee = isCommitteeOrSpecial(p.NOTE);
+
+        let checkinBtnText = 'CHECK IN KEHADIRAN';
+        if (isVoucher) {
+          checkinBtnText = 'CHECK IN (PERLU VOUCHER)';
+        } else if (isCommittee) {
+          checkinBtnText = `CHECK IN (${(p.NOTE || 'PANITIA').toUpperCase()})`;
+        }
 
         html += `
           <div class="participant-card" id="att-result-${p.ID}">
@@ -977,8 +1103,8 @@
                    </div>
                   `
                 : `
-                   <button class="btn btn-checkin-main" onclick="App.doCheckIn('${p.ID}', this)">
-                     ${isVoucher ? 'CHECK IN (PERLU VOUCHER)' : 'CHECK IN KEHADIRAN'}
+                   <button class="btn btn-checkin-main ${isCommittee ? 'btn-checkin-committee' : ''}" onclick="App.doCheckIn('${p.ID}', this)">
+                     ${escapeHtml(checkinBtnText)}
                    </button>
                    <button class="btn btn-secondary btn-sm" onclick="App.viewDetail('${p.ID}')">
                      Detail
@@ -1015,6 +1141,19 @@
       }
     }
 
+    // Cek apakah peserta memiliki peran khusus PANITIA / MODERATOR / PEMBICARA
+    const isCommittee = isCommitteeOrSpecial(p.NOTE);
+    if (isCommittee) {
+      const confirmed = await showCommitteeConfirmation(p);
+      if (!confirmed) {
+        if (buttonEl) {
+          buttonEl.disabled = false;
+        }
+        toast(`Check-in dibatalkan: Konfirmasi untuk ${p.NAME} (${p.NOTE}) dibatalkan.`, 'warning');
+        return;
+      }
+    }
+
     if (buttonEl) {
       buttonEl.disabled = true;
       buttonEl.innerHTML = '<span class="spinner spinner-sm spinner-white"></span> Menyimpan...';
@@ -1038,6 +1177,10 @@
       const voucherBadgeInfo = isVoucher
         ? `<div style="margin-top:6px;"><span class="badge badge-voucher-green" style="font-size:11px;font-weight:700;">✓ Voucher Terverifikasi</span></div>`
         : '';
+      const committeeInfo = isCommittee ? getCommitteeRoleInfo(p.NOTE) : null;
+      const committeeBadgeInfo = isCommittee
+        ? `<div style="margin-top:6px;"><span class="badge badge-panitia" style="font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:4px;">${committeeInfo.roleIcon} Kehadiran ${escapeHtml(p.NOTE)} Terverifikasi</span></div>`
+        : '';
 
       // SweetAlert2 Toast/Dialog
       if (window.Swal) {
@@ -1050,6 +1193,7 @@
               <p style="margin:0 0 4px;font-size:0.85rem;color:var(--c-text-secondary);">${escapeHtml(p.INSTITUTION || 'Peserta PIT VIII PAPDI')}</p>
               ${wsInfo}
               ${voucherBadgeInfo}
+              ${committeeBadgeInfo}
               <div style="font-size:1.05rem;color:var(--c-text);font-weight:700;font-family:var(--font-mono);margin-top:8px;">
                 ${escapeHtml(timeStr)}
               </div>
@@ -1175,6 +1319,8 @@
       filtered = filtered.filter(p => !checkedIds.has(p.ID));
     } else if (activeParticipantFilter === 'voucher') {
       filtered = filtered.filter(p => (p.NOTE || '').toLowerCase().includes('voucher'));
+    } else if (activeParticipantFilter === 'committee') {
+      filtered = filtered.filter(p => isCommitteeOrSpecial(p.NOTE));
     } else if (activeParticipantFilter === 'has-workshop') {
       filtered = filtered.filter(p => p.WORKSHOP_A == 1 || p.WORKSHOP_B == 1 || p.WORKSHOP_C == 1);
     } else if (activeParticipantFilter === 'sympo-only') {
@@ -1223,6 +1369,14 @@
         : '';
       const noteBadge = getNoteBadge(p.NOTE);
       const isVoucher = (p.NOTE || '').toLowerCase().includes('voucher');
+      const isCommittee = isCommitteeOrSpecial(p.NOTE);
+
+      let listBtnText = 'Check In';
+      if (isVoucher) {
+        listBtnText = 'Check In (Voucher)';
+      } else if (isCommittee) {
+        listBtnText = `Check In (${p.NOTE})`;
+      }
 
       html += `
         <div class="participant-card">
@@ -1249,7 +1403,7 @@
             </span>
             <div style="display:flex;gap:var(--sp-2);align-items:center;">
               ${!isChecked 
-                ? `<button class="btn btn-primary btn-sm checkin-btn-${p.ID}" onclick="App.doCheckIn('${p.ID}', this)">${isVoucher ? 'Check In (Voucher)' : 'Check In'}</button>` 
+                ? `<button class="btn btn-primary btn-sm checkin-btn-${p.ID} ${isCommittee ? 'btn-checkin-committee' : ''}" onclick="App.doCheckIn('${p.ID}', this)">${escapeHtml(listBtnText)}</button>` 
                 : `<button class="btn-cancel-absen" onclick="App.openCancelAttendance('${p.ID}')" title="Batalkan kehadiran (salah absen)">Salah Absen</button>`
               }
               <button class="btn btn-secondary btn-sm" onclick="App.openEditParticipant('${p.ID}')">Edit</button>
@@ -1387,6 +1541,19 @@
           </div>
         </div>` : ''}
 
+        ${isCommitteeOrSpecial(p.NOTE) ? `
+        <div class="committee-alert-box">
+          <div class="committee-alert-icon">
+            <span style="font-size:1.4rem;">${getCommitteeRoleInfo(p.NOTE).roleIcon}</span>
+          </div>
+          <div>
+            <div class="committee-alert-title">Peran Khusus: ${escapeHtml(p.NOTE)}</div>
+            <div class="committee-alert-desc">
+              Peserta terdaftar dengan status resmi <strong>${escapeHtml(p.NOTE)}</strong> pada PIT VIII PAPDI Purwokerto 2026. Pencatatan absensi kehadiran memerlukan konfirmasi panitia.
+            </div>
+          </div>
+        </div>` : ''}
+
         <div class="detail-grid">
           <div class="detail-row">
             <span class="detail-label">ID Peserta</span>
@@ -1478,8 +1645,8 @@
                 </button>
               </div>
             `
-            : `<button class="btn btn-primary btn-lg btn-full" onclick="App.doCheckIn('${p.ID}', this)">
-                ${isVoucher ? 'CHECK IN KEHADIRAN (VERIFIKASI VOUCHER)' : 'CHECK IN KEHADIRAN SEKARANG'}
+            : `<button class="btn btn-primary btn-lg btn-full ${isCommitteeOrSpecial(p.NOTE) ? 'btn-checkin-committee' : ''}" onclick="App.doCheckIn('${p.ID}', this)">
+                ${isVoucher ? 'CHECK IN KEHADIRAN (VERIFIKASI VOUCHER)' : (isCommitteeOrSpecial(p.NOTE) ? `CHECK IN KEHADIRAN (${(p.NOTE || 'PANITIA').toUpperCase()})` : 'CHECK IN KEHADIRAN SEKARANG')}
                </button>`
           }
         </div>

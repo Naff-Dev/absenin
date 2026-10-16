@@ -45,14 +45,14 @@ async function cleanAttendance() {
   db.attendance = [];
   db.workshopAttendance = [];
 
-  // 2. Pastikan peserta hanya peserta resmi (P001 - P210), buang data testing (P211+) jika ada
+  // 2. Pastikan peserta hanya peserta resmi (P001 - P243), buang data testing (P244+) jika ada
   if (Array.isArray(db.participants)) {
     db.participants = db.participants.filter(p => {
       if (!p || !p.ID) return false;
       const numMatch = p.ID.match(/^P(\d+)$/);
       if (numMatch) {
         const num = parseInt(numMatch[1], 10);
-        return num >= 1 && num <= 210;
+        return num >= 1 && num <= 243;
       }
       return true;
     });
@@ -88,7 +88,7 @@ async function cleanAttendance() {
       const supProv = dbUnified.getProvider('supabase');
       const res = await supProv.resetData();
       console.log(`   ✓ ${res.message || 'Supabase absensi berhasil dibersihkan!'}`);
-      console.log('   ✓ Seluruh 210 Peserta Resmi & 14 Akun Panitia di Supabase TETAP AMAN.');
+      console.log('   ✓ Seluruh 241 Peserta Resmi & 14 Akun Panitia di Supabase TETAP AMAN.');
     } catch (err) {
       console.warn('   ⚠ Gagal membersihkan Supabase:', err.message);
     }
@@ -96,7 +96,7 @@ async function cleanAttendance() {
 
   console.log('\n' + '-'.repeat(65));
   console.log('✅ Pembersihan Berhasil Dilakukan:');
-  console.log(`   - Total Peserta Resmi     : ${db.participants.length} orang (P001 - P210) [AMAN]`);
+  console.log(`   - Total Peserta Resmi     : ${db.participants.length} orang (P001 - P241) [AMAN]`);
   console.log(`   - Absensi Simposium       : ${db.attendance.length} (KOSONG / FRESH)`);
   console.log(`   - Absensi Workshop        : ${db.workshopAttendance.length} (KOSONG / FRESH)`);
   console.log(`   - Total Akun Panitia      : ${db.panitia ? db.panitia.length : 0} akun`);

@@ -3,9 +3,9 @@
     {
       "EVENT_ID": "EVT001",
       "EVENT_NAME": "PIT VIII PAPDI Purwokerto 2026",
-      "START_DATE": "2026-03-01",
-      "END_DATE": "2026-03-03",
-      "LOCATION": "Purwokerto",
+      "START_DATE": "2026-10-17",
+      "END_DATE": "2026-10-18",
+      "LOCATION": "Java Heritage Hotel Purwokerto",
       "STATUS": "ACTIVE"
     }
   ],
@@ -113,28 +113,28 @@
     {
       "CODE": "W01",
       "NAME": "OSTEOARTHRITIS & INTRA-ARTICULAR INJECTION",
-      "DATE": "2026-03-01",
+      "DATE": "2026-10-17",
       "TIME": "08:00 - 12:00",
-      "ROOM": "Ruang A",
-      "QUOTA": 50,
+      "ROOM": "Ruang Workshop A",
+      "QUOTA": 80,
       "STATUS": "ACTIVE"
     },
     {
       "CODE": "W02",
       "NAME": "BEDSIDE ULTRASOUND IN CRITICAL CARE",
-      "DATE": "2026-03-01",
+      "DATE": "2026-10-17",
       "TIME": "13:00 - 17:00",
-      "ROOM": "Ruang B",
-      "QUOTA": 50,
+      "ROOM": "Ruang Workshop B",
+      "QUOTA": 90,
       "STATUS": "ACTIVE"
     },
     {
       "CODE": "W03",
       "NAME": "PRACTICAL ECHOCARDIOGRAPHY FOR CLINICIANS",
-      "DATE": "2026-03-02",
+      "DATE": "2026-10-18",
       "TIME": "08:00 - 12:00",
-      "ROOM": "Ruang C",
-      "QUOTA": 40,
+      "ROOM": "Ruang Workshop C",
+      "QUOTA": 50,
       "STATUS": "ACTIVE"
     }
   ],
@@ -142,7 +142,7 @@
     {
       "ID": "P001",
       "NO": 1,
-      "NAME": "dr Leo Chandra Wisnu Pandu Winata Sp.PD M.Kes",
+      "NAME": "dr. Leo Chandra Wisnu PW, Sp.PD",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -151,10 +151,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P002",
@@ -168,10 +168,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P003",
@@ -185,10 +185,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P004",
@@ -202,10 +202,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P005",
@@ -219,10 +219,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P006",
@@ -236,10 +236,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P007",
@@ -253,15 +253,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P008",
       "NO": 8,
-      "NAME": "Dr Haidar Alatas",
+      "NAME": "Dr. dr. Haidar Alatas, MH, MM, Sp.PD, K-GH, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -270,10 +270,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P009",
@@ -287,10 +287,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P010",
@@ -304,15 +304,15 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P011",
       "NO": 11,
-      "NAME": "Yosefin Ratnaningtyas",
+      "NAME": "dr. Yosefin Ratnaningtyas, Sp.PD",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -321,15 +321,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P012",
       "NO": 12,
-      "NAME": "Tiara Paramita Poernomo",
+      "NAME": "dr. Tiara Paramita Poernomo, Sp.PD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -338,15 +338,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P013",
       "NO": 13,
-      "NAME": "Niken Febriharsari",
+      "NAME": "dr. Niken Febriharsari. Sp.PD",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -355,10 +355,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P014",
@@ -372,15 +372,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P015",
       "NO": 15,
-      "NAME": "Gandik Danu Pramiga",
+      "NAME": "dr. Gandik Danu Pramiga, Sp.PD",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -389,10 +389,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P016",
@@ -406,10 +406,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P017",
@@ -423,10 +423,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P018",
@@ -440,10 +440,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P019",
@@ -457,10 +457,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P020",
@@ -474,10 +474,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P021",
@@ -493,8 +493,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P022",
@@ -510,8 +510,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P023",
@@ -527,8 +527,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P024",
@@ -544,8 +544,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P025",
@@ -561,8 +561,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P026",
@@ -578,8 +578,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P027",
@@ -595,8 +595,8 @@
       "WORKSHOP_C": 1,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P028",
@@ -612,8 +612,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P029",
@@ -629,8 +629,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P030",
@@ -646,13 +646,13 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P031",
       "NO": 31,
-      "NAME": "Reynaldo Binsar Hutajulu, dr., Sp.PD",
+      "NAME": "dr. Reynaldo Binsar Hutajulu, Sp.PD",
       "PHONE": "082182601560",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -661,10 +661,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P032",
@@ -680,8 +680,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P033",
@@ -697,8 +697,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P034",
@@ -714,8 +714,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P035",
@@ -731,8 +731,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P036",
@@ -748,8 +748,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P037",
@@ -765,8 +765,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P038",
@@ -782,8 +782,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P039",
@@ -799,8 +799,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P040",
@@ -816,8 +816,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P041",
@@ -833,8 +833,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P042",
@@ -850,8 +850,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P043",
@@ -867,8 +867,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "voucher",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P044",
@@ -884,8 +884,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P045",
@@ -901,8 +901,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P046",
@@ -918,8 +918,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P047",
@@ -935,8 +935,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P048",
@@ -952,8 +952,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P049",
@@ -969,8 +969,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P050",
@@ -986,8 +986,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P051",
@@ -1003,8 +1003,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P052",
@@ -1018,15 +1018,15 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P053",
       "NO": 53,
-      "NAME": "Rachmad aji saksana",
+      "NAME": "dr. Rachmad Aji Saksana, M.Sc, Sp.PD, Subsp.PMK.(K), FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -1035,10 +1035,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Pembicara, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P054",
@@ -1052,10 +1052,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P055",
@@ -1069,10 +1069,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P056",
@@ -1088,8 +1088,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P057",
@@ -1105,8 +1105,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "voucher",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P058",
@@ -1122,8 +1122,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P059",
@@ -1137,10 +1137,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P060",
@@ -1156,8 +1156,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P061",
@@ -1171,10 +1171,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P062",
@@ -1190,13 +1190,13 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P063",
       "NO": 63,
-      "NAME": "Yosefin Ratnaningtyas",
+      "NAME": "dr. Yosefin Ratnaningtyas, Sp.PD",
       "PHONE": "082221834862",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -1205,10 +1205,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P064",
@@ -1222,15 +1222,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P065",
       "NO": 65,
-      "NAME": "Fitri Nadia Widyasari",
+      "NAME": "dr. Fitri Nadia Widyasari, Sp.PD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -1239,10 +1239,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P066",
@@ -1256,10 +1256,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P067",
@@ -1273,10 +1273,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P068",
@@ -1290,10 +1290,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P069",
@@ -1307,10 +1307,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P070",
@@ -1324,10 +1324,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P071",
@@ -1341,10 +1341,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P072",
@@ -1358,15 +1358,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P073",
       "NO": 73,
-      "NAME": "Gigih Rahmandanu Poernomo",
+      "NAME": "dr. Gigih Rahmandanu Poernomo, M.Kes, Sp.PD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -1375,15 +1375,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P074",
       "NO": 74,
-      "NAME": "Alvin Aditya Setiawan",
+      "NAME": "dr. Alvin Aditya Setiawan, Sp.PD",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -1392,10 +1392,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Panitia",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P075",
@@ -1411,13 +1411,13 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P076",
       "NO": 76,
-      "NAME": "dr. Heppy Oktavianto, M.Sc., Sp.PD, Subsp.PTI(K), FINASIM",
+      "NAME": "dr. Heppy Oktavianto, M.Sc, Sp.PD, Subsp.PTI.(K), FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -1426,10 +1426,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P077",
@@ -1445,8 +1445,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P078",
@@ -1462,8 +1462,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P079",
@@ -1479,8 +1479,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P080",
@@ -1496,8 +1496,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P081",
@@ -1511,10 +1511,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P082",
@@ -1528,10 +1528,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P083",
@@ -1547,8 +1547,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P084",
@@ -1564,8 +1564,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P085",
@@ -1581,8 +1581,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P086",
@@ -1598,8 +1598,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P087",
@@ -1615,8 +1615,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P088",
@@ -1632,8 +1632,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P089",
@@ -1649,8 +1649,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P090",
@@ -1664,10 +1664,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P091",
@@ -1681,10 +1681,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P092",
@@ -1698,10 +1698,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P093",
@@ -1717,8 +1717,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P094",
@@ -1732,10 +1732,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P095",
@@ -1751,8 +1751,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P096",
@@ -1768,8 +1768,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P097",
@@ -1785,8 +1785,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P098",
@@ -1802,8 +1802,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "voucher",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P099",
@@ -1817,10 +1817,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P100",
@@ -1834,10 +1834,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "Anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P101",
@@ -1853,8 +1853,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P102",
@@ -1870,8 +1870,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P103",
@@ -1887,8 +1887,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P104",
@@ -1904,8 +1904,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P105",
@@ -1921,8 +1921,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P106",
@@ -1938,8 +1938,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P107",
@@ -1955,8 +1955,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P108",
@@ -1972,8 +1972,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P109",
@@ -1989,8 +1989,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P110",
@@ -2006,8 +2006,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P111",
@@ -2023,8 +2023,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P112",
@@ -2040,8 +2040,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P113",
@@ -2057,8 +2057,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P114",
@@ -2072,27 +2072,27 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P115",
       "NO": 115,
-      "NAME": "Dr. HERY AGOESTONO , SpPD, K-GEH",
+      "NAME": "dr. Hery Agoestono, Sp.PD, K-GEH, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
-      "PRODUCT": "",
+      "PRODUCT": "Simposium dan Workshop",
       "SYMPO": 1,
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P116",
@@ -2108,8 +2108,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P117",
@@ -2125,8 +2125,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P118",
@@ -2142,8 +2142,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P119",
@@ -2159,8 +2159,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P120",
@@ -2174,10 +2174,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P121",
@@ -2193,8 +2193,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P122",
@@ -2210,8 +2210,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P123",
@@ -2227,8 +2227,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P124",
@@ -2244,8 +2244,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P125",
@@ -2261,8 +2261,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P126",
@@ -2278,8 +2278,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P127",
@@ -2295,8 +2295,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P128",
@@ -2312,8 +2312,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P129",
@@ -2329,8 +2329,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P130",
@@ -2346,8 +2346,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P131",
@@ -2363,8 +2363,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P132",
@@ -2380,8 +2380,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P133",
@@ -2397,8 +2397,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P134",
@@ -2414,13 +2414,13 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P135",
       "NO": 135,
-      "NAME": "Dr. GEDE PERDANA PUTERA , Sp.PD",
+      "NAME": "dr. Gede Perdana Putera, Sp.PD, Subsp.R(K), M.Biomed",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2429,15 +2429,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P136",
       "NO": 136,
-      "NAME": "Dr. YUNANTO DWI NUGROHO, SpPD",
+      "NAME": "dr. Yunanto Dwi Nugroho, M.Sc, Sp.PD, K-GH",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2446,10 +2446,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P137",
@@ -2465,13 +2465,13 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P138",
       "NO": 138,
-      "NAME": "Dr. SRI LESTARI , SpPD",
+      "NAME": "dr. Sri Lestari, Sp.PD, Subsp.GH(K), FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2480,15 +2480,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P139",
       "NO": 139,
-      "NAME": "Dr. PUGUD SAMODRO , SpPD",
+      "NAME": "DR. dr. Pugud Samodro, Sp.PD, K-EMD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2497,15 +2497,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P140",
       "NO": 140,
-      "NAME": "Dr. MAYA DEWI , SpPD,",
+      "NAME": "dr. Maya Dewi, Sp.PD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2514,15 +2514,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P141",
       "NO": 141,
-      "NAME": "Dr. GHEA DE SILVA , SpPD",
+      "NAME": "dr. Ghea De Silva, Sp.PD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2531,15 +2531,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P142",
       "NO": 142,
-      "NAME": "Dr. MA'MUN , M.Sc, Sp,PD",
+      "NAME": "dr. Ma’mun, M.Sc, Sp,PD, Subsp.GEH.(K)",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2548,15 +2548,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P143",
       "NO": 143,
-      "NAME": "Dr. INDRA SETYA PERMANA , SpPD.",
+      "NAME": "dr. Indra Setya Permana, Sp.PD, MMR, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2565,15 +2565,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P144",
       "NO": 144,
-      "NAME": "Dr. FEBRI KURNIAWATI , Sp.PD",
+      "NAME": "dr. Febri Kurniawati, Sp.PD, K-EMD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2582,15 +2582,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P145",
       "NO": 145,
-      "NAME": "dr. Ika Trisnawati, Sp.PD",
+      "NAME": "dr. Ika Trisnawati, Sp.PD, K-P, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2599,15 +2599,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "pembicara",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P146",
       "NO": 146,
-      "NAME": "dr. Eko Budiono, Sp.PD",
+      "NAME": "dr. Eko Budiono, Sp.PD, K-PMK, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2616,15 +2616,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "pembicara",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P147",
       "NO": 147,
-      "NAME": "dr. Ni Ketut Donna Prisilia T, Sp.PD",
+      "NAME": "dr. Ni Ketut Donna Prisilia Tanjungsari, Sp.PD, MMR, M.Biomed",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2633,15 +2633,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P148",
       "NO": 148,
-      "NAME": "dr. Suharno, Sp.PD",
+      "NAME": "dr. Suharno, Sp.PD, K-GEH, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2650,15 +2650,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P149",
       "NO": 149,
-      "NAME": "dr. Kukuh Prasetyo, Sp.PD",
+      "NAME": "dr. Kukuh Prasetyo, Sp.PD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2666,16 +2666,16 @@
       "SYMPO": 1,
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
-      "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "WORKSHOP_C": 1,
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P150",
       "NO": 150,
-      "NAME": "dr. Aditiawarman, Sp.PD",
+      "NAME": "dr. Aditiawarman, Sp.PD, K-GH, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2684,15 +2684,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P151",
       "NO": 151,
-      "NAME": "dr. Aditya Candra Putra, Sp.PD",
+      "NAME": "dr. Aditya Candra Putra, Sp.PD, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2701,15 +2701,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P152",
       "NO": 152,
-      "NAME": "dr. Maschun Sarifudin, Sp.PD",
+      "NAME": "dr. Maschun Syarifudin, Sp.PD, Subsp.HOM.(K), FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2718,15 +2718,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P153",
       "NO": 153,
-      "NAME": "dr. Lincah Angger Wismo Asih",
+      "NAME": "dr. Lincah Angger Wismo Asih, Sp.PD",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2735,15 +2735,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P154",
       "NO": 154,
-      "NAME": "dr. Joko Rilo Pambudi, Sp.PD, K-R",
+      "NAME": "dr. Joko Rilo Pambudi, Sp.PD, K-R, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2752,15 +2752,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P155",
       "NO": 155,
-      "NAME": "Dr. dr. Arifin, Sp.PD, K-IC",
+      "NAME": "Dr. dr. Arifin, Sp.PD, K-IC, FINASIM",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2769,10 +2769,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "pembicara",
+      "NOTE": "Pembicara",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P156",
@@ -2786,15 +2786,15 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia, Moderator",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P157",
       "NO": 157,
-      "NAME": "DR. RIAN MA.RUFI, Sp.PD",
+      "NAME": "dr. Ryan Ma’rufi, Sp.PD",
       "PHONE": "",
       "INSTITUTION": "",
       "EMAIL": "",
@@ -2803,10 +2803,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "Panitia",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     },
     {
       "ID": "P158",
@@ -2822,8 +2822,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P159",
@@ -2839,8 +2839,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P160",
@@ -2854,10 +2854,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P161",
@@ -2873,8 +2873,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P162",
@@ -2888,10 +2888,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P163",
@@ -2905,10 +2905,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P164",
@@ -2924,8 +2924,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P165",
@@ -2941,8 +2941,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P166",
@@ -2958,8 +2958,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P167",
@@ -2975,8 +2975,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P168",
@@ -2992,8 +2992,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P169",
@@ -3007,10 +3007,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P170",
@@ -3024,10 +3024,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P171",
@@ -3038,13 +3038,13 @@
       "EMAIL": "",
       "PRODUCT": "Simposium dan Workshop",
       "SYMPO": 1,
-      "WORKSHOP_A": 1,
-      "WORKSHOP_B": 0,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 1,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P172",
@@ -3060,8 +3060,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P173",
@@ -3077,8 +3077,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P174",
@@ -3094,8 +3094,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P175",
@@ -3111,8 +3111,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P176",
@@ -3128,8 +3128,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P177",
@@ -3145,8 +3145,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P178",
@@ -3162,8 +3162,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P179",
@@ -3179,8 +3179,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P180",
@@ -3196,8 +3196,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P181",
@@ -3213,8 +3213,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P182",
@@ -3230,8 +3230,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P183",
@@ -3247,8 +3247,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P184",
@@ -3264,8 +3264,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P185",
@@ -3279,10 +3279,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 1,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P186",
@@ -3296,10 +3296,10 @@
       "WORKSHOP_A": 1,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P187",
@@ -3315,8 +3315,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P188",
@@ -3332,8 +3332,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P189",
@@ -3349,8 +3349,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P190",
@@ -3364,10 +3364,10 @@
       "WORKSHOP_A": 0,
       "WORKSHOP_B": 0,
       "WORKSHOP_C": 0,
-      "NOTE": "anggota PAPDI",
+      "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P191",
@@ -3383,8 +3383,8 @@
       "WORKSHOP_C": 1,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P192",
@@ -3400,8 +3400,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P193",
@@ -3417,8 +3417,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P194",
@@ -3434,8 +3434,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P195",
@@ -3451,8 +3451,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "voucher",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P196",
@@ -3468,8 +3468,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P197",
@@ -3485,8 +3485,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P198",
@@ -3502,8 +3502,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P199",
@@ -3519,8 +3519,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P200",
@@ -3536,8 +3536,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P201",
@@ -3553,8 +3553,8 @@
       "WORKSHOP_C": 1,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P202",
@@ -3570,8 +3570,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P203",
@@ -3587,8 +3587,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P204",
@@ -3604,8 +3604,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P205",
@@ -3621,8 +3621,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P206",
@@ -3638,8 +3638,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P207",
@@ -3655,8 +3655,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P208",
@@ -3672,8 +3672,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P209",
@@ -3689,8 +3689,8 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
     },
     {
       "ID": "P210",
@@ -3706,8 +3706,569 @@
       "WORKSHOP_C": 0,
       "NOTE": "",
       "SOURCE": "IMPORT",
-      "CREATED_AT": "2026-10-10 08:42",
-      "UPDATED_AT": "2026-10-10 08:42"
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P211",
+      "NO": 211,
+      "NAME": "dr Ratna Purnamawati",
+      "PHONE": "08122835355",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P212",
+      "NO": 212,
+      "NAME": "dr. Yayan Goenawan",
+      "PHONE": "",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P213",
+      "NO": 213,
+      "NAME": "Masrian Hendrianto",
+      "PHONE": "082134649578",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P214",
+      "NO": 214,
+      "NAME": "Fikri Fachri Pradika Busono",
+      "PHONE": "082138789787",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Workshop",
+      "SYMPO": 0,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 1,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P215",
+      "NO": 215,
+      "NAME": "dr Nur Ariawanti Prasetyaningsih",
+      "PHONE": "081548151160",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P216",
+      "NO": 216,
+      "NAME": "dr. Irwan Santoso Sp.PD",
+      "PHONE": "081392949600",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P217",
+      "NO": 217,
+      "NAME": "dr. Samuel Christopel",
+      "PHONE": "081295021735",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Workshop",
+      "SYMPO": 0,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 1,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P218",
+      "NO": 218,
+      "NAME": "dr. Aulia Muhammad Fikri, Sp.PD",
+      "PHONE": "082133550367",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 1,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P219",
+      "NO": 219,
+      "NAME": "dr. Rangga Wisnu Wardhana, M.Biomed",
+      "PHONE": "081217847042",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P220",
+      "NO": 220,
+      "NAME": "Yusuf Indra Kusuma",
+      "PHONE": "082262268687",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P221",
+      "NO": 221,
+      "NAME": "dr. Muhammad Zuhdan Fannani, Sp.PD",
+      "PHONE": "",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P222",
+      "NO": 222,
+      "NAME": "dr. Andini Laily Ramadhani",
+      "PHONE": "081215976595",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "voucher",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P223",
+      "NO": 223,
+      "NAME": "Zahrotunnisa Arizky",
+      "PHONE": "081227267110",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P224",
+      "NO": 224,
+      "NAME": "dr Hafidz Setyawati Sp.PD",
+      "PHONE": "082135575000",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P225",
+      "NO": 225,
+      "NAME": "Fauziah Rahma Istianingrum",
+      "PHONE": "081226762660",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P226",
+      "NO": 226,
+      "NAME": "dr. Retno Pamungkas Sari",
+      "PHONE": "08164282521",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P227",
+      "NO": 227,
+      "NAME": "Ilham Paramasatya",
+      "PHONE": "081331077898",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Workshop",
+      "SYMPO": 0,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 1,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P228",
+      "NO": 228,
+      "NAME": "Yova linda",
+      "PHONE": "08121572314",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 1,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P229",
+      "NO": 229,
+      "NAME": "Luh ayu made anika kemala sari",
+      "PHONE": "089508814353",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Workshop",
+      "SYMPO": 0,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P230",
+      "NO": 230,
+      "NAME": "dr. Muhammad Zulfikar Rizki A",
+      "PHONE": "081393631629",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Workshop",
+      "SYMPO": 0,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P231",
+      "NO": 231,
+      "NAME": "dr Ratna Bangun Wibawa SpKFR",
+      "PHONE": "082225288800",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P232",
+      "NO": 232,
+      "NAME": "dr. Prahesti Fajarwati, MPH",
+      "PHONE": "08882749527",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P233",
+      "NO": 233,
+      "NAME": "Syarah Mutia Dewi",
+      "PHONE": "085848569414",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P234",
+      "NO": 234,
+      "NAME": "Fadila Rahmah",
+      "PHONE": "085710875381",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P235",
+      "NO": 235,
+      "NAME": "dr. Fatma Nashriati",
+      "PHONE": "085707425682",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 1,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P236",
+      "NO": 236,
+      "NAME": "Nadia Monita",
+      "PHONE": "'081364272972",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P237",
+      "NO": 237,
+      "NAME": "Nurul Fadilah",
+      "PHONE": "",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P238",
+      "NO": 238,
+      "NAME": "dr. Tuti Hadiyanti",
+      "PHONE": "085640005196",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Workshop",
+      "SYMPO": 0,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P239",
+      "NO": 239,
+      "NAME": "Nanik Harjanti",
+      "PHONE": "082221241454",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium dan Workshop",
+      "SYMPO": 1,
+      "WORKSHOP_A": 1,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P240",
+      "NO": 240,
+      "NAME": "Stella Pangestika",
+      "PHONE": "082266019820",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P241",
+      "NO": 241,
+      "NAME": "Ani Setiyowati",
+      "PHONE": "082137379634",
+      "INSTITUTION": "",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "",
+      "SOURCE": "IMPORT",
+      "CREATED_AT": "2026-10-16 11:35:39",
+      "UPDATED_AT": "2026-10-16 11:35:39"
+    },
+    {
+      "ID": "P242",
+      "NO": 242,
+      "NAME": "Edy Raras Reswati",
+      "PHONE": "",
+      "INSTITUTION": "Panitia PIT VIII PAPDI Purwokerto",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "Panitia",
+      "SOURCE": "MANUAL",
+      "CREATED_AT": "2026-10-16 13:47:31",
+      "UPDATED_AT": "2026-10-16 13:55:38"
+    },
+    {
+      "ID": "P243",
+      "NO": 243,
+      "NAME": "Edy Nurul Yuniarti",
+      "PHONE": "",
+      "INSTITUTION": "Panitia PIT VIII PAPDI Purwokerto",
+      "EMAIL": "",
+      "PRODUCT": "Simposium",
+      "SYMPO": 1,
+      "WORKSHOP_A": 0,
+      "WORKSHOP_B": 0,
+      "WORKSHOP_C": 0,
+      "NOTE": "Panitia",
+      "SOURCE": "MANUAL",
+      "CREATED_AT": "2026-10-16 13:47:31",
+      "UPDATED_AT": "2026-10-16 13:55:38"
     }
   ],
   "attendance": [],
@@ -3715,99 +4276,27 @@
   "logs": [
     {
       "LOG_ID": "LOG001",
-      "TIMESTAMP": "2026-10-10 08:49:38",
+      "TIMESTAMP": "2026-10-16 11:35:39",
       "USER_ID": "SYSTEM",
-      "ACTION": "CLEAN_ATTENDANCE",
+      "ACTION": "DATABASE_RESET_IMPORT",
       "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
+      "DESCRIPTION": "Database di-reset & diimport ulang: 241 peserta resmi"
     },
     {
       "LOG_ID": "LOG002",
-      "TIMESTAMP": "2026-10-10 08:52:36",
+      "TIMESTAMP": "2026-10-16 11:36:27",
       "USER_ID": "SYSTEM",
       "ACTION": "CLEAN_ATTENDANCE",
       "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
+      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 241 orang, Absensi: 0"
     },
     {
       "LOG_ID": "LOG003",
-      "TIMESTAMP": "2026-10-10 08:53",
-      "USER_ID": "USR001",
-      "ACTION": "CHECK_IN",
-      "PARTICIPANT_ID": "P001",
-      "DESCRIPTION": "Check-in peserta berhasil"
-    },
-    {
-      "LOG_ID": "LOG004",
-      "TIMESTAMP": "2026-10-10 08:54:10",
+      "TIMESTAMP": "2026-10-16 13:54:25",
       "USER_ID": "SYSTEM",
       "ACTION": "CLEAN_ATTENDANCE",
       "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
-    },
-    {
-      "LOG_ID": "LOG005",
-      "TIMESTAMP": "2026-10-10 08:56",
-      "USER_ID": "USR004",
-      "ACTION": "LOGIN",
-      "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Login berhasil: Panitia Utama 1"
-    },
-    {
-      "LOG_ID": "LOG006",
-      "TIMESTAMP": "2026-10-10 08:57",
-      "USER_ID": "USR004",
-      "ACTION": "CHECK_IN",
-      "PARTICIPANT_ID": "P005",
-      "DESCRIPTION": "Check-in peserta berhasil"
-    },
-    {
-      "LOG_ID": "LOG007",
-      "TIMESTAMP": "2026-10-10 08:57",
-      "USER_ID": "USR004",
-      "ACTION": "CHECK_IN",
-      "PARTICIPANT_ID": "P043",
-      "DESCRIPTION": "Check-in peserta berhasil"
-    },
-    {
-      "LOG_ID": "LOG008",
-      "TIMESTAMP": "2026-10-10 08:58:39",
-      "USER_ID": "SYSTEM",
-      "ACTION": "CLEAN_ATTENDANCE",
-      "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
-    },
-    {
-      "LOG_ID": "LOG009",
-      "TIMESTAMP": "2026-10-13 10:14:12",
-      "USER_ID": "SYSTEM",
-      "ACTION": "CLEAN_ATTENDANCE",
-      "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
-    },
-    {
-      "LOG_ID": "LOG010",
-      "TIMESTAMP": "2026-10-13 10:15:06",
-      "USER_ID": "SYSTEM",
-      "ACTION": "CLEAN_ATTENDANCE",
-      "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
-    },
-    {
-      "LOG_ID": "LOG011",
-      "TIMESTAMP": "2026-10-13 11:32:49",
-      "USER_ID": "SYSTEM",
-      "ACTION": "CLEAN_ATTENDANCE",
-      "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
-    },
-    {
-      "LOG_ID": "LOG012",
-      "TIMESTAMP": "2026-10-13 12:25:07",
-      "USER_ID": "SYSTEM",
-      "ACTION": "CLEAN_ATTENDANCE",
-      "PARTICIPANT_ID": "",
-      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 210 orang, Absensi: 0"
+      "DESCRIPTION": "Database absensi dibersihkan. Peserta resmi: 243 orang, Absensi: 0"
     }
   ]
 }

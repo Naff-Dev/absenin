@@ -1,30 +1,42 @@
 /**
  * Script: Hapus Semua Data & Import Ulang Peserta Resmi
- * Membaca file: daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx
+ * Membaca file: daftar peserta (1).xlsx (atau file registrasi terbaru)
+ * 
  * Aturan:
- * - Baris dengan note 'BATAL' di-skip / tidak dimasukkan (2 peserta batal).
- * - Baris dengan note 'voucher' dan note lainnya disertakan dengan field NOTE.
+ * - Menemukan sheet 'REGISTRASI' (mendukung trailing spaces).
+ * - Baris dengan note 'BATAL' di-skip jika ada (pada file 241 peserta: 0 batal).
  * - Field PHONE (No WhatsApp / HP) disertakan.
- * - Mengosongkan data absensi, absensi workshop, dan logs.
- * - Menerapkan ke JSON Local database (data/db.json) dan Google Apps Script (jika URL tersedia).
+ * - Field PRODUCT jika kosong diisi otomatis berdasarkan partisipasi Sympo & Workshop.
+ * - Field NOTE (seperti 'voucher') disertakan.
+ * - Mengosongkan data absensi, absensi workshop, dan logs (fresh state).
+ * - Menerapkan ke:
+ *   1. JSON Local database (data/db.json)
+ *   2. Supabase PostgreSQL (Tabel participants, attendance, logs)
+ *   3. Google Apps Script Web App (Google Spreadsheet)
+ *   4. Regenerasi database/supabase-schema.sql
  */
 
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const { createClient } = require('@supabase/supabase-js');
 
-// Cari file Excel terbaru (1) di root atau docs
-let EXCEL_PATH = path.resolve(process.cwd(), 'daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx');
-if (!fs.existsSync(EXCEL_PATH)) {
-  EXCEL_PATH = path.resolve(__dirname, '..', 'docs', 'daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx');
-}
-if (!fs.existsSync(EXCEL_PATH)) {
-  EXCEL_PATH = path.resolve(__dirname, '..', 'docs', 'daftar peserta PIT VIII PAPDI Purwokerto.xlsx');
-}
+// Cari file Excel terbaru di root atau docs
+const candidatePaths = [
+  path.resolve(process.cwd(), 'daftar peserta (1).xlsx'),
+  path.resolve(__dirname, '..', 'daftar peserta (1).xlsx'),
+  path.resolve(__dirname, '..', 'docs', 'daftar peserta (1).xlsx'),
+  path.resolve(process.cwd(), 'daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx'),
+  path.resolve(__dirname, '..', 'docs', 'daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx'),
+  path.resolve(__dirname, '..', 'docs', 'daftar peserta PIT VIII PAPDI Purwokerto.xlsx')
+];
 
+const EXCEL_PATH = candidatePaths.find(p => fs.existsSync(p));
 const DB_JSON_PATH = path.resolve(process.cwd(), process.env.JSON_DB_PATH || './data/db.json');
 const APPSCRIPT_URL = process.env.APPSCRIPT_URL || process.env.APPS_SCRIPT_URL;
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
 
 function getWibTimestamp() {
   const now = new Date();
@@ -39,24 +51,28 @@ async function main() {
   console.log('🔄 RESET DATABASE & RE-IMPORT PESERTA RESMI (TERBARU)');
   console.log('======================================================\n');
 
-  // 1. Baca data dari file Excel
-  console.log('1. Membaca file Excel:', EXCEL_PATH);
-  if (!fs.existsSync(EXCEL_PATH)) {
-    console.error('✗ File Excel tidak ditemukan:', EXCEL_PATH);
+  if (!EXCEL_PATH) {
+    console.error('✗ File Excel pendaftaran tidak ditemukan di folder root atau docs!');
     process.exit(1);
   }
 
+  // 1. Baca data dari file Excel
+  console.log('1. Membaca file Excel:', EXCEL_PATH);
   const wb = XLSX.readFile(EXCEL_PATH);
-  const sheet = wb.Sheets['REGISTRASI'];
+  const sheetName = wb.SheetNames.find(n => n.trim().toUpperCase() === 'REGISTRASI') || wb.SheetNames[0];
+  const sheet = wb.Sheets[sheetName];
+
   if (!sheet) {
     console.error('✗ Sheet REGISTRASI tidak ditemukan di file Excel!');
     process.exit(1);
   }
 
+  console.log(`   Menggunakan sheet: "${sheetName}"`);
   const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+  // Baris data dimulai setelah baris header ke-5 (index 5)
   const rawParticipantRows = rows.slice(5).filter(r => r && r[1] && typeof r[1] === 'string' && r[1].trim());
 
-  console.log(`   Ditemukan ${rawParticipantRows.length} baris dengan nama di sheet REGISTRASI.`);
+  console.log(`   Ditemukan ${rawParticipantRows.length} baris dengan nama di sheet ${sheetName}.`);
 
   // Filter baris yang batal (note mengandung 'batal')
   const batalList = [];
@@ -71,8 +87,13 @@ async function main() {
     }
   });
 
-  console.log(`   Peserta dibatalkan (BATAL - di-skip): ${batalList.length} orang:`);
-  batalList.forEach(b => console.log(`     - [Excel No ${b.no}] ${b.name} (${b.note})`));
+  if (batalList.length > 0) {
+    console.log(`   Peserta dibatalkan (BATAL - di-skip): ${batalList.length} orang:`);
+    batalList.forEach(b => console.log(`     - [Excel No ${b.no}] ${b.name} (${b.note})`));
+  } else {
+    console.log(`   Peserta dibatalkan: 0 orang.`);
+  }
+
   console.log(`   Peserta aktif yang akan diimport: ${validParticipantRows.length} orang.`);
 
   const timestamp = getWibTimestamp();
@@ -82,12 +103,18 @@ async function main() {
     const id = 'P' + String(no).padStart(3, '0');
     const name = String(r[1]).trim();
     const phone = r[2] ? String(r[2]).trim() : '';
-    const product = r[3] ? String(r[3]).trim() : '';
     const sympo = r[4] == 1 ? 1 : 0;
     const wsA = r[5] == 1 ? 1 : 0;
     const wsB = r[6] == 1 ? 1 : 0;
     const wsC = r[7] == 1 ? 1 : 0;
     const note = r[8] ? String(r[8]).trim() : '';
+
+    let product = r[3] ? String(r[3]).trim() : '';
+    if (!product) {
+      if (sympo && (wsA || wsB || wsC)) product = 'Simposium dan Workshop';
+      else if (sympo) product = 'Simposium';
+      else if (wsA || wsB || wsC) product = 'Workshop';
+    }
 
     return {
       ID: id,
@@ -108,9 +135,98 @@ async function main() {
     };
   });
 
+  // Terapkan penugasan peran Panitia, Pembicara, Moderator dari data resmi
+  const roleOverrides = [
+    { targetIds: ['P135'], name: 'dr. Gede Perdana Putera, Sp.PD, Subsp.R(K), M.Biomed', role: 'Panitia, Pembicara' },
+    { targetIds: ['P152'], name: 'dr. Maschun Syarifudin, Sp.PD, Subsp.HOM.(K), FINASIM', role: 'Panitia, Pembicara' },
+    { targetIds: ['P136'], name: 'dr. Yunanto Dwi Nugroho, M.Sc, Sp.PD, K-GH', role: 'Panitia, Pembicara' },
+    { targetIds: ['P147'], name: 'dr. Ni Ketut Donna Prisilia Tanjungsari, Sp.PD, MMR, M.Biomed', role: 'Panitia, Moderator' },
+    { targetIds: ['P139'], name: 'DR. dr. Pugud Samodro, Sp.PD, K-EMD, FINASIM', role: 'Panitia, Pembicara' },
+    { targetIds: ['P144'], name: 'dr. Febri Kurniawati, Sp.PD, K-EMD, FINASIM', role: 'Panitia, Pembicara' },
+    { targetIds: ['P031'], name: 'dr. Reynaldo Binsar Hutajulu, Sp.PD', role: 'Panitia, Moderator' },
+    { targetIds: ['P142'], name: 'dr. Ma’mun, M.Sc, Sp,PD, Subsp.GEH.(K)', role: 'Pembicara' },
+    { targetIds: ['P053'], name: 'dr. Rachmad Aji Saksana, M.Sc, Sp.PD, Subsp.PMK.(K), FINASIM', role: 'Pembicara, Moderator' },
+    { targetIds: ['P011', 'P063'], name: 'dr. Yosefin Ratnaningtyas, Sp.PD', role: 'Panitia, Moderator' },
+    { targetIds: ['P002'], name: 'dr. Hengki S Permana Putra, Sp.PD', role: 'Panitia' },
+    { targetIds: ['P156'], name: 'dr. Maela Rustiana Dewi, Sp.PD', role: 'Panitia, Moderator' },
+    { targetIds: ['P140'], name: 'dr. Maya Dewi, Sp.PD, FINASIM', role: 'Panitia, Pembicara' },
+    { targetIds: ['P143'], name: 'dr. Indra Setya Permana, Sp.PD, MMR, FINASIM', role: 'Panitia, Moderator' },
+    { targetIds: ['P141'], name: 'dr. Ghea De Silva, Sp.PD, FINASIM', role: 'Panitia, Moderator' },
+    { targetIds: ['P012'], name: 'dr. Tiara Paramita Poernomo, Sp.PD, FINASIM', role: 'Panitia' },
+    { targetIds: ['P153'], name: 'dr. Lincah Angger Wismo Asih, Sp.PD', role: 'Panitia, Moderator' },
+    { targetIds: ['P074'], name: 'dr. Alvin Aditya Setiawan, Sp.PD', role: 'Panitia' },
+    { targetIds: ['P154'], name: 'dr. Joko Rilo Pambudi, Sp.PD, K-R, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P149'], name: 'dr. Kukuh Prasetyo, Sp.PD, FINASIM', role: 'Panitia, Moderator' },
+    { targetIds: ['P065'], name: 'dr. Fitri Nadia Widyasari, Sp.PD, FINASIM', role: 'Panitia, Moderator' },
+    { targetIds: ['P001'], name: 'dr. Leo Chandra Wisnu PW, Sp.PD', role: 'Panitia' },
+    { targetIds: ['P015'], name: 'dr. Gandik Danu Pramiga, Sp.PD', role: 'Panitia, Moderator' },
+    { targetIds: ['P157'], name: 'dr. Ryan Ma’rufi, Sp.PD', role: 'Panitia' },
+    { targetIds: ['P115'], name: 'dr. Hery Agoestono, Sp.PD, K-GEH, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P138'], name: 'dr. Sri Lestari, Sp.PD, Subsp.GH(K), FINASIM', role: 'Pembicara' },
+    { targetIds: ['P155'], name: 'Dr. dr. Arifin, Sp.PD, K-IC, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P073'], name: 'dr. Gigih Rahmandanu Poernomo, M.Kes, Sp.PD, FINASIM', role: 'Moderator' },
+    { targetIds: ['P013'], name: 'dr. Niken Febriharsari. Sp.PD', role: 'Moderator' },
+    { targetIds: ['P145'], name: 'dr. Ika Trisnawati, Sp.PD, K-P, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P146'], name: 'dr. Eko Budiono, Sp.PD, K-PMK, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P148'], name: 'dr. Suharno, Sp.PD, K-GEH, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P076'], name: 'dr. Heppy Oktavianto, M.Sc, Sp.PD, Subsp.PTI.(K), FINASIM', role: 'Pembicara' },
+    { targetIds: ['P008'], name: 'Dr. dr. Haidar Alatas, MH, MM, Sp.PD, K-GH, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P150'], name: 'dr. Aditiawarman, Sp.PD, K-GH, FINASIM', role: 'Pembicara' },
+    { targetIds: ['P151'], name: 'dr. Aditya Candra Putra, Sp.PD, FINASIM', role: 'Moderator' }
+  ];
+
+  roleOverrides.forEach(item => {
+    item.targetIds.forEach(targetId => {
+      const p = participants.find(x => x.ID === targetId);
+      if (p) {
+        p.NAME = item.name;
+        p.NOTE = item.role;
+      }
+    });
+  });
+
+  // Tambahkan 2 peserta panitia baru (total menjadi 243)
+  participants.push({
+    ID: 'P242',
+    NO: 242,
+    NAME: 'Edy Raras Reswati',
+    PHONE: '',
+    INSTITUTION: 'Panitia PIT VIII PAPDI Purwokerto',
+    EMAIL: '',
+    PRODUCT: 'Simposium',
+    SYMPO: 1,
+    WORKSHOP_A: 0,
+    WORKSHOP_B: 0,
+    WORKSHOP_C: 0,
+    NOTE: 'Panitia',
+    SOURCE: 'MANUAL',
+    CREATED_AT: timestamp,
+    UPDATED_AT: timestamp
+  });
+
+  participants.push({
+    ID: 'P243',
+    NO: 243,
+    NAME: 'Edy Nurul Yuniarti',
+    PHONE: '',
+    INSTITUTION: 'Panitia PIT VIII PAPDI Purwokerto',
+    EMAIL: '',
+    PRODUCT: 'Simposium',
+    SYMPO: 1,
+    WORKSHOP_A: 0,
+    WORKSHOP_B: 0,
+    WORKSHOP_C: 0,
+    NOTE: 'Panitia',
+    SOURCE: 'MANUAL',
+    CREATED_AT: timestamp,
+    UPDATED_AT: timestamp
+  });
+
   const voucherList = participants.filter(p => (p.NOTE || '').toLowerCase().includes('voucher'));
-  console.log(`   Peserta dengan ketentuan VOUCHER: ${voucherList.length} orang:`);
+  console.log(`   Peserta dengan catatan VOUCHER: ${voucherList.length} orang:`);
   voucherList.forEach(v => console.log(`     - [${v.ID}] ${v.NAME} (${v.PHONE || 'No Phone'})`));
+  const panitiaList = participants.filter(p => (p.NOTE || '').toLowerCase().includes('panitia'));
+  console.log(`   Peserta dengan catatan PANITIA: ${panitiaList.length} orang (Total peserta: ${participants.length})`);
 
   // 2. Format struktur Database Baru (Bersih)
   const freshDb = {
@@ -231,7 +347,7 @@ async function main() {
         DATE: '2026-10-17',
         TIME: '08:00 - 12:00',
         ROOM: 'Ruang Workshop A',
-        QUOTA: 60,
+        QUOTA: 80,
         STATUS: 'ACTIVE'
       },
       {
@@ -240,7 +356,7 @@ async function main() {
         DATE: '2026-10-17',
         TIME: '13:00 - 17:00',
         ROOM: 'Ruang Workshop B',
-        QUOTA: 80,
+        QUOTA: 90,
         STATUS: 'ACTIVE'
       },
       {
@@ -249,7 +365,7 @@ async function main() {
         DATE: '2026-10-18',
         TIME: '08:00 - 12:00',
         ROOM: 'Ruang Workshop C',
-        QUOTA: 40,
+        QUOTA: 50,
         STATUS: 'ACTIVE'
       }
     ],
@@ -263,7 +379,7 @@ async function main() {
         USER_ID: 'SYSTEM',
         ACTION: 'DATABASE_RESET_IMPORT',
         PARTICIPANT_ID: '',
-        DESCRIPTION: `Database di-reset & diimport ulang: ${participants.length} peserta resmi (2 dibatalkan di-skip)`
+        DESCRIPTION: `Database di-reset & diimport ulang: ${participants.length} peserta resmi`
       }
     ]
   };
@@ -278,9 +394,83 @@ async function main() {
   fs.renameSync(tempPath, DB_JSON_PATH);
   console.log(`   ✓ File ${DB_JSON_PATH} berhasil ditulis! (${participants.length} peserta, 0 absensi).`);
 
-  // 4. Jika Apps Script terhubung, reset & update Apps Script juga
+  // 4. Update Supabase jika URL & Key tersedia
+  if (SUPABASE_URL && SUPABASE_KEY && !SUPABASE_URL.includes('YOUR_SUPABASE')) {
+    console.log('\n3. Mengupdate Supabase (PostgreSQL)...');
+    try {
+      const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+        auth: { persistSession: false }
+      });
+
+      // A. Hapus data absensi lama
+      console.log('   - Membersihkan tabel attendance & workshop_attendance...');
+      await supabase.from('attendance').delete().neq('attendance_id', '');
+      await supabase.from('workshop_attendance').delete().neq('id', '');
+
+      // B. Hapus seluruh data peserta lama
+      console.log('   - Menghapus daftar peserta lama di Supabase...');
+      const { error: delPartErr } = await supabase.from('participants').delete().neq('id', '');
+      if (delPartErr) {
+        console.warn('     ⚠ Peringatan saat delete participants:', delPartErr.message);
+      } else {
+        console.log('     ✓ Daftar peserta lama berhasil dibersihkan.');
+      }
+
+      // C. Insert 241 peserta baru dalam chunks
+      console.log(`   - Mengunggah ${participants.length} peserta baru ke Supabase...`);
+      const supabaseRows = participants.map(p => ({
+        id: p.ID,
+        no: p.NO,
+        name: p.NAME,
+        phone: p.PHONE || '',
+        institution: p.INSTITUTION || '',
+        email: p.EMAIL || '',
+        product: p.PRODUCT || '',
+        sympo: p.SYMPO,
+        workshop_a: p.WORKSHOP_A,
+        workshop_b: p.WORKSHOP_B,
+        workshop_c: p.WORKSHOP_C,
+        note: p.NOTE || '',
+        source: p.SOURCE || 'IMPORT',
+        created_at: p.CREATED_AT,
+        updated_at: p.UPDATED_AT
+      }));
+
+      const chunkSize = 50;
+      for (let i = 0; i < supabaseRows.length; i += chunkSize) {
+        const chunk = supabaseRows.slice(i, i + chunkSize);
+        const { error: insErr } = await supabase.from('participants').upsert(chunk, { onConflict: 'id' });
+        if (insErr) {
+          throw new Error(`Gagal upsert peserta chunk ${i}-${i + chunk.length}: ${insErr.message}`);
+        }
+      }
+      console.log(`     ✓ Seluruh ${participants.length} peserta berhasil diunggah ke Supabase!`);
+
+      // D. Catat audit log
+      await supabase.from('logs').insert([
+        {
+          log_id: 'LOG' + Date.now().toString().slice(-6),
+          timestamp: timestamp,
+          user_id: 'SYSTEM',
+          action: 'REIMPORT_DATABASE',
+          participant_id: '',
+          description: `Database peserta diupdate ke ${participants.length} peserta resmi terbaru.`
+        }
+      ]);
+
+      // E. Verifikasi jumlah peserta di Supabase
+      const { data: partCheck, error: checkErr } = await supabase.from('participants').select('id');
+      if (!checkErr && partCheck) {
+        console.log(`   ✓ Verifikasi Supabase: Total ${partCheck.length} peserta terverifikasi.`);
+      }
+    } catch (supErr) {
+      console.error('   ❌ Gagal update Supabase:', supErr.message);
+    }
+  }
+
+  // 5. Update Google Apps Script jika URL tersedia
   if (APPSCRIPT_URL && !APPSCRIPT_URL.includes('YOUR_DEPLOYMENT_ID')) {
-    console.log('\n3. Mengirim reset & reimport ke Google Apps Script Web App...');
+    console.log('\n4. Mengirim reset & reimport ke Google Apps Script Web App...');
     try {
       // Setup Workshops
       await fetch(`${APPSCRIPT_URL}?action=setupWorkshops`, {
@@ -321,16 +511,31 @@ async function main() {
     }
   }
 
-  // 5. Tampilkan ringkasan data
+  // 6. Regenerasi file SQL Schema (database/supabase-schema.sql)
+  console.log('\n5. Meregenerasi database/supabase-schema.sql...');
+  try {
+    const buildSqlScript = path.resolve(__dirname, 'build-supabase-sql.js');
+    if (fs.existsSync(buildSqlScript)) {
+      require(buildSqlScript);
+      console.log('   ✓ database/supabase-schema.sql berhasil diregenerasi dengan 241 peserta.');
+    }
+  } catch (sqlErr) {
+    console.warn('   ⚠ Peringatan saat meregenerasi SQL schema:', sqlErr.message);
+  }
+
+  // 7. Tampilkan ringkasan data akhir
   console.log('\n======================================================');
-  console.log('✓ RESET & IMPORT ULANG SUKSES!');
+  console.log('🎉 RESET & IMPORT ULANG SUKSES!');
   console.log('======================================================');
-  console.log(`Total Peserta Valid  : ${participants.length} orang (P001 - P${String(participants.length).padStart(3, '0')})`);
-  console.log(`Dengan No HP         : ${participants.filter(p => p.PHONE).length} orang`);
-  console.log(`Dengan Catatan Voucher: ${voucherList.length} orang`);
-  console.log(`Peserta Dibatalkan   : ${batalList.length} orang (di-skip)`);
-  console.log(`Total Absensi        : 0 (Kosong/Fresh)`);
+  console.log(`Total Peserta Valid    : ${participants.length} orang (P001 - P${String(participants.length).padStart(3, '0')})`);
+  console.log(`Dengan No HP           : ${participants.filter(p => p.PHONE).length} orang`);
+  console.log(`Dengan Catatan Voucher : ${voucherList.length} orang`);
+  console.log(`Peserta Dibatalkan     : ${batalList.length} orang`);
+  console.log(`Total Absensi          : 0 (Kosong/Fresh State)`);
   console.log('======================================================\n');
 }
 
-main();
+main().catch(err => {
+  console.error('Fatal error during reimport:', err);
+  process.exit(1);
+});

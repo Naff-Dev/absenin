@@ -2,7 +2,7 @@
  * Script: Bersihkan Seluruh Data Absensi (Fresh State)
  * - Mengosongkan data absensi simposium (attendance: [])
  * - Mengosongkan data absensi workshop (workshopAttendance: [])
- * - Menjaga seluruh 210 data peserta tetap utuh dan aman
+ * - Menjaga seluruh 241 data peserta tetap utuh dan aman
  */
 
 const fs = require('path');

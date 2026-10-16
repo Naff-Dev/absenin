@@ -8,20 +8,23 @@ const path = require('path');
 const fs = require('fs');
 require('dotenv').config();
 
-let EXCEL_PATH = path.resolve(process.cwd(), 'daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx');
-if (!fs.existsSync(EXCEL_PATH)) {
-  EXCEL_PATH = path.resolve(__dirname, '..', 'docs', 'daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx');
-}
-if (!fs.existsSync(EXCEL_PATH)) {
-  EXCEL_PATH = path.resolve(__dirname, '..', 'docs', 'daftar peserta PIT VIII PAPDI Purwokerto.xlsx');
-}
+const candidatePaths = [
+  path.resolve(process.cwd(), 'daftar peserta (1).xlsx'),
+  path.resolve(__dirname, '..', 'daftar peserta (1).xlsx'),
+  path.resolve(__dirname, '..', 'docs', 'daftar peserta (1).xlsx'),
+  path.resolve(process.cwd(), 'daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx'),
+  path.resolve(__dirname, '..', 'docs', 'daftar peserta PIT VIII PAPDI Purwokerto (1).xlsx'),
+  path.resolve(__dirname, '..', 'docs', 'daftar peserta PIT VIII PAPDI Purwokerto.xlsx')
+];
 
+const EXCEL_PATH = candidatePaths.find(p => fs.existsSync(p));
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL || process.env.APPSCRIPT_URL;
 
 async function run() {
   console.log('Membaca file Excel:', EXCEL_PATH);
   const wb = XLSX.readFile(EXCEL_PATH);
-  const sheet = wb.Sheets['REGISTRASI'];
+  const sheetName = wb.SheetNames.find(n => n.trim().toUpperCase() === 'REGISTRASI') || wb.SheetNames[0];
+  const sheet = wb.Sheets[sheetName];
 
   if (!sheet) {
     console.error('Sheet REGISTRASI tidak ditemukan!');
